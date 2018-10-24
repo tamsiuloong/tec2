@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+	<appender name="fileAppender" class="ch.qos.logback.core.FileAppender">  
+	    <file>../logs/v8log.log</file>  
+	    <encoder><!-- 必须指定，否则不会往文件输出内容 -->  
+	        <pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</pattern>  
+	    </encoder>  
+	    <append>true</append>  
+	    <prudent>false</prudent>  
+	</appender>
+
+
+	<logger name="org.hibernate.cache.ehcache" level="ERROR" />
+	<logger name="org.hibernate.hql.internal.ast.HqlSqlWalker" level="ERROR" />
+
+
+	<logger name="org.springframework.aop" level="WARN" />
+	<logger name="com.jeecms.ext" level="DEBUG" />
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="STDOUT" />
+	</root>
+<!--	<root>
+		<level value="ERROR" />
+		<appender-ref ref="STDOUT" />
+	</root>-->
+</configuration>
+
