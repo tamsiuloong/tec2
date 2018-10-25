@@ -1,163 +1,311 @@
-<!DOCTYPE HTML>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>首页 - ${site.name} - Powered by JEECMS</title>
-<meta http-equiv="keywords" content="${site.keywords!}"/>
-<meta http-equiv="description" content="${site.description!}"/>
-<script src="${resSys}/jquery.js" type="text/javascript"></script>
-<script src="${resSys}/front.js" type="text/javascript"></script>
-<script type="text/javascript" src="/${res}/js/jquery.SuperSlide.js"></script>
-<link type="text/css" rel="stylesheet" href="/${res}/css/home.css" />
-<!--zhangyao -->
-<!--ppp-->
-<!-------Py----.--->
-<!--- L dsj L sdf D --->
-<!--[if lt IE 9]> 
-<script src="/${res}/js/html5shiv.min.js"></script>
-<script src="/${res}/js/respond.min.js"></script>
-<![endif]-->
-<script type="text/javascript">
-$(function() {
-	Cms.siteFlow("${base}", location.href, document.referrer, "${site.config.flowSwitch?string}");
-	$.cookie("_site_id_cookie","${site.id!}",{path: '${base}' });
-});
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<body>
-<section class="top">
-  <div class="red" style="width:100%;"></div>	
-</section>
-[#include "../include/header.html"/]
-<div class="main container home-main clearfix">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
+<script type="text/JavaScript" src="/${res}/images/slide.js"></script>
+<link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/${res}/css/layout.css">
+<link rel="stylesheet" href="/${res}/css/animate.min.css">
+<link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
+</head>
 
-  <section class="home-top clearfix">
-    <div class="left-two fl">
-      <div class="rmht">
-        <div class="left-nav"><span>工作动态排行榜</span></div>
-        <div class="rmht-list">
-           [@cms_content_list  count='5' orderBy='9' channelId='75' channelOption='0']
-             [#list tag_list as a]
-          <div [#if a_index<1]class="item first"[#else]class="item"[/#if]>
-            <a href="${a.url}" target="_blank" class="title">[@text_cut s=a.title len='19' append='...' /]</a>
-            [#if a_index<1]<div class="first-des clearfix"><a href="${a.url}" target="_blank"><img src="${a.typeImg!site.defImg}"></a><span>[@text_cut s=a.description! len='34' append='...' /]</span></div>[/#if]
-          </div>
-          [/#list]
-   [/@cms_content_list]
-        </div>
-      </div>
-      <div class="jcpl">
-        <div class="left-nav"><span>下载排行榜</span></div>
-        <div class="jcpl-list">
-            [@cms_content_list  count='5' orderBy='9' channelId='78' channelOption='1']
-            [#list tag_list as a]
-          <div class="item">
-            <a href="${a.url}" target="_blank">[@text_cut s=a.title len='19' append='...' /]</a>
-            <span>${a.description!}</span>
-          </div>
-          [/#list]
-            [/@cms_content_list]
-        </div>
-      </div>
+<body>
+<div class="head1">
+  <div class="head1a">
+    <div class="head1a1">您好，登录名！  账号</div>
+    <div class="head1a2">
+      <input name="" type="text" class="yan" />
     </div>
-    <div class="rdjj fl">
-      <div class="nav-link"><a href="${base}/news/index.jhtml">公告通知</a></div>
-      [@cms_content_list count='1' titLen='25' channelId='94' orderBy='4' channelOption='0' dateFormat='yyyy-MM-dd']
-      [#list tag_list as a]
-      <div class="rdjj-top-news"><a href="${a.url}" target="_blank">[@text_cut s=a.title len=titLen append='...'/]</a></div>
-      [/#list]
-      [/@cms_content_list]
-      <div class="rdjj-list">
-      [@cms_content_list typeId='1,2,3' count='18' orderBy='4' channelId='94' channelOption='0' dateFormat='yyyy-MM-dd HH-mm']
-        <ul>
-        [#list tag_list as a]
-          <li><a href="${a.url}" target="_blank" [#if (a_index)%6=0]class="bold"[/#if]>[@text_cut s=a.title len=28 append='...'/]</a></li>
-        [/#list]
-        </ul>
-      [/@cms_content_list]
-      </div>
+    <div class="head1a3">密码</div>
+    <div class="head1a4">
+      <input name="" type="text" class="yan" />
     </div>
-    <div class="right-fr fr">
-      <div class="home-banner" id="section-focus-pic">
-        <div class="bd" data-scro="list">          
-          [@cms_content_list typeId='2' recommend='1' channelId='104' orderBy='4' titLen='22' channelOption='0' dateFormat='yyyy-MM-dd']      
-          <ul>
-            [#list tag_list as a]
-            <li class="item" [#if a_index<1]style="left:0;"[/#if]><a href="${a.url}" target="_blank"><img src="${a.typeImg!}"><div class="banner-title"><i class="Cpic"></i><span>[@text_cut s=a.title len=titLen /]</span></div></a></li>
-            [/#list]
-          </ul>
-         [/@cms_content_list]
-        </div>
-        <div class="hd" data-scro="controler">
-            [@cms_content_list  recommend='1' channelId='104' orderBy='4' titLen='22' channelOption='0' dateFormat='yyyy-MM-dd']
-               [#list tag_list as a]
-               <b [#if a_index<1]class="down"[/#if]>${a_index+1}</b>
-               [/#list]
-               <span>/${tag_list?size}</span>
-            [/@cms_content_list]
-        </div>
-        <div class="controler2" data-scro="controler2">
-		  <a href="javascript:;" class="prev"><i></i></a>
-		  <a href="javascript:;" class="next"><i></i></a>
-	    </div>
-        <script type="text/javascript" src="/${res}/js/script.js"></script>
-      </div>
-      <div class="home-video">
-        <div class="nav-link"><a href="${base}/video/index.jhtml">综合文档</a></div>
-        <div class="item clearfix" style="margin-top:14px;">
-     
-        [@cms_content_list count='1' typeId='2' channelId='95' recommend='1' orderBy='4' titLen='11' channelOption='0']
-          [#list tag_list as a]
-          <div class="video-pic fl"><a href="${a.url}" target="_blank"><img src="${a.typeImg!}"><span>[@text_cut s=a.title len=titLen /]</span></a></div>
-          [/#list]
-          [/@cms_content_list]
-          <div class="video-txt">
-          [@cms_content_list count='3'  channelId='95' recommend='2' orderBy='4' titLen='19' channelOption='0'] 
-            <ul>
-            [#list tag_list as a]
-              <li><a href="${a.url}" target="_blank">[@text_cut s=a.title len=titLen /]</a></li>
-            [/#list]
-            </ul>
-          [/@cms_content_list]
-          </div>
-        </div>
-        <div class="item clearfix">
-          [@cms_content_list count='2'  channelId='95' orderBy='4' titLen='11' channelOption='0']
-          [#list tag_list as a]
-          [#if a_index>0]
-          <div class="video-pic fl"><a href="${a.url}" target="_blank"><img src="${a.typeImg!}"><span>[@text_cut s=a.title len=titLen /]</span></a></div>
-          [/#if]
-          [/#list]
-          [/@cms_content_list]
-          <div class="video-txt">
-          [@cms_content_list count='6'  channelId='95' recommend='2' orderBy='4' titLen='19' channelOption='0'] 
-            <ul>
-            [#list tag_list as a]
-            [#if a_index>2]
-              <li><a href="${a.url}" target="_blank">[@text_cut s=a.title len=titLen /]</a></li>
-            [/#if]
-            [/#list]
-            </ul>
-          [/@cms_content_list]
-          </div>
-        </div>
-        <div class="video-list">
-           [@cms_content_list count='10' typeId='2' channelId='95' recommend='2' orderBy='4' titLen='26' channelOption='0'] 
-            <ul>
-            [#list tag_list as a]
-            [#if a_index>5]
-              <li><a href="${a.url}" target="_blank">[@text_cut s=a.title len=titLen /]</a></li>
-            [/#if]
-            [/#list]
-            </ul>
-          [/@cms_content_list]
-        </div>
-      </div>
-    </div>
-  </section>
-  
+    <div class="head1a5"><a href="#">登陆</a></div>
+    <div class="head1a6"><a href="#">设为首页</a><a href="#">加为收藏</a></div>
+    <div class="clear"></div>
+  </div>
 </div>
-[#include "../include/footer.html"/]
-[#include "../include/right-fixed.html"/]
+<div class="head2"></div>
+<div id="menu">
+  <ul id="nav">
+    [@cms_channel_list]
+      [#list tag_list as c]
+      <li class="mainlevel" id="mainlevel_01"><a href="${c.url}">${c.name}</a></li>
+      [/#list]
+    [/@cms_channel_list]
+    <!--<li class="mainlevel" id="mainlevel_02"><a href="#">公告通知</a>-->
+      <!--<ul id="sub_02" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_03"><a href="#">人员信息</a>-->
+      <!--<ul id="sub_03" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_04"><a href="#">日常工作</a>-->
+      <!--<ul id="sub_04" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_05"><a href="#">服务申报</a>-->
+      <!--<ul id="sub_05" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_06"><a href="#">会议纪要</a>-->
+      <!--<ul id="sub_06" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_07"><a href="#">公文管理</a>-->
+      <!--<ul id="sub_07" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_08"><a href="#">综合文档</a>-->
+      <!--<ul id="sub_08" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_09"><a href="#">合同管理</a>-->
+      <!--<ul id="sub_09" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_10"><a href="#">技术资料</a>-->
+      <!--<ul id="sub_10" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_11"><a href="#">培训管理</a>-->
+      <!--<ul id="sub_11" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_12"><a href="#">项目管理</a>-->
+      <!--<ul id="sub_12" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_13"><a href="#">软件中心</a>-->
+      <!--<ul id="sub_13" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+    <!--<li class="mainlevel" id="mainlevel_14"><a href="#">信息维护</a>-->
+      <!--<ul id="sub_14" class="mainlevel1">-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+        <!--<li><a href="#">二级栏目</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+  </ul>
+</div>
+<div class="center">
+  <div class="center1">
+    <div class="center1a">工作动态排行榜</div>
+    <div class="center1b">
+      <ul>
+        [@cms_content_list  count='10' orderBy='9' channelId='75' channelOption='0']
+        [#list tag_list as a]
+        [#if a_index<3]
+        <li><span style=" background-color:#177acd;">${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        [/#if]
+        [#if a_index>2 && a_index<9 ]
+        <li><span>${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        [/#if]
+        [#if a_index>8 ]
+        <li><span style=" padding:0px 2px;">10</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        [/#if]
+        [/#list]
+        [/@cms_content_list]
+      </ul>
+    </div>
+    <div class="center1a" style=" margin-top:15px; padding-left:25px;">下载排行榜</div>
+    <div class="center1b">
+      <ul>
+        [@cms_content_list  count='10' orderBy='9' channelId='78' channelOption='1']
+        [#list tag_list as a]
+        [#if a_index<3]
+        <li><span style=" background-color:#177acd;">${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        [/#if]
+        [#if a_index>2 && a_index<9 ]
+        <li><span>${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        [/#if]
+        [#if a_index>8 ]
+        <li><span style=" padding:0px 2px;">10</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        [/#if]
+        [/#list]
+        [/@cms_content_list]
+      </ul>
+    </div>
+    <div class="center1c">
+      <div class="center1c1">综合管理系统</div>
+      <div class="center1c2">
+        <ul>
+          <li><a href="#">昆明</a></li>
+          <li><a href="#">红河</a></li>
+          <li><a href="#">蒙自</a></li>
+          <li><a href="#">泸西</a></li>
+          <li><a href="#">屏边</a></li>
+          <li><a href="#">红河县</a></li>
+          <li><a href="#">绿春</a></li>
+          <li><a href="#">开远</a></li>
+          <li><a href="#">建水</a></li>
+          <li><a href="#">石屏</a></li>
+          <li><a href="#">弥勒</a></li>
+          <li><a href="#">河口</a></li>
+          <li><a href="#">元阳</a></li>
+          <li><a href="#">金平</a></li>
+          <li><a href="#">旧系统</a></li>
+          <div class="clear"></div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="center2">
+    <div class="center2a">
+      <div id="cxslide_x" class="cxslide_x">
+        <div class="box">
+          <ul class="list">
+            [@cms_content_list typeId='2' recommend='1' count='10' channelId='104' orderBy='4' titLen='22' channelOption='1' dateFormat='yyyy-MM-dd']
+              [#list tag_list as a]
+                <li><a href="#1"><img src="${a.typeImg!}"></a>
+                  <p>[@text_cut s=a.title len=titLen /]</p>
+                </li>
+              [/#list]
+            [/@cms_content_list]
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="center2b"><a href="#"><img src="/${res}/images/7.jpg" width="43" height="10" /></a>工作动态</div>
+    <div class="center2c">
+      <ul>
+        [@cms_content_list count='8' titLen='25' channelId='75' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
+        [#list tag_list as a]
+        <li><span>${a.date?string(dateFormat)} </span><a href="${a.url}">【${a.channel.name}】 [@text_cut s=a.title len=28 append='...'/]</a></li>
+        [/#list]
+        [/@cms_content_list]
+      </ul>
+    </div>
+    <div class="center2b"><a href="#"><img src="/${res}/images/7.jpg" width="43" height="10" /></a>公告通知</div>
+    <div class="center2c">
+      <ul>
+        [@cms_content_list count='8' titLen='25' channelId='94' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
+        [#list tag_list as a]
+        <li><span>${a.date?string(dateFormat)} </span><a href="${a.url}">【${a.channel.name}】 [@text_cut s=a.title len=28 append='...'/]</a></li>
+        [/#list]
+        [/@cms_content_list]
+      </ul>
+    </div>
+  </div>
+  <div class="center3">
+    <div class="center1a" style=" padding-left:25px;">科技成果</div>
+    <div class="center1c2a">
+      <ul>
+        [@cms_content_list count='8' titLen='25' channelId='100' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
+        [#list tag_list as a]
+        <li><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
+        [/#list]
+        [/@cms_content_list]
+        <div class="clear"></div>
+      </ul>
+    </div>
+    <div class="center1c">
+      <div class="center1c1">党团工作</div>
+      <div class="center1c2aa">
+        <ul>
+          [@cms_content_list count='8' titLen='25' channelId='97' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
+          [#list tag_list as a]
+          <li><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
+          [/#list]
+          [/@cms_content_list]
+          <div class="clear"></div>
+        </ul>
+      </div>
+    </div>
+    <div class="center1c">
+      <div class="center1c1">综合文档</div>
+      <div class="center1c2f">
+        <ul>
+          [@cms_content_list count='8' titLen='25' channelId='95' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
+          [#list tag_list as a]
+          <li><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
+          [/#list]
+          [/@cms_content_list]
+          <div class="clear"></div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="center4">
+  <div class="center4a">友情链接</div>
+  <div class="center4b"><a href="#"><img src="/${res}/images/2.jpg" width="159" height="25" /></a><a href="#"><img src="/${res}/images/2.jpg" width="159" height="25" /></a><a href="#"><img src="/${res}/images/2.jpg" width="159" height="25" /></a></div>
+  <div class="clear"></div>
+</div>
+<div class="foot">Copyright@ 2005 人行昆明中支科技处<br />
+  电话：0871-3625566-2294</div>
+<script src="/${res}/js/jquery.min.js"></script> 
+<script src="/${res}/js/jquery.cxslide.min.js"></script> 
+<script>
+(function(){
+  var acts = $('#acts');
+  var cxSlideApi;
+
+  $('#cxslide_x').cxSlide({
+    auto: false,
+    plus: true,
+    minus: true
+  }, function(api){
+    cxSlideApi = api;
+  });
+
+  acts.on('click', 'a', function(){
+    var _rel = this.rel;
+    var _rev = this.rev;
+
+    switch (_rel) {
+      case 'play':
+        cxSlideApi.play();
+        break;
+
+      case 'stop':
+        cxSlideApi.stop();
+        break;
+
+      case 'goto':
+        cxSlideApi.goto(_rev);
+        break;
+
+      case 'prev':
+        cxSlideApi.prev();
+        break;
+
+      case 'next':
+        cxSlideApi.next();
+        break;
+    };
+
+  });
+})();
+</script>
 </body>
 </html>

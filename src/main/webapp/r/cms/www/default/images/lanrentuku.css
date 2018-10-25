@@ -1,0 +1,83 @@
+﻿@charset "utf-8";
+/* CSS Document */
+html, body, ul, li, h1, h2, h3, h4, h5, h6, fieldset, legend {padding:0; margin:0;}
+ul,li {list-style-type:none; text-transform:capitalize;}
+.clear {clear:both; *display:inline;/*IE only*/}
+
+/*menu*/
+#menu {height:52px;
+	 line-height:52px;width:1000px; overflow:hidden; margin:0px auto; background-color:#0188CC; border-radius:5px 5px 0px 0px;}
+#nav {
+     margin:0 ; 
+     width:1000px; 
+     display:block;
+	 font-size:12px;
+	 height:52px;
+	 font-weight:bold;
+	 line-height:52px;
+	 overflow:hidden;
+	 font-family:"微软雅黑";
+}
+#nav .mainlevel {
+      background:url(../images/d2.jpg) 0 0 repeat-x; 
+	  float:left;
+	  color:#fff;  
+	  width:71px;
+/*IE6 only*/}
+#nav .mainlevel a {
+      color:#fff; 
+	  text-decoration:none; 
+	  line-height:52px; 
+	  display:block; 
+	  padding:0; 
+	  width:71px;
+	  text-align:center;
+	  }
+#nav .mainlevel a:hover {
+      color:#ffcc00;
+	  line-height:52px;
+	  text-decoration: none; 
+	  background:url(../images/slide-panel_03.png) 0 0 repeat-x;
+	  }
+
+
+#nav .mainlevel1 {
+      background:url(../images/d1.jpg) 0 0 repeat-x;
+	  float:left; 
+      color:#000000;
+	  margin:0px;
+	  padding:0px;
+	  
+	  overflow:hidden;
+	  width:71px;
+/*IE6 only*/}
+#nav .mainlevel1 li { list-style:none; height:35px; line-height:35px; overflow:hidden; font-weight:100;}
+#nav .mainlevel1 a {
+      color:#444;
+	  text-decoration:none; 
+	  line-height:35px; 
+	  display:block; 
+	  padding:0; 
+	  width:71px;
+	  height:35px;
+	  margin:0px;
+	  padding:0px;
+	  overflow:hidden;
+	  text-align:center;
+	  }
+#nav .mainlevel1 a:hover {
+      color:#1b8851;
+	  line-height:35px;
+	  text-decoration:none; 
+	  background:url(../images/d3.jpg) 0 0 repeat-x;
+	  }
+#nav .mainlevel ul {Z-INDEX: 999;
+      display:none; 
+	  position:absolute;
+	  }
+#nav .mainlevel li {
+      background:#ddd; 
+	  width:71px;
+	  /*IE6 only*/}
+	  
+

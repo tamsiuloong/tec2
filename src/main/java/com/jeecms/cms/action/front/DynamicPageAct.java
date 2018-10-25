@@ -101,7 +101,6 @@ public class DynamicPageAct {
 	@RequestMapping(value = "/index.jhtml", method = RequestMethod.GET)
 	@Token(save=true)
 	public String indexForWeblogic(HttpServletRequest request,HttpServletResponse response, ModelMap model) {
-		System.out.println("yyyy");
 		return index(request, response,model);
 	}
 
