@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.cms.entity.main.Channel;
+import com.jeecms.cms.manager.main.ChannelMng;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +62,12 @@ public class SearchAct {
 				return FrontUtils.showError(request, response, model, errors);
 			}else{
 				String parseQ=parseKeywords(q);
+				if(StringUtils.isNotBlank(channelId)&&StrUtils.isGreaterZeroNumeric(channelId))
+				{
+					Channel channel = channelMng.findById(Integer.parseInt(channelId));
+					model.addAttribute("channel",channel);
+				}
+
 				model.addAttribute("input",q);
 				model.addAttribute("q",parseQ);
 				searchWordsCache.cacheWord(q);
@@ -174,4 +182,6 @@ public class SearchAct {
 	private SearchWordsCache searchWordsCache;
 	@Autowired
 	private SessionProvider sessionProvider;
+	@Autowired
+	private ChannelMng channelMng;
 }

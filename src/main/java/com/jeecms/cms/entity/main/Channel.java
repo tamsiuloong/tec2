@@ -432,6 +432,23 @@ public class Channel extends BaseChannel implements HibernateTree<Integer>,
 		}
 		return parent;
 	}
+
+	public Channel getFirstLevelChannel() {
+		if(this.getDeep()==0)
+		{
+			return this;
+		}
+		Channel parent = getParent();
+		while (parent != null) {
+			if(parent.getParent()!=null){
+				parent = parent.getParent();
+			}else{
+				break;
+			}
+		}
+		return parent;
+	}
+
 	/**
 	 * 获取栏目下总浏览量
 	 * @return

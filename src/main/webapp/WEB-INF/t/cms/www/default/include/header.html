@@ -1,37 +1,25 @@
-<link rel="stylesheet" type="text/css" href="/${res}/css/login.css" />
-<script>
-function qkeypress(){
-	var q=$("input[name=q]");
-	if(q.val().trim()!=""){
-		$("input[name=q]").autocomplete("enable");
-	}else{
-		$("input[name=q]").autocomplete("disable");
-	}
-}
-</script>
-<header class="header rel">
-  <div class="header-jf"><a class="jf-btn" name="gb2big5" id="gb2big5">繁</a></div>
-  <Script Language=Javascript Src="${resSys}/gb2big5.js"></Script>
-  <div class="header-rss"><a class="rss-btn" href="${base}/rss.jspx" target="_blank" title="RSS订阅">RSS</a></div>
-  <div class="header-tag"><a class="tag-btn" href="${base}/tag.jspx" target="_blank" title="Tags标签">Tags</a></div>
-  <div class="container clearfix">
-    <a class="logo" href="${base}/"></a>
-    [#include "../include/nav.html"]
-    <div class="header-r">     
-      <div class="search">
-        <form action="${base}/search.jspx" target="_blank" id="searchForm">
-        <input type="text" name="q" value="${oldq!}" maxlength="50" autocomplete="off" class="searchCon" style="width:202px;"><input type="submit" value="" class="searchMenu">
-        </form>
-      </div>      
-      <div id="loginCsiDiv" style="float:left;"></div>
-	  <script type="text/javascript">
-		$(function(){
-			[#if site.config.ssoEnable]
-			Cms.loginSSO('${base}');
-			[/#if]
-			Cms.loginCsi("${base}","loginCsiDiv",{"returnUrl":"${location}"});
-		});
-	   </script>
-    </div> 
+<div class="head1">
+  <div class="head1a">
+    [#if user??]
+    <div class="head1a1">您好，${user.username} <a href="logout.jspx?returnUrl=/">退出登录</a></div>
+    <div class="head1a6"><a href="#">设为首页</a><a href="#">加为收藏</a></div>
+    [#else]
+    <script type="text/javascript">
+        $(function() {
+            $("#jvForm").validate($.validator.AlertError);
+        });
+    </script>
+    <form id="jvForm" action="${base}/login.jspx" method="post">
+      <input type="hidden" name="returnUrl" value="${location}"/>
+      用户名: <input type="text" id="username" name="username" class="required" title="用户名不能为空"/> &nbsp;
+      密码: <input type="password" id="password" name="password" class="required" title="密码不能为空"/>
+      <input type="submit" value="登录"/> &nbsp;
+      <div class="head1a6"><a href="#">设为首页</a><a href="#">加为收藏</a></div>
+    </form>
+    [/#if]
+    <!--<div class="head1a5"><a href="#">登陆</a></div>-->
+
+    <div class="clear"></div>
   </div>
-</header>
+</div>
+<div class="head2"></div>
