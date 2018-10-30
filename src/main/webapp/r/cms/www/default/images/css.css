@@ -66,7 +66,8 @@ A:hover IMG {
 .bb a:hover{ background-color:#0188cc; color:#fff; text-decoration:none;}
 .hh h3{ text-align:center; line-height:25px; padding:25px 0px;}
 .hh{ color:#444}
-.hh p{ line-height:22px; font-size:12px; color:#666; border-top:1px #ddd dotted; margin-top:15px; padding-top:15px;}
+.p{ line-height:22px; font-size:12px; color:#666; border-top:1px #ddd dotted; margin-top:15px; padding-top:15px;}
+.hh img{width: 80%}
 .hh dl{ text-align:center; font-size:12px; color:#999;}
 .hi li{ font-size:12px; background:url(5.jpg) no-repeat left center;}
 .hi span{  clear:both; display:block;}
@@ -74,7 +75,7 @@ A:hover IMG {
 .x2{ width:230px; float:left; text-align:left;}
 .x3{ width:110px; float:left;}
 .x4{ width:60px; float:left; text-align:center;}
-.x5{ width:60px; float:right;}
+.x5{ width:80px; float:right;}
 .abh{ border-bottom:1px #ddd solid; }
 
 
