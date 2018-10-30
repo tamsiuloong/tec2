@@ -34,6 +34,8 @@ width
 <@p.attachment colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
 <#elseif type=="10">
 <@p.picture colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","") imageWidth=imageWidth imageHeight=imageHeight/>
+<#elseif type=="11">
+	<@p.ztree  colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
 <#else>
 not support type: "${type}"
 </#if>

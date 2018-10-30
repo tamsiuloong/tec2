@@ -32,6 +32,8 @@
 		[@p.checkboxlist colspan="1" width="50" label=label  name=name valueList=value!?split(",") list=list!?split(",") help=help helpPosition=helpPosition  /]
 		[#elseif type==8]
 		[@p.radio colspan="1" width="50" label=label  name=name value=value list=list!?split(",") help=help helpPosition=helpPosition /]
+		[#elseif type==11]
+		  [@p.radio colspan="1" width="50" label=label  name=name value=value list=list!?split(",") help=help helpPosition=helpPosition /]
 		[#else]
 		not support type: "${type}"
 		[/#if]

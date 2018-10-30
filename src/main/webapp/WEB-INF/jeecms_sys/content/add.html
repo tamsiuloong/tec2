@@ -12,6 +12,7 @@
 <script src="${base}/res/common/js/jquery.ui.widget.js" type="text/javascript"></script>
 <script src="${base}/res/common/js/jquery.iframe-transport.js" type="text/javascript"></script>
 <script src="${base}/res/common/js/jquery.fileupload.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 var types = [];
 <#list typeList as t>
@@ -348,10 +349,48 @@ function setMediaType(ext){
 	}
 	$("input[name='mediaType'][value='"+mediaType+"']").prop("checked","checked");
 }
+
+var setting = {
+    view: {
+        addHoverDom: addHoverDom,
+        removeHoverDom: removeHoverDom,
+        selectedMulti: false
+    },
+    edit: {
+        enable: true,
+        editNameSelectAll: true,
+        showRemoveBtn: showRemoveBtn,
+        showRenameBtn: showRenameBtn
+    },
+    data: {
+        simpleData: {
+            enable: true
+        }
+    },
+    callback: {
+        beforeDrag: beforeDrag,
+        beforeEditName: beforeEditName,
+        beforeRemove: beforeRemove,
+        beforeRename: beforeRename,
+        onRemove: onRemove,
+        onRename: onRename
+    }
+};
+
 </script>
 <style type="text/css">
 .sel-disabled{background-color:#ccc}
 .bar {height: 18px;background: green;}
+</style>
+
+
+
+<link rel="stylesheet" href="${base}/res/ztree/css/demo.css" type="text/css">
+<link rel="stylesheet" href="${base}/res/ztree/css/ztree.css" type="text/css">
+<script type="text/javascript" src="${base}/res/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+
+<style type="text/css">
+	.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
 </style>
 </head>
 <body>
@@ -667,6 +706,8 @@ $(function () {
 <@p.td colspan="2" width="100" label=item.label>
 <@s.m "content.function.import"/><input id="doc1fileupload" type="file" name="docFile" data-url="import_doc.do" multiple>
 <@p.editor value=item.defValue colspan="2" help=item.help helpPosition="${item.helpPosition!}"  name=item.field required="${item.required!?string('true','false')}" />
+
+
 <script>
 $(function () {
 	$('#doc1fileupload').fileupload({
@@ -840,5 +881,8 @@ function addPicLine() {
 <div id="channelsDialog" title="<@s.m "content.selectChannels"/>" style="display:none;">
 <ul id="channelsSelector" class="filetree"></ul>
 </div>
+
+
+
 </body>
 </html>
