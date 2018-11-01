@@ -746,7 +746,7 @@ public class ContentApiAct {
 						apiRecordMng.callApiRecord(RequestUtils.getIpAddr(request),
 								appId, "/api/content/reject.jspx",sign);
 					}else if(operate.equals(OPERATE_CHECK)){
-						contentMng.check(intIds,user);
+						contentMng.check(intIds,user,null );
 						apiRecordMng.callApiRecord(RequestUtils.getIpAddr(request),
 								appId, "/api/content/check.jspx",sign);
 					}else if(operate.equals(OPERATE_RECYCLE)){

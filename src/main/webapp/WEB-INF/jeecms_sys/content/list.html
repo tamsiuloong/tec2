@@ -43,6 +43,19 @@ $(function() {
 			$(this).attr("bgColor","#ffffff");
 		});
 	});
+
+    $("#checkDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 380,
+        height: 200,
+        position: ["center",50],
+        buttons: {
+            "OK": function() {
+                optCheck();
+            }
+        }
+    });
 	$("#rejectDialog").dialog({
 		autoOpen: false,
 		modal: true,
@@ -324,11 +337,22 @@ function doDelete(){
 	f.action="o_delete.do";
 	f.submit();
 }
+
+function openCheckDialog() {
+    if(Pn.checkedCount('ids')<=0) {
+        $.alert("<@s.m 'global.prompt'/>","<@s.m 'error.checkRecord'/>");
+        return;
+    }
+    $("#checkDialog").dialog("open");
+}
 function optCheck() {
 	if(Pn.checkedCount('ids')<=0) {
 		$.alert("<@s.m 'global.prompt'/>","<@s.m 'error.checkRecord'/>");
 		return;
 	}
+
+    $("input[name=checkDesc]").val($("#checkDesc").val());
+    $("#checkDialog").dialog("close");
 	var f = getTableForm();
 	f.action="o_check.do";
 	f.submit();
@@ -358,6 +382,8 @@ function optReject() {
 	}
 	$("#rejectDialog").dialog("open");
 }
+
+
 
 function rejectSubmit() {
 	$("input[name=rejectOpinion]").val($("#rejectOpinion").val());
@@ -501,6 +527,7 @@ function optUnPigeonhole() {
 </#list>
 <input type="hidden" name="rejectStep"/>
 <input type="hidden" name="rejectOpinion"/>
+<input type="hidden" name="checkDesc"/>
 <@p.bigTable value=pagination queryParams=queryParams;content,i,has_next><#rt/>
 	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="25" align="center">
 		<input type='checkbox' name='ids' value='${content.id}' onclick="Pn.selectCheckBox('${content.id}',this.checked)"/><#t/>
@@ -521,6 +548,9 @@ function optUnPigeonhole() {
 		<a href="${content.url}" target="_blank"><@text_cut s=content.title?html len=25 append="..."/></a>
 		<#if content.checkOpinion??>
 		<br/><span style="color:#6da807">${content.checkOpinion}</span>
+		</#if>
+		<#if content.contentCheck?? && content.contentCheck.checkDesc??>
+		<br/><span style="color:#6da807">${content.contentCheck.checkDesc}</span>
 		</#if>
 	</@p.column><#t/>
 	<@p.column code="content.topLevel" align="center">
@@ -639,7 +669,7 @@ function optUnPigeonhole() {
         <input type="button" id="copy" value="<@s.m "content.opt.copy"/>" class="content_copy"/ style="float:left;">
     </@cms_perm>
 	<@cms_perm url="/content/v_check.do">
-	<input type="button" value="<@s.m "content.opt.check"/>" onclick="optCheck();" class="check"/ style="float:left;">
+	<input type="button" value="<@s.m "content.opt.check"/>" onclick="openCheckDialog();" class="check"/ style="float:left;">
 	</@cms_perm>
 	<@cms_perm url="/content/v_reject.do">
 	<input id="rejectButton" type="button" value="<@s.m "content.opt.reject"/>" onclick="optReject();" class="reject"  style="float:left;">
@@ -684,6 +714,10 @@ function optUnPigeonhole() {
 	</@cms_perm>
 </div>
 </form>
+</div>
+
+<div id="checkDialog" style="display:none" title="审核意见">
+<p>审核意见: <input type="text" id="checkDesc" style="width:260px" onkeypress="if(event.keyCode==13){optCheck();return false;}"/></p>
 </div>
 <div id="rejectDialog" style="display:none" title="<@s.m "content.rejectOpinion"/>">
 <p><@s.m "content.rejectOpinion"/>: <input type="text" id="rejectOpinion" style="width:260px" onkeypress="if(event.keyCode==13){rejectSubmit();return false;}"/></p>

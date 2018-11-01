@@ -761,7 +761,7 @@ public class ContentAct{
 	
 	@RequiresPermissions("content:o_check")
 	@RequestMapping("/content/o_check.do")
-	public String check(Integer queryShare,String queryStatus, Integer queryTypeId,
+	public String check(String checkDesc,Integer queryShare,String queryStatus, Integer queryTypeId,
 			Boolean queryTopLevel, Boolean queryRecommend,
 			Integer queryOrderBy, Integer[] ids, Integer cid, Integer pageNo,
 			HttpServletRequest request, ModelMap model) {
@@ -775,7 +775,7 @@ public class ContentAct{
 			List<Map<String, Object>>list=manager.preChange(manager.findById(id));
 			map.put(id, list);
 		}
-		Content[] beans = manager.check(ids, user);
+		Content[] beans = manager.check(ids, user,checkDesc );
 		for (Content bean : beans) {
 			afterContentStatusChange(bean,map.get(bean.getId()),
 					ContentStatusChangeThread.OPERATE_UPDATE);
@@ -787,7 +787,7 @@ public class ContentAct{
 	
 	@RequiresPermissions("content:o_check")
 	@RequestMapping("/content/o_ajax_check.do")
-	public void ajaxCheck(Integer[] ids, HttpServletRequest request, HttpServletResponse response,
+	public void ajaxCheck(String checkDesc,Integer[] ids, HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws JSONException {
 		WebErrors errors = validateCheck(ids, request);
 		JSONObject json=new JSONObject();
@@ -801,7 +801,7 @@ public class ContentAct{
 			List<Map<String, Object>>list=manager.preChange(manager.findById(id));
 			map.put(id, list);
 		}
-		Content[]  beans=manager.check(ids, user);
+		Content[]  beans=manager.check(ids, user,checkDesc );
 		for (Content bean : beans) {
 			afterContentStatusChange(bean,map.get(bean.getId()),
 					ContentStatusChangeThread.OPERATE_UPDATE);

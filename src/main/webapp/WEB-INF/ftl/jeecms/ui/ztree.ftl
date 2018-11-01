@@ -34,7 +34,9 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
             beforeRemove: beforeRemove,
             beforeRename: beforeRename,
             onRemove: onRemove,
-            onRename: onRename
+            onRename: onRename,
+            beforeDrag: beforeDrag,
+            beforeDrop: beforeDrop
         }
     };
 <#if value?? && value?string!="">
@@ -46,9 +48,21 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
 	];
 </#if>
     var log, className = "dark";
+
     function beforeDrag(treeId, treeNodes) {
-        return false;
+        for (var i=0,l=treeNodes.length; i<l; i++) {
+            if (treeNodes[i].drag === false) {
+                return false;
+            }
+        }
+        return true;
     }
+    function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+        return targetNode ? targetNode.drop !== false : true;
+    }
+    // function beforeDrag(treeId, treeNodes) {
+    //     return false;
+    // }
     function beforeEditName(treeId, treeNode) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);

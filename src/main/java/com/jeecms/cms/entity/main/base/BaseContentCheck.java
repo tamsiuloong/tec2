@@ -63,6 +63,8 @@ public abstract class BaseContentCheck  implements Serializable {
 	private java.lang.String checkOpinion;
 	private java.lang.Boolean rejected;
 	private java.util.Date checkDate;
+	//审核意见
+	private String checkDesc;
 	
 	private com.jeecms.core.entity.CmsUser reviewer;
 
@@ -172,7 +174,13 @@ public abstract class BaseContentCheck  implements Serializable {
 		this.content = content;
 	}
 
+	public String getCheckDesc() {
+		return checkDesc;
+	}
 
+	public void setCheckDesc(String checkDesc) {
+		this.checkDesc = checkDesc;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

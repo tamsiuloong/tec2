@@ -623,7 +623,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return bean;
 	}
 
-	public Content check(Integer id, CmsUser user) {
+	public Content check(Integer id, CmsUser user, String checkDesc) {
 		Content content = findById(id);
 		// 执行监听器
 		//List<Map<String, Object>> mapList = preChange(content);
@@ -636,8 +636,11 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			return content;
 		}
 		int workflowstep = workflowMng.check(workflow, content.getUser(), user, Content.DATA_CONTENT, content.getId(), null);
+		//审核意见
+		check.setCheckDesc(checkDesc);
 		if (workflowstep == -1) {
 			content.setStatus(ContentCheck.CHECKED);
+
 			// 终审，清除退回意见
 			check.setCheckOpinion(null);
 			check.setRejected(false);
@@ -658,10 +661,10 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return content;
 	}
 
-	public Content[] check(Integer[] ids, CmsUser user) {
+	public Content[] check(Integer[] ids, CmsUser user, String checkDesc) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = check(ids[i], user);
+			beans[i] = check(ids[i], user,checkDesc );
 		}
 		return beans;
 	}

@@ -4,11 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.ui.ModelMap;
-
 import com.jeecms.cms.entity.main.Content;
 import com.jeecms.cms.entity.main.ContentDoc;
 import com.jeecms.cms.entity.main.ContentExt;
@@ -173,9 +168,9 @@ public interface ContentMng {
 	
 	public Content addContentToTopics(Integer contentId,Integer[]topicIds);
 
-	public Content check(Integer id, CmsUser user);
+	public Content check(Integer id, CmsUser user, String checkDesc);
 
-	public Content[] check(Integer[] ids, CmsUser user);
+	public Content[] check(Integer[] ids, CmsUser user, String checkDesc);
 	
 	public Content reject(Integer id, CmsUser user, String opinion);
 
