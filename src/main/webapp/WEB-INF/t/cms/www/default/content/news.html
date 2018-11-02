@@ -22,6 +22,16 @@ $(document).ready(function (){
 </script>
 <link rel="stylesheet" type="text/css" href="/${res}/css/menu-css.css">
 <link rel="stylesheet" type="text/css" href="/${res}/css/style.css">
+
+  <script type="text/javascript">
+      $(function() {
+          Cms.checkPerm("${base}","${content.id}");
+          Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+          Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+          Cms.viewCount("${base}","${content.id}");
+          Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+      });
+  </script>
 </head>
 
 <body>
