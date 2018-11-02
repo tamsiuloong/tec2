@@ -260,6 +260,8 @@ public class DynamicPageAct {
 					break;
 				}
 			}
+
+			//TODO 加上部门权限判断
 			//无权限且不支持预览
 			if (!right&&!preview) {
 				String gname = user.getGroup().getName();

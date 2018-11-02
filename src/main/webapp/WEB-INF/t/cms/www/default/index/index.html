@@ -84,7 +84,7 @@
           <ul class="list">
             [@cms_content_list typeId='2' recommend='1' count='10' channelId='104' orderBy='4' titLen='22' channelOption='1' dateFormat='yyyy-MM-dd']
               [#list tag_list as a]
-                <li><a href="#1"><img src="${a.typeImg!}"></a>
+                <li><a href="${a.url}"><img src="${a.typeImg!}"></a>
                   <p>[@text_cut s=a.title len=titLen /]</p>
                 </li>
               [/#list]

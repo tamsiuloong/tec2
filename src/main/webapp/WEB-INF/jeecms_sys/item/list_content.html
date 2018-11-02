@@ -521,6 +521,30 @@ function disInput(o) {
 </tr>
 <#assign i=i+1/>
 </#if>
+
+<#if !fieldList?seq_contains('viewDeptIds')>
+<tr>
+	<td align="center"><input type="checkbox" onclick="disInput(this);" checked="checked"/></td>
+	<td align="center" class="dis">viewDeptIds</td>
+	<td align="center" class="dis">部门树</td>
+	<td align="center"><input class="dis" type="text" name="labels" value="部门浏览权限" style="width:100px"/></td>
+	<td align="center"><input class="dis" type="text" name="prioritys" value="10" style="width:40px"/></td>
+	<td align="center">
+		<input class="dis" type="checkbox" checked="checked" onclick="$('#singles${i}').val(this.checked)"/>
+		<input class="dis" type="hidden" id="singles${i}" name="singles" value="true"/>
+	</td>
+	<td align="center">
+		<input class="dis" type="checkbox" checked="checked" onclick="$('#displays${i}').val(this.checked)"/>
+		<input class="dis" type="hidden" id="displays${i}" name="displays" value="true"/>
+	</td>
+	<td align="center">
+		<input class="dis" type="hidden" name="fields" value="viewDeptIds"/>
+		<input class="dis" type="hidden" name="dataTypes" value="1"/>
+	</td>
+</tr>
+<#assign i=i+1/>
+</#if>
+
 <#if !fieldList?seq_contains('txt')>
 <tr>
 	<td align="center"><input type="checkbox" onclick="disInput(this);" checked="checked"/></td>

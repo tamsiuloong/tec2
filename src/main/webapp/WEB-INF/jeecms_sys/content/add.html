@@ -117,10 +117,38 @@ $(function() {
 	$('#channelsLink').click(function(){
 		$('#channelsDialog').dialog('open');
 		return false;
-	});	
+	});
+
+
+    //部门对话框
+    $("#viewDeptDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 280,
+        height: 400,
+        position: ["center",20],
+        buttons: {
+            "OK": function() {
+                $("#viewDeptSelector input[name='viewDept']:checked").each(function(){
+                    appendJobCategory(this);
+                    $(this).removeAttr("checked");
+                });
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('#viewDeptLink').click(function(){
+        $('#viewDeptDialog').dialog('open');
+        return false;
+    });
+
 	$("#channelsSelector").treeview({
 		url: "v_tree_channels.do"
 	});
+    $("#viewDeptSelector").treeview({
+        url: "v_dept_tree.do"
+    });
 	$("input[name=origin]").autocomplete({
 		 source: "../origin/v_ajax_list.do",
 		 minLength: 1,
@@ -385,7 +413,7 @@ var setting = {
 
 
 
-<link rel="stylesheet" href="${base}/res/ztree/css/demo.css" type="text/css">
+<!--<link rel="stylesheet" href="${base}/res/ztree/css/demo.css" type="text/css">-->
 <link rel="stylesheet" href="${base}/res/ztree/css/ztree.css" type="text/css">
 <script type="text/javascript" src="${base}/res/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 
@@ -449,6 +477,19 @@ var setting = {
 <div style="clear:both"></div>
 </@p.td>
 
+<#elseif item.field=="viewDeptIds">
+<#assign h><#if item.help??>${item.help}<#else>help</#if></#assign>
+<@p.td required="true" label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}">
+<div style="float:left;">
+	<div>
+		<input class="vice-channel" id="viewDeptLink" type="button" value="部门列表"/>
+		<span class="pn-fhelp">${h}</span>
+	</div>
+	<div><label for="channelId" class="error" generated="true"></label></div>
+	<div id="viewDeptContainer"></div>
+</div>
+</@p.td>
+
 <#elseif item.field=="title">
 <@p.td required="true" help=item.help helpPosition="${item.helpPosition!2}" label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}">
 <@p.text value="${item.defValue!}" class="required" maxlength="150" size="${item.size!70}" name=item.field onchange="generateTags()"/>
@@ -488,13 +529,13 @@ var setting = {
 <#elseif item.field=="viewGroupIds">
 <#assign h><#if item.help??>${item.help}<#else><@s.m "content."+item.field+".help"/></#if></#assign>
 <@p.checkboxlist list=groupList listKey="id" listValue="name" help="${h}" helpPosition="${item.helpPosition!2}" label=item.label name=item.field required="${item.required!?string('true','false')}"  colspan=item.single?string("2","1") width="${item.single?string(100,50)}"/>
-
 <#elseif item.field=="topLevel">
 <@p.td help=item.help helpPosition="${item.helpPosition!2}" label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}" required="${item.required!?string('true','false')}" >
 <input type="text" name="topLevel" value="0" required="true" class="required digits" maxlength="2" style="width:20px"/>
 &nbsp;<@s.m "content.topLevelDate"/>: <@p.text name="topLevelDate" style="width:100px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate"/>
 &nbsp;<@s.m "content.sortDate"/>: <@p.text name="sortDate" style="width:140px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate"/>
 </@p.td>
+
 
 <#elseif item.field=="releaseDate">
 <#assign h><#if item.help??>${item.help}<#else><@s.m "content."+item.field+".help"/></#if></#assign>
@@ -656,6 +697,8 @@ $(function () {
 <@p.radio name="mediaType" value="CK" list=["WM","REAL","FLV","FLASH","CK"] help="content.mediaType.help"/>
 <div><label for="mediaType" class="error" generated="true"></label></div>
 </@p.td>
+
+
 
 <#elseif item.field=="txt">
 <@p.td colspan="2" width="100" label=item.label>
@@ -881,8 +924,8 @@ function addPicLine() {
 <div id="channelsDialog" title="<@s.m "content.selectChannels"/>" style="display:none;">
 <ul id="channelsSelector" class="filetree"></ul>
 </div>
-
-
-
+<div id="viewDeptDialog" title="选择可浏览部门" style="display:none;">
+<ul id="viewDeptSelector" class="filetree"></ul>
+</div>
 </body>
 </html>

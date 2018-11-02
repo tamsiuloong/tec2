@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jeecms.common.office.PoiUtils;
+import com.jeecms.core.manager.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -76,13 +77,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsWorkflowRecord;
 import com.jeecms.core.entity.Ftp;
-import com.jeecms.core.manager.CmsConfigMng;
-import com.jeecms.core.manager.CmsGroupMng;
-import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.manager.CmsWorkflowRecordMng;
-import com.jeecms.core.manager.DbFileMng;
 import com.jeecms.core.tpl.TplManager;
 import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
@@ -172,6 +166,33 @@ public class ContentAct{
 			HttpServletResponse response, ModelMap model) {
 		tree(root, request, response, model);
 		return "content/tree_channels";
+	}
+
+
+	@RequestMapping(value = "/content/v_dept_tree.do")
+	public String selectParent(String root, HttpServletRequest request,
+							   HttpServletResponse response, ModelMap model) {
+		log.debug("tree path={}", root);
+		boolean isRoot;
+		// jquery treeview的根请求为root=source
+		if (StringUtils.isBlank(root) || "source".equals(root)) {
+			isRoot = true;
+		} else {
+			isRoot = false;
+		}
+		model.addAttribute("isRoot", isRoot);
+		List<CmsDepartment> list = null;
+		if (isRoot) {
+			list = departmentMng.getList(null, false);
+		} else {
+			list = departmentMng.getList(Integer.parseInt(root), false);
+		}
+
+
+		model.addAttribute("list", list);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=UTF-8");
+		return "content/dept_tree";
 	}
 
 	@RequiresPermissions("content:v_list")
@@ -354,6 +375,7 @@ public class ContentAct{
 		Set<Channel> rights;
 		if (user.getUserSite(siteId).getAllChannel()) {
 			// 拥有所有栏目权限
+
 			rights = null;
 		} else {
 //			rights = user.getChannels(siteId);
@@ -1899,5 +1921,7 @@ public class ContentAct{
 	@Autowired
 	private CmsConfigMng cmsConfigMng;
 	@Autowired
-	private CmsConfigContentChargeMng cmsConfigContentChargeMng; 
+	private CmsConfigContentChargeMng cmsConfigContentChargeMng;
+	@Autowired
+	private CmsDepartmentMng departmentMng;
 }
