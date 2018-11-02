@@ -1,30 +1,4 @@
-<#if isRoot>
-[{
-	"text": "根节点",
-	"classes": "folder"
-	<#if list?size gt 0>,
-	"expanded": true,
-	"children": [
-	<#list list as dept>
-		{
-		"id": "${dept.id}",
-		"text": "<label><input type='checkbox' name='deptIds' value='${dept.id}' nodeName='${dept.name}'/>${dept.name} </label>",
-		"classes": "<#if dept.child?size gt 0>folder<#else>file</#if>",
-		"hasChildren": <#if dept.child?size gt 0>true<#else>false</#if>
-		}<#if dept_has_next>,</#if>
-	</#list>
-	]
-	</#if>
-}]
-<#else>
-	[
-	<#list list as dept>
-		{
-		"id": "${dept.id}",
-		"text": "<label><input type='checkbox' name='deptIds' value='${dept.id}' nodeName='${dept.name}'/>${dept.name} </label>",
-		"classes": "<#if dept.child?size gt 0>folder<#else>file</#if>",
-		"hasChildren": <#if dept.child?size gt 0>true<#else>false</#if>
-		}<#if dept_has_next>,</#if>
-	</#list>
-	]
-</#if>
+[<#list list as dept>
+{ "id":${dept.id}, "pId":<#if  dept.parent??>${dept.parent.id}<#else>0</#if>, "name":"${dept.name}", "checked":<#if viewDepts?seq_contains(dept)>true<#else>false</#if>, "open":true}<#if dept_has_next>,</#if>
+</#list>
+]

@@ -160,6 +160,8 @@ public abstract class HibernateBaseDao<T, ID extends Serializable> extends
 		return criteria;
 	}
 
+
+
 	/**
 	 * 获得Dao对于的实体类
 	 * 

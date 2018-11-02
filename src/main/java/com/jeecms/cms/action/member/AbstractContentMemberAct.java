@@ -163,7 +163,7 @@ public class AbstractContentMemberAct {
 		if(c.getRecommendLevel()==null){
 			c.setRecommendLevel((byte) 0);
 		}
-		c = contentMng.save(c, ext, t,null, null, null, null, tagArr,
+		c = contentMng.save(c, ext, t,null, null, null, null, null, tagArr,
 				attachmentPaths,attachmentNames, attachmentFilenames
 				,picPaths,picDescs,channelId, typeId, null,true,
 				charge,chargeAmount, rewardPattern, rewardRandomMin,
@@ -277,8 +277,8 @@ public class AbstractContentMemberAct {
 		t.setTxt(txt);
 		String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", null);
 		List<Map<String, Object>>list=contentMng.preChange(contentMng.findById(id));
-		c=contentMng.update(c, ext, t,null, tagArr, null, null, null, 
-				attachmentPaths,attachmentNames, attachmentFilenames
+		c=contentMng.update(c, ext, t,null, tagArr, null, null, null,
+                null, attachmentPaths,attachmentNames, attachmentFilenames
 				,picPaths,picDescs, null, channelId, null, null, 
 				charge,chargeAmount,
 				rewardPattern, rewardRandomMin,

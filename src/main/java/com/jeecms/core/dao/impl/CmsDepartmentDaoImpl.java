@@ -14,6 +14,14 @@ import com.jeecms.core.entity.CmsDepartment;
 @Repository
 public class CmsDepartmentDaoImpl extends
 		HibernateBaseDao<CmsDepartment, Integer> implements CmsDepartmentDao {
+
+	@Override
+	public List<CmsDepartment> getAll() {
+		Finder f = Finder.create("from CmsDepartment bean");
+		f.append(" order by bean.priority asc ");
+		return find(f);
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<CmsDepartment> getList(Integer parentId,boolean all){
 		Finder f = Finder.create("from CmsDepartment bean");

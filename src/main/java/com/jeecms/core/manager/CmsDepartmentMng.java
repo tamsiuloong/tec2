@@ -36,4 +36,5 @@ public interface CmsDepartmentMng {
 	public boolean nameExist(String name);
 
 
+	List<CmsDepartment> getAll();
 }

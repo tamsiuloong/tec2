@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.jeecms.core.entity.*;
+import com.jeecms.core.manager.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,16 +60,6 @@ import com.jeecms.cms.staticpage.exception.TemplateNotFoundException;
 import com.jeecms.cms.staticpage.exception.TemplateParseException;
 import com.jeecms.common.hibernate4.Updater;
 import com.jeecms.common.page.Pagination;
-import com.jeecms.core.entity.CmsGroup;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.entity.CmsUserSite;
-import com.jeecms.core.entity.CmsWorkflow;
-import com.jeecms.core.entity.CmsWorkflowEvent;
-import com.jeecms.core.manager.CmsGroupMng;
-import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.manager.CmsWorkflowEventMng;
-import com.jeecms.core.manager.CmsWorkflowMng;
 
 import freemarker.template.TemplateException;
 
@@ -286,16 +279,16 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return entity;
 	}
 
-	public Content save(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
-			Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
-			String[] tagArr, String[] attachmentPaths,
-			String[] attachmentNames, String[] attachmentFilenames,
-			String[] picPaths, String[] picDescs, Integer channelId,
-			Integer typeId, Boolean draft,Boolean contribute, 
-			Short charge,Double chargeAmount,
-			Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax,Double[] rewardFix,
-			CmsUser user, boolean forMember) {
+	public Content save(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+                        Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+                        String viewDeptIds, String[] tagArr, String[] attachmentPaths,
+                        String[] attachmentNames, String[] attachmentFilenames,
+                        String[] picPaths, String[] picDescs, Integer channelId,
+                        Integer typeId, Boolean draft, Boolean contribute,
+                        Short charge, Double chargeAmount,
+                        Boolean rewardPattern, Double rewardRandomMin,
+                        Double rewardRandomMax, Double[] rewardFix,
+                        CmsUser user, boolean forMember) {
 		if(charge==null){
 			charge=ContentCharge.MODEL_FREE;
 		}
@@ -322,6 +315,25 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			for (Integer gid : viewGroupIds) {
 				bean.addToGroups(cmsGroupMng.findById(gid));
 			}
+		}
+
+		// 保存浏览部门
+		if(viewDeptIds!=null && !viewDeptIds.isEmpty())
+		{
+			String[] aViewDeptIds = viewDeptIds.split(",");
+			for (String deptId :
+					aViewDeptIds) {
+				if(!deptId.isEmpty())
+				{
+					CmsDepartment dept = departmentMng.findById(Integer.parseInt(deptId));
+
+					if(dept!=null)
+					{
+						bean.getViewDepts().add(dept);
+					}
+				}
+			}
+
 		}
 		// 保存标签
 		List<ContentTag> tags = contentTagMng.saveTags(tagArr);
@@ -431,16 +443,16 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return bean;
 	}
 
-	public Content update(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
-			String[] tagArr, Integer[] channelIds, Integer[] topicIds,
-			Integer[] viewGroupIds, String[] attachmentPaths,
-			String[] attachmentNames, String[] attachmentFilenames,
-			String[] picPaths, String[] picDescs, Map<String, String> attr,
-			Integer channelId, Integer typeId, Boolean draft,
-			Short charge,Double chargeAmount,
-			Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax,Double[] rewardFix,
-			CmsUser user,boolean forMember) {
+	public Content update(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+						  String[] tagArr, Integer[] channelIds, Integer[] topicIds,
+						  Integer[] viewGroupIds, String viewDeptIds, String[] attachmentPaths,
+						  String[] attachmentNames, String[] attachmentFilenames,
+						  String[] picPaths, String[] picDescs, Map<String, String> attr,
+						  Integer channelId, Integer typeId, Boolean draft,
+						  Short charge, Double chargeAmount,
+						  Boolean rewardPattern, Double rewardRandomMin,
+						  Double rewardRandomMax, Double[] rewardFix,
+						  CmsUser user, boolean forMember) {
 		Content entity = findById(bean.getId());
 		// 执行监听器
 		List<Map<String, Object>> mapList = preChange(entity);
@@ -542,6 +554,27 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			for (Integer gid : viewGroupIds) {
 				groups.add(cmsGroupMng.findById(gid));
 			}
+		}
+
+		// 保存浏览部门
+		Set<CmsDepartment> viewDepts = bean.getViewDepts();
+		viewDepts.clear();
+		if(viewDeptIds!=null && !viewDeptIds.isEmpty())
+		{
+			String[] aViewDeptIds = viewDeptIds.split(",");
+			for (String deptId :
+					aViewDeptIds) {
+				if(!deptId.isEmpty())
+				{
+					CmsDepartment dept = departmentMng.findById(Integer.parseInt(deptId));
+
+					if(dept!=null)
+					{
+						viewDepts.add(dept);
+					}
+				}
+			}
+
 		}
 		// 更新标签
 		contentTagMng.updateTags(bean.getTags(), tagArr);
@@ -1064,6 +1097,9 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	private ContentChargeMng contentChargeMng;
 
 	@Autowired
+	private CmsDepartmentMng  departmentMng;
+
+	@Autowired
 	public void setChannelMng(ChannelMng channelMng) {
 		this.channelMng = channelMng;
 	}
@@ -1127,6 +1163,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	public void setContentShareCheckMng(ContentShareCheckMng contentShareCheckMng) {
 		this.contentShareCheckMng = contentShareCheckMng;
 	}
+
 
 	@Autowired
 	public void setDao(ContentDao dao) {

@@ -1,6 +1,10 @@
 package com.jeecms.cms.entity.main.base;
 
+import com.jeecms.core.entity.CmsDepartment;
+
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -113,6 +117,8 @@ public abstract class BaseContent  implements Serializable {
 	private java.util.Set<com.jeecms.cms.entity.main.Channel> channels;
 	private java.util.Set<com.jeecms.cms.entity.main.CmsTopic> topics;
 	private java.util.Set<com.jeecms.core.entity.CmsGroup> viewGroups;
+	private java.util.Set<com.jeecms.core.entity.CmsDepartment> viewDepts = new HashSet<>(0);
+
 	private java.util.List<com.jeecms.cms.entity.main.ContentTag> tags;
 	private java.util.List<com.jeecms.cms.entity.main.ContentPicture> pictures;
 	private java.util.List<com.jeecms.cms.entity.main.ContentAttachment> attachments;
@@ -671,6 +677,13 @@ public abstract class BaseContent  implements Serializable {
 	}
 
 
+	public Set<CmsDepartment> getViewDepts() {
+		return viewDepts;
+	}
+
+	public void setViewDepts(Set<CmsDepartment> viewDepts) {
+		this.viewDepts = viewDepts;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

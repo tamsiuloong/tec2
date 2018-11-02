@@ -12,7 +12,7 @@
 <script src="${base}/res/common/js/jquery.ui.widget.js" type="text/javascript"></script>
 <script src="${base}/res/common/js/jquery.iframe-transport.js" type="text/javascript"></script>
 <script src="${base}/res/common/js/jquery.fileupload.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="${base}/res/ztree/css/demo.css" type="text/css">
+	<!--<link rel="stylesheet" href="${base}/res/ztree/css/demo.css" type="text/css">-->
 	<link rel="stylesheet" href="${base}/res/ztree/css/ztree.css" type="text/css">
 	<script type="text/javascript" src="${base}/res/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 	<style type="text/css">
@@ -111,6 +111,37 @@ $(function() {
 	$("#channelsSelector").treeview({
 		url: "v_tree_channels.do"
 	});
+
+    //部门对话框
+    $("#viewDeptDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 280,
+        height: 400,
+        position: ["center",20],
+        buttons: {
+            "OK": function() {
+                //获取所有选中的节点
+                var checkedNodes = $.fn.zTree.getZTreeObj("viewDeptSelector").getCheckedNodes(true);
+                var viewDeptIds = "";
+                for(var i = 0 ; i < checkedNodes.length;i++)
+                {
+                    viewDeptIds += checkedNodes[i].id+",";
+                }
+                $("#viewDeptIds").val(viewDeptIds);
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('#viewDeptLink').click(function(){
+
+
+        $('#viewDeptDialog').dialog('open');
+        return false;
+    });
+
+
 	$("input[name=origin]").autocomplete({
 		 source: "../origin/v_ajax_list.do",
 		 minLength: 1,
@@ -345,6 +376,8 @@ function setMediaType(ext){
 .sel-disabled{background-color:#ccc}
 .bar {height: 18px;background: green;}
 </style>
+
+
 </head>
 <body>
 <div class="page-positon ove">
@@ -416,6 +449,60 @@ function setMediaType(ext){
 
 
 <div style="clear:both"></div>
+</@p.td>
+
+
+<#elseif item.field=="viewDeptIds">
+<#assign h><#if item.help??>${item.help}<#else>help</#if></#assign>
+<@p.td  label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}">
+
+
+<SCRIPT type="text/javascript">
+    <!--
+    var mysetting = {
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+
+
+
+
+    $(document).ready(function(){
+        $.ajax({
+            url:"v_dept_tree.do?cid=${content.id}",
+            type:"get",
+            dataType: "json",
+            success:function (data) {
+                $.fn.zTree.init($("#viewDeptSelector"), mysetting, data);
+                //初始化viewDeptIds
+                //获取所有选中的节点
+                var checkedNodes = $.fn.zTree.getZTreeObj("viewDeptSelector").getCheckedNodes(true);
+                var viewDeptIds = "";
+                for(var i = 0 ; i < checkedNodes.length;i++)
+                {
+                    viewDeptIds += checkedNodes[i].id+",";
+                }
+                $("#viewDeptIds").val(viewDeptIds);
+            }
+        });
+    });
+    //-->
+</SCRIPT>
+<div style="float:left;">
+	<div>
+		<input class="vice-channel" id="viewDeptLink" type="button" value="部门列表"/>
+		<input id="viewDeptIds" name="viewDeptIds" type="hidden" />
+		<span class="pn-fhelp">${h}</span>
+	</div>
+	<div><label for="viewDeptIds" class="error" generated="true"></label></div>
+	<div id="viewDeptContainer"></div>
+</div>
 </@p.td>
 
 <#elseif item.field=="title">
@@ -904,6 +991,10 @@ function addPicLine() {
 </div>
 <div id="channelsDialog" title="<@s.m "content.selectChannels"/>" style="display:none;">
 <ul id="channelsSelector" class="filetree"></ul>
+</div>
+
+<div id="viewDeptDialog" title="选择可浏览部门" style="display:none;">
+	<ul id="viewDeptSelector" class="ztree"></ul>
 </div>
 </body>
 </html>

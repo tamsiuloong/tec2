@@ -105,6 +105,13 @@
 			<key column="content_id"/>
 			<many-to-many column="group_id" class="com.jeecms.core.entity.CmsGroup"/>
 		</set>
+		<!--add by coach tam-->
+		<set name="viewDepts" table="jc_content_dept_view">
+			<cache usage="read-write"/>
+			<key column="content_id"/>
+			<many-to-many column="dept_id" class="com.jeecms.core.entity.CmsDepartment"/>
+		</set>
+
 		<set name="collectUsers" table="jc_user_collection">
 			<key column="content_id"/>
 			<many-to-many column="user_id" class="com.jeecms.core.entity.CmsUser"/>

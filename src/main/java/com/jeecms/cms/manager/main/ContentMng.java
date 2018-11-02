@@ -135,30 +135,30 @@ public interface ContentMng {
 
 	public Content findById(Integer id);
 
-	public Content save(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
-			Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
-			String[] tagArr, String[] attachmentPaths,
-			String[] attachmentNames, String[] attachmentFilenames,
-			String[] picPaths, String[] picDescs, Integer channelId,
-			Integer typeId, Boolean draft,Boolean contribute,
-			Short charge,Double chargeAmount,
-			Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax,Double[] rewardFix,
-			CmsUser user, boolean forMember);
+	public Content save(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+                        Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+                        String viewDeptIds, String[] tagArr, String[] attachmentPaths,
+                        String[] attachmentNames, String[] attachmentFilenames,
+                        String[] picPaths, String[] picDescs, Integer channelId,
+                        Integer typeId, Boolean draft, Boolean contribute,
+                        Short charge, Double chargeAmount,
+                        Boolean rewardPattern, Double rewardRandomMin,
+                        Double rewardRandomMax, Double[] rewardFix,
+                        CmsUser user, boolean forMember);
 
 	public Content save(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
 			Integer channelId,Integer typeId, Boolean draft, CmsUser user, boolean forMember);
 
-	public Content update(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
-			String[] tagArr, Integer[] channelIds, Integer[] topicIds,
-			Integer[] viewGroupIds, String[] attachmentPaths,
-			String[] attachmentNames, String[] attachmentFilenames,
-			String[] picPaths, String[] picDescs, Map<String, String> attr,
-			Integer channelId, Integer typeId, Boolean draft,
-			Short charge,Double chargeAmount,
-			Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax,Double[] rewardFix,
-			CmsUser user,boolean forMember);
+	public Content update(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+						  String[] tagArr, Integer[] channelIds, Integer[] topicIds,
+						  Integer[] viewGroupIds, String viewDeptIds, String[] attachmentPaths,
+						  String[] attachmentNames, String[] attachmentFilenames,
+						  String[] picPaths, String[] picDescs, Map<String, String> attr,
+						  Integer channelId, Integer typeId, Boolean draft,
+						  Short charge, Double chargeAmount,
+						  Boolean rewardPattern, Double rewardRandomMin,
+						  Double rewardRandomMax, Double[] rewardFix,
+						  CmsUser user, boolean forMember);
 	
 	public Content update(Content bean);
 	

@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.entity.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +34,6 @@ import com.jeecms.common.page.Paginable;
 import com.jeecms.common.page.SimplePage;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.common.web.springmvc.RealPathResolver;
-import com.jeecms.core.entity.CmsConfig;
-import com.jeecms.core.entity.CmsGroup;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsConfigMng;
 import com.jeecms.core.manager.CmsSiteMng;
 import com.jeecms.core.web.util.CmsUtils;
@@ -243,6 +240,39 @@ public class DynamicPageAct {
 		CmsUser user = CmsUtils.getUser(request);
 		CmsSite site = content.getSite();
 		Set<CmsGroup> groups = content.getViewGroupsExt();
+		Set<CmsDepartment> departments = content.getViewDepts();
+
+
+		if(departments.size()!=0)
+		{
+			// 没有登录
+			if (user == null) {
+				session.setAttribute(request, response, "loginSource", "needPerm");
+				return FrontUtils.showLogin(request, model, site);
+			}
+
+			boolean right = false;
+			// 已经登陆 但是没有部门权限
+			Integer deptid = user.getDepartment().getId();
+			for (CmsDepartment dept : departments) {
+				if (dept.getId().equals(deptid)) {
+					right = true;
+					break;
+				}
+			}
+
+			//无权限且不支持预览
+			if (!right&&!preview) {
+				String gname = user.getGroup().getName();
+				return FrontUtils.showMessage(request, model, GROUP_FORBIDDEN,
+						gname);
+			}
+			//无权限支持预览
+			if(!right&&preview){
+				model.addAttribute("preview", preview);
+				model.addAttribute("groups", groups);
+			}
+		}
 		int len = groups.size();
 		// 需要浏览权限
 		if (len != 0) {
@@ -261,7 +291,7 @@ public class DynamicPageAct {
 				}
 			}
 
-			//TODO 加上部门权限判断
+
 			//无权限且不支持预览
 			if (!right&&!preview) {
 				String gname = user.getGroup().getName();

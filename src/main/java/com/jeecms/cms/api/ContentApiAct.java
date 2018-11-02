@@ -959,7 +959,7 @@ public class ContentApiAct {
 		CmsConfig cmsConfig=cmsConfigMng.get();
 		Double[]fixValues=ArrayUtils.convertStrArrayToDouble(cmsConfig.getRewardFixValues());
 		c=contentMng.save(c, ext, t, doc,null, null, null,
-				tagArr, attachmentPaths, attachmentNames, attachmentFilenames,
+                null, tagArr, attachmentPaths, attachmentNames, attachmentFilenames,
 				picPaths, picDescs, channelId, typeId, null,null,
 				charge,chargeAmount,contentChargeConfig.getRewardPattern(),
 				contentChargeConfig.getRewardMin(),contentChargeConfig.getRewardMax(),
@@ -1056,8 +1056,8 @@ public class ContentApiAct {
 		CmsConfigContentCharge contentChargeConfig=cmsConfigContentChargeMng.getDefault();
 		CmsConfig cmsConfig=cmsConfigMng.get();
 		Double[]fixValues=ArrayUtils.convertStrArrayToDouble(cmsConfig.getRewardFixValues());
-		c=contentMng.update(c, ext, t,doc, tagArr, null, null, null, 
-				attachmentPaths,attachmentNames, attachmentFilenames
+		c=contentMng.update(c, ext, t,doc, tagArr, null, null, null,
+                null, attachmentPaths,attachmentNames, attachmentFilenames
 				,picPaths,picDescs, null, channelId, typeId, null, 
 				charge,chargeAmount,contentChargeConfig.getRewardPattern(),
 				contentChargeConfig.getRewardMin(),contentChargeConfig.getRewardMax(),

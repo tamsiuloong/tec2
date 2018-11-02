@@ -119,8 +119,7 @@ $(function() {
 		return false;
 	});
 
-
-    //部门对话框
+//部门对话框
     $("#viewDeptDialog").dialog({
         autoOpen: false,
         modal: true,
@@ -129,26 +128,31 @@ $(function() {
         position: ["center",20],
         buttons: {
             "OK": function() {
-                $("#viewDeptSelector input[name='viewDept']:checked").each(function(){
-                    appendJobCategory(this);
-                    $(this).removeAttr("checked");
-                });
+                //获取所有选中的节点
+                var checkedNodes = $.fn.zTree.getZTreeObj("viewDeptSelector").getCheckedNodes(true);
+                var viewDeptIds = "";
+                for(var i = 0 ; i < checkedNodes.length;i++)
+                {
+                    viewDeptIds += checkedNodes[i].id+",";
+                }
+                $("#viewDeptIds").val(viewDeptIds);
                 $(this).dialog("close");
             }
         }
     });
 
     $('#viewDeptLink').click(function(){
+
+
         $('#viewDeptDialog').dialog('open');
         return false;
     });
 
+
 	$("#channelsSelector").treeview({
 		url: "v_tree_channels.do"
 	});
-    $("#viewDeptSelector").treeview({
-        url: "v_dept_tree.do"
-    });
+
 	$("input[name=origin]").autocomplete({
 		 source: "../origin/v_ajax_list.do",
 		 minLength: 1,
@@ -378,32 +382,32 @@ function setMediaType(ext){
 	$("input[name='mediaType'][value='"+mediaType+"']").prop("checked","checked");
 }
 
-var setting = {
-    view: {
-        addHoverDom: addHoverDom,
-        removeHoverDom: removeHoverDom,
-        selectedMulti: false
-    },
-    edit: {
-        enable: true,
-        editNameSelectAll: true,
-        showRemoveBtn: showRemoveBtn,
-        showRenameBtn: showRenameBtn
-    },
-    data: {
-        simpleData: {
-            enable: true
-        }
-    },
-    callback: {
-        beforeDrag: beforeDrag,
-        beforeEditName: beforeEditName,
-        beforeRemove: beforeRemove,
-        beforeRename: beforeRename,
-        onRemove: onRemove,
-        onRename: onRename
-    }
-};
+// var setting = {
+//     view: {
+//         addHoverDom: addHoverDom,
+//         removeHoverDom: removeHoverDom,
+//         selectedMulti: false
+//     },
+//     edit: {
+//         enable: true,
+//         editNameSelectAll: true,
+//         showRemoveBtn: showRemoveBtn,
+//         showRenameBtn: showRenameBtn
+//     },
+//     data: {
+//         simpleData: {
+//             enable: true
+//         }
+//     },
+//     callback: {
+//         beforeDrag: beforeDrag,
+//         beforeEditName: beforeEditName,
+//         beforeRemove: beforeRemove,
+//         beforeRename: beforeRename,
+//         onRemove: onRemove,
+//         onRename: onRename
+//     }
+// };
 
 </script>
 <style type="text/css">
@@ -417,9 +421,9 @@ var setting = {
 <link rel="stylesheet" href="${base}/res/ztree/css/ztree.css" type="text/css">
 <script type="text/javascript" src="${base}/res/ztree/js/jquery.ztree.all-3.5.min.js"></script>
 
-<style type="text/css">
-	.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
-</style>
+<!--<style type="text/css">-->
+	<!--.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}-->
+<!--</style>-->
 </head>
 <body>
 <div class="page-positon ove">
@@ -479,13 +483,42 @@ var setting = {
 
 <#elseif item.field=="viewDeptIds">
 <#assign h><#if item.help??>${item.help}<#else>help</#if></#assign>
-<@p.td required="true" label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}">
+<@p.td  label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}">
+<SCRIPT type="text/javascript">
+    <!--
+    var mysetting = {
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+
+
+
+
+    $(document).ready(function(){
+        $.ajax({
+        	url:"v_dept_tree.do",
+			type:"get",
+            dataType: "json",
+			success:function (data) {
+                $.fn.zTree.init($("#viewDeptSelector"), mysetting, data);
+            }
+        });
+    });
+    //-->
+</SCRIPT>
 <div style="float:left;">
 	<div>
 		<input class="vice-channel" id="viewDeptLink" type="button" value="部门列表"/>
+		<input id="viewDeptIds" name="viewDeptIds" type="hidden" />
 		<span class="pn-fhelp">${h}</span>
 	</div>
-	<div><label for="channelId" class="error" generated="true"></label></div>
+	<div><label for="viewDeptIds" class="error" generated="true"></label></div>
 	<div id="viewDeptContainer"></div>
 </div>
 </@p.td>
@@ -925,7 +958,7 @@ function addPicLine() {
 <ul id="channelsSelector" class="filetree"></ul>
 </div>
 <div id="viewDeptDialog" title="选择可浏览部门" style="display:none;">
-<ul id="viewDeptSelector" class="filetree"></ul>
+<ul id="viewDeptSelector" class="ztree"></ul>
 </div>
 </body>
 </html>

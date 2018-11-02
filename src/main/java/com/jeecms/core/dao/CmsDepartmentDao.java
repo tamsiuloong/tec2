@@ -22,4 +22,5 @@ public interface CmsDepartmentDao {
 
 	public CmsDepartment updateByUpdater(Updater<CmsDepartment> updater);
 
+    List<CmsDepartment> getAll();
 }

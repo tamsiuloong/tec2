@@ -4,12 +4,7 @@ import static com.jeecms.common.page.SimplePage.cpn;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -170,24 +165,37 @@ public class ContentAct{
 
 
 	@RequestMapping(value = "/content/v_dept_tree.do")
-	public String selectParent(String root, HttpServletRequest request,
+	public String selectParent(String root, String cid,HttpServletRequest request,
 							   HttpServletResponse response, ModelMap model) {
-		log.debug("tree path={}", root);
-		boolean isRoot;
-		// jquery treeview的根请求为root=source
-		if (StringUtils.isBlank(root) || "source".equals(root)) {
-			isRoot = true;
-		} else {
-			isRoot = false;
-		}
-		model.addAttribute("isRoot", isRoot);
-		List<CmsDepartment> list = null;
-		if (isRoot) {
-			list = departmentMng.getList(null, false);
-		} else {
-			list = departmentMng.getList(Integer.parseInt(root), false);
-		}
+//		log.debug("tree path={}", root);
+//		boolean isRoot;
+//		// jquery treeview的根请求为root=source
+//		if (StringUtils.isBlank(root) || "source".equals(root)) {
+//			isRoot = true;
+//		} else {
+//			isRoot = false;
+//		}
+//		model.addAttribute("isRoot", isRoot);
+//		List<CmsDepartment> list = null;
+//		if (isRoot) {
+//			list = departmentMng.getList(null, false);
+//		} else {
+//			list = departmentMng.getList(Integer.parseInt(root), false);
+//		}
 
+		Set<CmsDepartment> viewDepts = new HashSet<>(0);
+		if(cid!=null && !cid.isEmpty())
+		{
+			Content content = manager.findById(Integer.parseInt(cid));
+			if(content.getViewDepts()!=null&&content.getViewDepts().size()>0)
+			{
+				viewDepts = content.getViewDepts();
+			}
+		}
+		model.addAttribute("viewDepts", viewDepts);
+
+		//一次性查出所有部门
+		List<CmsDepartment> list = departmentMng.getAll();
 
 		model.addAttribute("list", list);
 		response.setHeader("Cache-Control", "no-cache");
@@ -558,7 +566,7 @@ public class ContentAct{
 	@RequiresPermissions("content:o_save")
 	@RequestMapping("/content/o_save.do")
 	public String save(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
-			Boolean copyimg,Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+			Boolean copyimg,Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,String viewDeptIds,
 			String[] attachmentPaths, String[] attachmentNames,
 			String[] attachmentFilenames, String[] picPaths, String[] picDescs,
 			Integer channelId, Integer typeId, String tagStr, Boolean draft,
@@ -661,7 +669,7 @@ public class ContentAct{
 			}
 		}
 		bean = manager.save(bean, ext, txt, doc,channelIds, topicIds, viewGroupIds,
-				tagArr, attachmentPaths, attachmentNames, attachmentFilenames,
+				viewDeptIds, tagArr, attachmentPaths, attachmentNames, attachmentFilenames,
 				picPaths, picDescs, channelId, typeId, draft,false,
 				charge,chargeAmount, rewardPattern, rewardRandomMin,
 				 rewardRandomMax,rewardFix,user, false);
@@ -681,20 +689,20 @@ public class ContentAct{
 
 	@RequiresPermissions("content:o_update")
 	@RequestMapping("/content/o_update.do")
-	public String update(Integer queryShare,String queryStatus, Integer queryTypeId,
-			Boolean queryTopLevel, Boolean queryRecommend,
-			Integer queryOrderBy, Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
-			Boolean copyimg,Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
-			String[] attachmentPaths, String[] attachmentNames,
-			String[] attachmentFilenames, String[] picPaths,String[] picDescs,
-			Integer channelId, Integer typeId, String tagStr, Boolean draft,
-			Integer cid,String[]oldattachmentPaths,String[] oldpicPaths,
-			String oldTitleImg,String oldContentImg,String oldTypeImg,
-			Short charge,Double chargeAmount,
-			Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax,Double[] rewardFix,
-			Integer pageNo, HttpServletRequest request,
-			ModelMap model) {
+	public String update(Integer queryShare, String queryStatus, Integer queryTypeId,
+						 Boolean queryTopLevel, Boolean queryRecommend,
+						 Integer queryOrderBy, Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+						 Boolean copyimg, Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+						 String viewDeptIds, String[] attachmentPaths, String[] attachmentNames,
+						 String[] attachmentFilenames, String[] picPaths, String[] picDescs,
+						 Integer channelId, Integer typeId, String tagStr, Boolean draft,
+						 Integer cid, String[] oldattachmentPaths, String[] oldpicPaths,
+						 String oldTitleImg, String oldContentImg, String oldTypeImg,
+						 Short charge, Double chargeAmount,
+						 Boolean rewardPattern, Double rewardRandomMin,
+						 Double rewardRandomMax, Double[] rewardFix,
+						 Integer pageNo, HttpServletRequest request,
+						 ModelMap model) {
 		WebErrors errors = validateUpdate(bean.getId(), request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
@@ -717,7 +725,7 @@ public class ContentAct{
 		}
 		List<Map<String, Object>>list=manager.preChange(manager.findById(bean.getId()));
 		bean = manager.update(bean, ext, txt,doc, tagArr, channelIds, topicIds,
-				viewGroupIds, attachmentPaths, attachmentNames,
+				viewGroupIds, viewDeptIds, attachmentPaths, attachmentNames,
 				attachmentFilenames, picPaths, picDescs, attr, channelId,
 				typeId, draft, charge,chargeAmount,
 				rewardPattern, rewardRandomMin,
@@ -1005,8 +1013,8 @@ public class ContentAct{
 					BeanUtils.copyProperties(bean.getContentDoc(), docCopy);
 				}
 				manager.save(beanCopy, extCopy, txtCopy, docCopy, null,
-						bean.getTopicIds(), bean.getViewGroupIds(), 
-						bean.getTagArray(), bean.getAttachmentPaths(),
+						bean.getTopicIds(), bean.getViewGroupIds(),
+						null, bean.getTagArray(), bean.getAttachmentPaths(),
 						bean.getAttachmentNames(),bean.getAttachmentFileNames(),
 						bean.getPicPaths(), bean.getPicDescs(),
 						channelId, bean.getType().getId(), draft,false,

@@ -134,6 +134,11 @@ public class CmsDepartmentMngImpl implements CmsDepartmentMng {
 		return dao.findByName(name)!=null;
 	}
 
+	@Override
+	public List<CmsDepartment> getAll() {
+		return dao.getAll();
+	}
+
 	private CmsDepartmentDao dao;
 	
 	@Autowired
