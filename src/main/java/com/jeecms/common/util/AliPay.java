@@ -109,7 +109,6 @@ public class AliPay {
 	 * 手机网站快速支付
 	 * @param request
 	 * @param response
-	 * @param model
 	 * @param serverUrl
 	 * @param config
 	 * @param content

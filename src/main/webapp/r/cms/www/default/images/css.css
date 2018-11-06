@@ -11,7 +11,7 @@ img{ border:0px;}
 ul,h1,h2,h3,dl,dt,dd,p{ margin:0px; padding:0px;}
 li{ list-style:none;}
 A:hover IMG {
-	FILTER: alpha(opacity=80); opacity: 0.8
+	FILTER: alpha(opacity:80); opacity: 0.8
 }
 .bus{ background:url(download.gif) no-repeat left center; padding-left:25px; height:35px; line-height:35px; font-size:12px; border-top:1px #ddd solid; margin-top:25px;}
 .head1{ height:40px; line-height:40px; background-color:#EDEDED; font-size:12px; color:#666;}

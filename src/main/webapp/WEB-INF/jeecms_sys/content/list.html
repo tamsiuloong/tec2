@@ -350,8 +350,11 @@ function optCheck() {
 		$.alert("<@s.m 'global.prompt'/>","<@s.m 'error.checkRecord'/>");
 		return;
 	}
+    var val = $("#checkDesc").val();
 
-    $("input[name=checkDesc]").val($("#checkDesc").val());
+
+
+    $("input[name=checkDesc]").val(val);
     $("#checkDialog").dialog("close");
 	var f = getTableForm();
 	f.action="o_check.do";
@@ -548,10 +551,13 @@ function optUnPigeonhole() {
 		<a href="${content.url}" target="_blank"><@text_cut s=content.title?html len=25 append="..."/></a>
 		<#if content.checkOpinion??>
 		<br/><span style="color:#6da807">${content.checkOpinion}</span>
-		</#if>
-		<#if content.contentCheck?? && content.contentCheck.checkDesc??>
-		<br/><span style="color:#6da807">${content.contentCheck.checkDesc}</span>
-		</#if>
+        <#else>
+            <#if content.contentCheck?? && content.contentCheck.checkDesc??>
+            <br/><span style="color:#6da807">${content.contentCheck.checkDesc}</span>
+            </#if>
+        </#if>
+
+
 	</@p.column><#t/>
 	<@p.column code="content.topLevel" align="center">
 		<input type="hidden" name="wids" value="${content.id}"/>
@@ -717,10 +723,18 @@ function optUnPigeonhole() {
 </div>
 
 <div id="checkDialog" style="display:none" title="审核意见">
-<p>审核意见: <input type="text" id="checkDesc" style="width:260px" onkeypress="if(event.keyCode==13){optCheck();return false;}"/></p>
+<p>审核意见:
+	<!--<input type="text" id="checkDesc" style="width:260px" onkeypress="if(event.keyCode==13){optCheck();return false;}"/>-->
+	<!--<textarea rows="10" cols="10" style="width:260px" onkeypress="if(event.keyCode==13){optCheck();return false;}/> -->
+	<textarea rows="5" id="checkDesc" cols="10" style="width:260px" onkeypress="if(event.keyCode==13){optCheck();return false;}"></textarea>
+</p>
 </div>
 <div id="rejectDialog" style="display:none" title="<@s.m "content.rejectOpinion"/>">
-<p><@s.m "content.rejectOpinion"/>: <input type="text" id="rejectOpinion" style="width:260px" onkeypress="if(event.keyCode==13){rejectSubmit();return false;}"/></p>
+<p><@s.m "content.rejectOpinion"/>:
+    <!--<input type="text" id="rejectOpinion" style="width:260px" onkeypress="if(event.keyCode==13){rejectSubmit();return false;}"/>-->
+
+    <textarea rows="5" id="rejectOpinion" cols="10" style="width:260px" onkeypress="if(event.keyCode==13){rejectSubmit();return false;}"></textarea>
+</p>
 </div>
 <div id="moveDialog" title="<@s.m "content.opt.move"/>(${site.name})" style="display:none;">
     <ul id="movetree" class="filetree"></ul>

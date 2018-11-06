@@ -620,6 +620,31 @@
 		    <artifactId>bce-java-sdk</artifactId>
 		    <version>0.10.28</version>
 		</dependency>
+
+
+	  <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore-nio -->
+	  <dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpcore-nio</artifactId>
+		  <version>4.3.2</version>
+	  </dependency>
+	  <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpasyncclient -->
+	  <dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpasyncclient</artifactId>
+		  <version>4.0.2</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.jsoup</groupId>
+		  <artifactId>jsoup</artifactId>
+		  <version>1.7.3</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>commons-beanutils</groupId>
+		  <artifactId>commons-beanutils</artifactId>
+		  <version>1.9.3</version>
+	  </dependency>
+
 		<dependency>
 			<groupId>local</groupId>
 			<artifactId>jcaptcha</artifactId>
@@ -627,7 +652,7 @@
 			<scope>system</scope>
 			<systemPath>${pom.basedir}/lib/jcaptcha-1.0.jar
 			</systemPath>
-			<!-- <exclusions> <exclusion> <artifactId>servlet-api</artifactId> <groupId>javax.servlet</groupId> 
+			<!-- <exclusions> <exclusion> <artifactId>servlet-api</artifactId> <groupId>javax.servlet</groupId>
 				</exclusion> </exclusions> -->
 		</dependency>
 
@@ -655,7 +680,7 @@
 			<systemPath>${pom.basedir}/lib/jodconverter-2.2.2.jar
 			</systemPath>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>local</groupId>
 			<artifactId>jodconverter-cli</artifactId>
@@ -697,7 +722,7 @@
 			<systemPath>${pom.basedir}/lib/ganymed-ssh2-build251beta1.jar
 			</systemPath>
 		</dependency>
-		<dependency> 
+		<dependency>
 			<groupId>local</groupId>
 			<artifactId>spymemcached</artifactId>
 			<version>2.3.1</version>
@@ -729,28 +754,7 @@
 			<systemPath>${pom.basedir}/lib/memcachedclient-2.0.1.jar
 			</systemPath>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore-nio -->
-		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpcore-nio</artifactId>
-		    <version>4.3.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpasyncclient -->
-		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpasyncclient</artifactId>
-		    <version>4.0.2</version>
-		</dependency>
-		<dependency>  
-		    <groupId>org.jsoup</groupId>  
-		    <artifactId>jsoup</artifactId>  
-		    <version>1.7.3</version>  
-		</dependency>  
-		<dependency>
-    		<groupId>commons-beanutils</groupId>
-   			 <artifactId>commons-beanutils</artifactId>
-   			 <version>1.9.3</version>
-		</dependency>
+
 		
 
 

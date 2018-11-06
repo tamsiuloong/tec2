@@ -133,7 +133,10 @@ $(function() {
                 var viewDeptIds = "";
                 for(var i = 0 ; i < checkedNodes.length;i++)
                 {
-                    viewDeptIds += checkedNodes[i].id+",";
+                    if(viewDeptIds!="") {
+                        viewDeptIds += ","
+                    }
+                    viewDeptIds += checkedNodes[i].id;
                 }
                 $("#viewDeptIds").val(viewDeptIds);
                 $(this).dialog("close");
@@ -145,6 +148,40 @@ $(function() {
 
 
         $('#viewDeptDialog').dialog('open');
+        return false;
+    });
+
+
+
+    //报送部门对话框
+    $("#deliveryDeptDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 280,
+        height: 400,
+        position: ["center",20],
+        buttons: {
+            "OK": function() {
+                //获取所有选中的节点
+                var checkedNodes = $.fn.zTree.getZTreeObj("deliveryDeptSelector").getCheckedNodes(true);
+                var viewDeptIds = "";
+                for(var i = 0 ; i < checkedNodes.length;i++)
+                {
+                    viewDeptIds += checkedNodes[i].id;
+                    if(i+1 < checkedNodes.length)
+                    {
+                        viewDeptIds+=","
+                    }
+                }
+                $("#deliveryDeptIds").val(viewDeptIds);
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('#deliveryDeptLink').click(function(){
+
+        $('#deliveryDeptDialog').dialog('open');
         return false;
     });
 
@@ -520,6 +557,45 @@ function setMediaType(ext){
 	</div>
 	<div><label for="viewDeptIds" class="error" generated="true"></label></div>
 	<div id="viewDeptContainer"></div>
+</div>
+</@p.td>
+
+<#elseif item.field=="deliveryDept">
+<#assign h><#if item.help??>${item.help}<#else>help</#if></#assign>
+<@p.td  label=item.label colspan=item.single?string("2","1") width="${item.single?string(100,50)}">
+<SCRIPT type="text/javascript">
+    <!--
+
+    $(document).ready(function(){
+        $.ajax({
+            url:"v_dept_tree.do",
+            type:"get",
+            dataType: "json",
+            success:function (data) {
+                $.fn.zTree.init($("#deliveryDeptSelector"), {
+                    check: {
+                        enable: true,
+                        chkboxType:{ "Y" : "s", "N" : "ps" }
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    }
+                }, data);
+            }
+        });
+    });
+    //-->
+</SCRIPT>
+<div style="float:left;">
+    <div>
+        <input class="vice-channel" id="deliveryDeptLink" type="button" value="部门列表"/>
+        <input id="deliveryDeptIds" name="deliveryDeptIds" type="hidden" />
+        <span class="pn-fhelp">${h}</span>
+    </div>
+    <div><label for="deliveryDeptIds" class="error" generated="true"></label></div>
+    <div id="deliveryDeptContainer"></div>
 </div>
 </@p.td>
 
@@ -959,6 +1035,10 @@ function addPicLine() {
 </div>
 <div id="viewDeptDialog" title="选择可浏览部门" style="display:none;">
 <ul id="viewDeptSelector" class="ztree"></ul>
+</div>
+
+<div id="deliveryDeptDialog" title="选择报送部门" style="display:none;">
+    <ul id="deliveryDeptSelector" class="ztree"></ul>
 </div>
 </body>
 </html>

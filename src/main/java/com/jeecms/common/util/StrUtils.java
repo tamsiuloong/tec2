@@ -609,7 +609,8 @@ public class StrUtils {
     }
 	
 	public static boolean isGreaterZeroNumeric(String str) {
-        Pattern pattern = Pattern.compile("[1-9]*");
+		//fix  by coachtam(如果包含0会报错)
+        Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();
     }
 
