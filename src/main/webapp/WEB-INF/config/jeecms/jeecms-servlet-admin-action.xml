@@ -107,4 +107,6 @@
 	<bean id="apiAccountAct" class="com.jeecms.cms.action.admin.main.ApiAccountAct"/>
 	<bean id="apiRecordAct" class="com.jeecms.cms.action.admin.main.ApiRecordAct"/>
 	<bean id="apiUserLoginAct" class="com.jeecms.cms.action.admin.main.ApiUserLoginAct"/>
+
+	<bean id="projectCategoryAct" class="com.jeecms.cms.action.admin.main.ProjectCategoryAct"/>
 </beans>

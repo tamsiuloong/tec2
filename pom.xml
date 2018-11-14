@@ -776,6 +776,11 @@
 			<artifactId>maven-eclipse-plugin</artifactId>
 			<version>2.9</version>
 		</dependency>
+	  <dependency>
+		  <groupId>com.alibaba</groupId>
+		  <artifactId>fastjson</artifactId>
+		  <version>1.2.44</version>
+	  </dependency>
 	</dependencies>
   
   <build>
@@ -810,8 +815,8 @@
 			<artifactId>maven-compiler-plugin</artifactId>
 			<version>2.3.2</version>
 			<configuration>
-				<source>1.7</source>
-				<target>1.7</target>
+				<source>1.8</source>
+				<target>1.8</target>
 				<encoding>UTF-8</encoding>
 			</configuration>
 		</plugin>
@@ -829,6 +834,10 @@
 					<path>/honghe</path>
 				</configuration>
 			</plugin>
+
+
+
+
 
 <!--		<plugin>
 			<groupId>org.eclipse.jetty</groupId>

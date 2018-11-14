@@ -1,9 +1,13 @@
 <div class="center4">
-        <div class="center4a">友情链接</div>
-        <div class="center4b">
-                <a href="#"><img src="/${res}/images/2.jpg" width="159" height="25" /></a>
-                <a href="#"><img src="/${res}/images/2.jpg" width="159" height="25" /></a>
-                <a href="#"><img src="/${res}/images/2.jpg" width="159" height="25" /></a>
-        </div>
-        <div class="clear"></div>
+    <div class="center4a">友情链接</div>
+    <div class="center4b">
+        [@cms_friendlink_list]
+        [#list tag_list as link]
+        <a href="${link.domain}" onclick="$.get('${base}/friendlink_view.jspx?id=${link.id}')" target="_blank">
+            [#if link.logo??]<img src="${link.logo}" width="159" height="25"/>[#else]${link.name}[/#if]
+        </a>
+        [/#list]
+        [/@cms_friendlink_list]
+    </div>
+    <div class="clear"></div>
 </div>

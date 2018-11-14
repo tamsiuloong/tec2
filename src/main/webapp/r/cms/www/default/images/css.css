@@ -52,7 +52,7 @@ A:hover IMG {
 .sou{ width:100%; margin:25px auto;}
 .sou1a{ width:10%; float:left; margin-right:12px; }
 .sou1{ width:45%; float:left; display:inline;}
-.sou2{ width:15%; float:right; height:30px; line-height:30px; background-color:#0188cc; text-align:center;}
+.sou2{ width:15%; float:left; height:30px; line-height:30px; background-color:#0188cc; text-align:center;}
 .sou2 a{ color:#fff; font-size:14px; font-weight:bold;}
 .center1c2aa li{ height:29px; line-height:29px; border-bottom:1px #DDDDDD solid; background:url(5.jpg) 3px center no-repeat; padding-left:15px; font-size:12px; }
 .center1c2aa{ padding:10px;  border-top:0px; }

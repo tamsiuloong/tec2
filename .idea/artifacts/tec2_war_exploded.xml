@@ -162,6 +162,7 @@
           <element id="library" level="project" name="Maven: biz.aQute:bndlib:0.0.145" />
           <element id="library" level="project" name="Maven: org.apache.maven.shared:maven-osgi:0.2.0" />
           <element id="library" level="project" name="Maven: org.eclipse.core:resources:3.3.0-v20070604" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.44" />
         </element>
       </element>
       <element id="directory" name="META-INF">
