@@ -29,6 +29,8 @@ public class ContentRecordAct {
 		model.addAttribute("contentId",id);
 		return "content/record";
 	}
+
+
 	
 	@RequiresPermissions("ContentRecord:o_delete")
 	@RequestMapping("/content/record/o_delete.do")

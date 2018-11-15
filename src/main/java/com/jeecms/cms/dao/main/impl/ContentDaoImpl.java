@@ -45,7 +45,288 @@ import com.jeecms.common.page.Pagination;
 @Repository
 public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		implements ContentDao {
-	
+
+	/** for 项目资料列表*/
+	@Override
+	public Pagination getPage(Integer parentId, Integer share, String title, Integer typeId, Integer currUserId,
+							  Integer inputUserId, boolean topLevel, boolean recommend,
+							  ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+							  Integer channelId1, int orderBy, int pageNo, int pageSize) {
+		return getPageData(Content.QUERY_DATA, share, title, typeId,
+				currUserId, inputUserId, topLevel, recommend, status,
+				checkStep, siteId, modelId, modelId, orderBy, pageNo, pageSize,parentId);
+	}
+
+
+	/** for 项目资料列表*/
+	//只能管理自己的数据不能审核他人信息，工作流相关表无需查询
+	public Pagination getPageBySelf(Integer parentId, Integer share, String title, Integer typeId,
+									Integer inputUserId, boolean topLevel, boolean recommend,
+									ContentStatus status, Byte checkStep, Integer siteId,
+									Integer channelId, Integer userId, int orderBy, int pageNo,
+									int pageSize) {
+		return getPageDataBySelf(Content.QUERY_DATA, share, title, typeId, inputUserId,
+				topLevel, recommend, status, checkStep, siteId, channelId,
+				userId, orderBy, pageNo, pageSize, parentId);
+	}
+	/** for 项目资料列表*/
+	public Pagination getPageByRight(Integer parentId, Integer share, String title, Integer typeId,
+									 Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
+									 ContentStatus status, Byte checkStep, Integer siteId,
+									 Integer channelId, Integer departId, Integer userId, boolean selfData,
+									 int orderBy, int pageNo, int pageSize) {
+		return getPageDataByRight(Content.QUERY_DATA,share, title, typeId, currUserId,
+				inputUserId, topLevel, recommend, status, checkStep,
+				siteId, channelId, departId, userId, selfData,
+				orderBy, pageNo, pageSize, parentId);
+	}
+	/** for 项目资料列表*/
+	private Pagination getPageData(Integer queryMode, Integer share, String title,
+								   Integer typeId, Integer currUserId, Integer inputUserId,
+								   boolean topLevel, boolean recommend, ContentStatus status,
+								   Byte checkStep, Integer siteId, Integer modelId,
+								   Integer channelId, int orderBy, int pageNo, int pageSize, Integer parentId){
+		Finder f = Finder.create("select bean from Content bean ");
+		if (rejected == status) {
+			f.append("  join bean.contentCheckSet check ");
+		}
+		if (prepared == status|| passed == status) {
+			f.append("  join bean.eventSet event  ");
+		}
+		if (channelId != null) {
+			//共享内容
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel,Channel parent");
+				f.append(" where (channel.lft between parent.lft and parent.rgt");
+				f.append(" and channel.site.id=parent.site.id");
+				f.append(" and parent.id=:parentId and bean.site.id!=:siteId)");
+				f.setParam("parentId", channelId).setParam("siteId", siteId);
+			}else{
+				f.append(" join bean.channel channel,Channel parent");
+				f.append(" where (channel.lft between parent.lft and parent.rgt");
+				f.append(" and channel.site.id=parent.site.id");
+				f.append(" and parent.id=:parentId)");
+				f.setParam("parentId", channelId);
+			}
+		} else if (siteId != null) {
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel ");
+				f.append(" where (bean.site.id!=:siteId and channel.site.id=:siteId)");
+				f.setParam("siteId", siteId);
+			}else{
+				f.append(" where bean.site.id=:siteId");
+				f.setParam("siteId", siteId);
+			}
+		} else {
+			f.append(" where 1=1");
+		}
+
+		if(parentId!=null)
+		{
+			f.append(" and bean.parent.id=:parentId");
+			f.setParam("parentId", parentId);
+		}
+		//跳级审核人不应该看到？
+		if (passed == status) {
+			//操作人不在待审人列表中且非终审 或非发起人
+			f.append("  and ((:operateId not in(select eventUser.user.id from CmsWorkflowEventUser eventUser where eventUser.event.id=event.id) and event.initiator.id!=:operateId) or event.initiator.id=:operateId) and event.nextStep!=-1").setParam("operateId", currUserId);
+		}
+		if (prepared == status) {
+			//操作人在待审人列表中
+			f.append("  and :operateId in(select eventUser.user.id from CmsWorkflowEventUser eventUser where eventUser.event.id=event.id)").setParam("operateId", currUserId);
+		}
+		if (rejected == status) {
+			f.append(" and check.rejected=true");
+		}
+		if(modelId!=null){
+			f.append(" and bean.model.id=:modelId").setParam("modelId", modelId);
+		}
+		f.setCacheable(true);
+		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
+		appendOrder(f, orderBy);
+		if(queryMode!=null&&queryMode.equals(Content.QUERY_PAGE)){
+			return findBigDataPage(f, pageNo, pageSize);
+		}else if(queryMode!=null&&queryMode.equals(Content.QUERY_TOTAL)){
+			return find(f, pageNo, pageSize);
+		}else{
+			return findBigData(f, pageNo, pageSize);
+		}
+	}
+	/** for 项目资料列表*/
+	private Pagination getPageDataBySelf(Integer queryMode, Integer share, String title, Integer typeId,
+										 Integer inputUserId, boolean topLevel, boolean recommend,
+										 ContentStatus status, Byte checkStep, Integer siteId,
+										 Integer channelId, Integer userId, int orderBy, int pageNo,
+										 int pageSize, Integer parentId){
+		Finder f = Finder.create("select  bean from Content bean");
+
+		if (prepared == status || passed == status || rejected == status) {
+			f.append(" join bean.contentCheckSet check");
+		}
+
+		if (channelId != null) {
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel,Channel parent");
+				f.append(" where channel.lft between parent.lft and parent.rgt");
+				f.append(" and channel.site.id=parent.site.id");
+				f.append(" and parent.id=:parentId and bean.site.id!=:siteId");
+				f.setParam("parentId", channelId);
+			}else{
+				f.append(" join bean.channel channel,Channel parent");
+				f.append(" where channel.lft between parent.lft and parent.rgt");
+				f.append(" and channel.site.id=parent.site.id");
+				f.append(" and parent.id=:parentId");
+				f.setParam("parentId", channelId);
+			}
+		}else if (siteId != null) {
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel ");
+				f.append(" where bean.site.id!=:siteId and channel.site.id=:siteId");
+				f.setParam("siteId", siteId);
+			}else{
+				f.append(" where bean.site.id=:siteId");
+				f.setParam("siteId", siteId);
+			}
+		} else {
+			f.append(" where 1=1");
+		}
+
+		if(parentId!=null)
+		{
+			f.append(" and bean.parent.id=:parentId");
+			f.setParam("parentId", parentId);
+		}
+		f.append(" and bean.user.id=:userId");
+		f.setParam("userId", userId);
+		if (prepared == status) {
+			f.append(" and check.checkStep<:checkStep");
+			f.append(" and check.rejected=false");
+			f.setParam("checkStep", checkStep);
+		} else if (passed == status) {
+			f.append(" and check.checkStep=:checkStep");
+			f.append(" and check.rejected=false");
+			f.setParam("checkStep", checkStep);
+		} else if (rejected == status) {
+			f.append(" and check.checkStep=:checkStep");
+			f.append(" and check.rejected=true");
+			f.setParam("checkStep", checkStep);
+		}
+		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
+		if (prepared == status) {
+			f.append(" order by check.checkStep desc,bean.id desc");
+		} else {
+			appendOrder(f, orderBy);
+		}
+		f.setCacheable(true);
+		if(queryMode!=null&&queryMode.equals(Content.QUERY_PAGE)){
+			return findBigDataPage(f, pageNo, pageSize);
+		}else if(queryMode!=null&&queryMode.equals(Content.QUERY_TOTAL)){
+			return find(f, pageNo, pageSize);
+		}else{
+			return findBigData(f, pageNo, pageSize);
+		}
+	}
+	/** for 项目资料列表*/
+	private Pagination getPageDataByRight(Integer queryMode,
+										  Integer share, String title, Integer typeId,
+										  Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
+										  ContentStatus status, Byte checkStep, Integer siteId,
+										  Integer channelId, Integer departId, Integer userId, boolean selfData,
+										  int orderBy, int pageNo, int pageSize, Integer parentId){
+		Finder f = Finder.create("select  bean from Content bean ");
+		if (rejected == status) {
+			f.append("  join bean.contentCheckSet check ");
+		}
+		if (prepared == status|| passed == status) {
+			f.append("  join bean.eventSet event  ");
+		}
+		if (channelId != null) {
+			//共享内容
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel ");
+			}else{
+				f.append(" join bean.channel channel ");
+			}
+			if(departId!=null){
+				f.append("left join channel.departments depart");
+			}
+			f.append(",Channel parent");
+			f.append(" where (channel.lft between parent.lft and parent.rgt");
+			f.append(" and channel.site.id=parent.site.id");
+			f.append(" and parent.id=:parentId");
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" and bean.site.id!=:siteId and channel.site.id=:siteId").setParam("siteId", siteId);
+			}
+			if(departId!=null){
+				f.append(" and depart.id =:departId").setParam("departId", departId);
+			}
+			f.append(")" );
+			f.setParam("parentId", channelId);
+		} else if (siteId != null) {
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel ");
+			}else{
+				f.append(" join bean.channel channel ");
+			}
+			if(departId!=null){
+				f.append(" left join channel.departments depart");
+				f.append(" where depart.id  =:departId").setParam("departId", departId);
+			}else{
+				f.append(" where 1=1 ");
+			}
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" and bean.site.id!=:siteId and channel.site.id=:siteId");
+				f.setParam("siteId", siteId);
+			}else{
+				f.append(" and bean.site.id=:siteId").setParam("siteId", siteId);
+			}
+		} else {
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" join bean.channels channel ");
+			}else{
+				f.append(" join bean.channel channel ");
+			}
+			if(departId!=null){
+				f.append(" left join channel.departments depart");
+				f.append(" where depart.id  =:departId").setParam("departId", departId);
+			}else{
+				f.append(" where 1=1 ");
+			}
+			if(share!=null&&share.equals(Content.CONTENT_QUERY_SHARE)){
+				f.append(" and bean.site.id!=channel.site.id");
+			}else{
+				f.append(" and bean.site.id=channel.site.id");
+			}
+		}
+		if (selfData) {
+			// userId前面已赋值
+			f.append(" and bean.user.id=:userId");
+			f.setParam("userId", userId);
+		}
+		//跳级审核人不应该看到？
+		if (passed == status) {
+			//操作人不在待审人列表中且非终审 或非发起人
+			f.append("  and ((:operateId not in(select eventUser.user.id from CmsWorkflowEventUser eventUser where eventUser.event.id=event.id) and event.initiator.id!=:operateId) or event.initiator.id=:operateId) and event.nextStep!=-1").setParam("operateId", currUserId);
+		}
+		if (prepared == status) {
+			//操作人在待审人列表中
+			f.append("  and :operateId in(select eventUser.user.id from CmsWorkflowEventUser eventUser where eventUser.event.id=event.id)").setParam("operateId", currUserId);
+		}
+		if (rejected == status) {
+			f.append(" and check.rejected=true");
+		}
+		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
+		appendOrder(f, orderBy);
+		f.setCacheable(true);
+		if(queryMode!=null&&queryMode.equals(Content.QUERY_PAGE)){
+			return findBigDataPage(f, pageNo, pageSize);
+		}else if(queryMode!=null&&queryMode.equals(Content.QUERY_TOTAL)){
+			return find(f, pageNo, pageSize);
+		}else{
+			return findBigData(f, pageNo, pageSize);
+		}
+	}
+
 	public Pagination getPage(Integer share,String title, Integer typeId,Integer currUserId,
 			Integer inputUserId, boolean topLevel, boolean recommend,
 			ContentStatus status, Byte checkStep, Integer siteId,Integer modelId,
@@ -216,6 +497,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if(modelId!=null){
 			f.append(" and bean.model.id=:modelId").setParam("modelId", modelId);
 		}
+		f.append(" and bean.parent.id is null");
 		f.setCacheable(true);
 		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
 		appendOrder(f, orderBy);
@@ -278,7 +560,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append(" and check.rejected=true");
 			f.setParam("checkStep", checkStep);
 		}
+
 		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
+
+		f.append(" and bean.parent.id is null");
 		if (prepared == status) {
 			f.append(" order by check.checkStep desc,bean.id desc");
 		} else {
@@ -382,6 +667,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (rejected == status) {
 			f.append(" and check.rejected=true");
 		}
+		f.append(" and bean.parent.id is null");
 		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
 		appendOrder(f, orderBy);
 		f.setCacheable(true);

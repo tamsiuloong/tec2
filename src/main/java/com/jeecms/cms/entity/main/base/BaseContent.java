@@ -1,5 +1,7 @@
 package com.jeecms.cms.entity.main.base;
 
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.ProjectCategory;
 import com.jeecms.core.entity.CmsDepartment;
 
 import java.io.Serializable;
@@ -112,6 +114,12 @@ public abstract class BaseContent  implements Serializable {
 	private com.jeecms.core.entity.CmsUser user;
 	private com.jeecms.cms.entity.main.Channel channel;
 	private com.jeecms.cms.entity.main.CmsModel model;
+		/** 所属项目. */
+	private Content parent;
+		/** 所属部门. */
+	private CmsDepartment dept;
+		/** 所属项目类别. */
+	private ProjectCategory projectCategory;
 
 	// collections
 	private java.util.Set<com.jeecms.cms.entity.main.Channel> channels;
@@ -683,6 +691,32 @@ public abstract class BaseContent  implements Serializable {
 
 	public void setViewDepts(Set<CmsDepartment> viewDepts) {
 		this.viewDepts = viewDepts;
+	}
+
+
+	public Content getParent() {
+		return parent;
+	}
+
+	public void setParent(Content parent) {
+		this.parent = parent;
+	}
+
+
+	public CmsDepartment getDept() {
+		return dept;
+	}
+
+	public void setDept(CmsDepartment dept) {
+		this.dept = dept;
+	}
+
+	public ProjectCategory getProjectCategory() {
+		return projectCategory;
+	}
+
+	public void setProjectCategory(ProjectCategory projectCategory) {
+		this.projectCategory = projectCategory;
 	}
 
 	public boolean equals (Object obj) {

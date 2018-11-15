@@ -66,6 +66,41 @@ import freemarker.template.TemplateException;
 @Service
 @Transactional
 public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
+
+
+	@Transactional(readOnly = true)
+	public Pagination getPageByRight(Integer share, String title, Integer typeId,
+									 Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
+									 ContentStatus status, Byte checkStep, Integer siteId,
+									 Integer channelId, Integer userId, int orderBy, int pageNo,
+									 int pageSize, Integer parentId) {
+		CmsUser user = cmsUserMng.findById(userId);
+		CmsUserSite us = user.getUserSite(siteId);
+		Pagination p;
+		boolean allChannel = us.getAllChannel();
+		boolean selfData = user.getSelfAdmin();
+		Integer departId=null;
+		if(user.getDepartment()!=null){
+			departId=user.getDepartment().getId();
+		}
+		if (allChannel && selfData) {
+			// 拥有所有栏目权限，只能管理自己的数据
+			p = dao.getPageBySelf(parentId, share,title, typeId, inputUserId, topLevel,
+					recommend, status, checkStep, siteId, channelId, userId,
+					orderBy, pageNo, pageSize);
+		} else if (allChannel && !selfData) {
+			// 拥有所有栏目权限，能够管理不属于自己的数据
+			p = dao.getPage(parentId, share,title, typeId,currUserId, inputUserId, topLevel, recommend,
+					status, checkStep, siteId,null,channelId,orderBy, pageNo,
+					pageSize);
+		} else {
+			p = dao.getPageByRight(parentId, share,title, typeId, currUserId,inputUserId, topLevel,
+					recommend, status, checkStep, siteId, channelId,departId, userId,
+					selfData, orderBy, pageNo, pageSize);
+		}
+		return p;
+	}
+
 	@Transactional(readOnly = true)
 	public Pagination getPageByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
@@ -278,7 +313,118 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		Content entity = dao.findById(id);
 		return entity;
 	}
+	/** for 项目资料列表*/
+	public Content save(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+						Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+						String viewDeptIds, String[] tagArr, String[] attachmentPaths,
+						String[] attachmentNames, String[] attachmentFilenames,
+						String[] picPaths, String[] picDescs, Integer channelId,
+						Integer typeId, Boolean draft, Boolean contribute,
+						Short charge, Double chargeAmount,
+						Boolean rewardPattern, Double rewardRandomMin,
+						Double rewardRandomMax, Double[] rewardFix,
+						CmsUser user, boolean forMember, Integer parentId) {
+		if(charge==null){
+			charge=ContentCharge.MODEL_FREE;
+		}
 
+		saveContent(bean, ext, txt,doc, channelId, typeId, draft,contribute,user, forMember, parentId);
+		// 保存副栏目
+		if (channelIds != null && channelIds.length > 0) {
+			for (Integer cid : channelIds) {
+				bean.addToChannels(channelMng.findById(cid));
+			}
+		}
+		if(channelId==null)
+		{
+			channelId =  dao.findById(parentId).getChannel().getId();
+		}
+		// 主栏目也作为副栏目一并保存，方便查询，提高效率。
+		Channel channel=channelMng.findById(channelId);
+//		if(channel==null)
+//		{
+//			// 使用当前parent文章的栏目
+//			if(parentId!=null)
+//			{
+//				channel = dao.findById(parentId).getChannel();
+//			}
+//
+//		}
+		bean.addToChannels(channel);
+		// 保存专题
+		if (topicIds != null && topicIds.length > 0) {
+			for (Integer tid : topicIds) {
+				if(tid!=null&&tid!=0){
+					bean.addToTopics(cmsTopicMng.findById(tid));
+				}
+			}
+		}
+		// 保存浏览会员组
+		if (viewGroupIds != null && viewGroupIds.length > 0) {
+			for (Integer gid : viewGroupIds) {
+				bean.addToGroups(cmsGroupMng.findById(gid));
+			}
+		}
+
+		// 保存浏览部门
+		if(viewDeptIds!=null && !viewDeptIds.isEmpty())
+		{
+			String[] aViewDeptIds = viewDeptIds.split(",");
+			for (String deptId :
+					aViewDeptIds) {
+				if(!deptId.isEmpty())
+				{
+					CmsDepartment dept = departmentMng.findById(Integer.parseInt(deptId));
+
+					if(dept!=null)
+					{
+						bean.getViewDepts().add(dept);
+					}
+				}
+			}
+
+		}
+		// 保存标签
+		List<ContentTag> tags = contentTagMng.saveTags(tagArr);
+		bean.setTags(tags);
+		// 保存附件
+		if (attachmentPaths != null && attachmentPaths.length > 0) {
+			for (int i = 0, len = attachmentPaths.length; i < len; i++) {
+				if (!StringUtils.isBlank(attachmentPaths[i])) {
+					bean.addToAttachmemts(attachmentPaths[i],
+							attachmentNames[i], attachmentFilenames[i]);
+				}
+			}
+		}
+		// 保存图片集
+		if (picPaths != null && picPaths.length > 0) {
+			for (int i = 0, len = picPaths.length; i < len; i++) {
+				if (!StringUtils.isBlank(picPaths[i])) {
+					bean.addToPictures(picPaths[i], picDescs[i]);
+				}
+			}
+		}
+		//文章操作记录
+		contentRecordMng.record(bean, user, ContentOperateType.add);
+		//栏目内容发布数（未审核通过的也算）
+		channelCountMng.afterSaveContent(channel);
+
+		contentChargeMng.save(chargeAmount,charge,
+				rewardPattern,rewardRandomMin,rewardRandomMax,bean);
+		//打赏固定值
+		if(rewardPattern!=null&&rewardPattern){
+			if (rewardFix != null && rewardFix.length > 0) {
+				for (int i = 0, len = rewardFix.length; i < len; i++) {
+					if (rewardFix[i]!=null) {
+						bean.addToRewardFixs(rewardFix[i]);
+					}
+				}
+			}
+		}
+		// 执行监听器,数据较多情况下可能静态化等较慢
+		//afterSave(bean);
+		return bean;
+	}
 	public Content save(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
                         Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
                         String viewDeptIds, String[] tagArr, String[] attachmentPaths,
@@ -385,7 +531,72 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		//afterSave(bean);
 		return bean;
 	}
-	
+	private Content saveContent(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+								Integer channelId, Integer typeId, Boolean draft, Boolean contribute, CmsUser user, boolean forMember, Integer parentId){
+		Channel channel = null;
+		//设置父文章 以及父栏目
+		if(parentId!=null)
+		{
+			Content content = dao.findById(parentId);
+			bean.setParent(content);
+
+			channel =content.getChannel();
+			bean.setChannel(channel);
+		}
+
+
+		bean.setType(contentTypeMng.findById(typeId));
+		bean.setUser(user);
+		Byte userStep;
+		if (forMember) {
+			// 会员的审核级别按0处理
+			userStep = 0;
+		} else {
+			CmsSite site = bean.getSite();
+			userStep = user.getCheckStep(site.getId());
+		}
+		CmsWorkflow workflow = null;
+		// 流程处理
+		if(contribute!=null&&contribute){
+			bean.setStatus(ContentCheck.CONTRIBUTE);
+		}else if (draft != null && draft) {
+			// 草稿
+			bean.setStatus(ContentCheck.DRAFT);
+		} else {
+			workflow = channel.getWorkflowExtends();
+			if (workflow != null) {
+				bean.setStatus(ContentCheck.CHECKING);
+			} else {
+				bean.setStatus(ContentCheck.CHECKED);
+			}
+		}
+
+		// 是否有标题图
+		bean.setHasTitleImg(!StringUtils.isBlank(ext.getTitleImg()));
+		bean.init();
+		// 执行监听器
+		preSave(bean);
+		dao.save(bean);
+		contentExtMng.save(ext, bean);
+		contentTxtMng.save(txt, bean);
+		if(doc!=null){
+			contentDocMng.save(doc, bean);
+		}
+		ContentCheck check = new ContentCheck();
+		check.setCheckStep(userStep);
+		if (!forMember&&workflow != null) {
+			int step = workflowMng.check(workflow, user, user, Content.DATA_CONTENT, bean.getId(), null);
+			if (step >= 0) {
+				bean.setStatus(ContentCheck.CHECKING);
+				check.setCheckStep((byte)step);
+			} else {
+				bean.setStatus(ContentCheck.CHECKED);
+			}
+		}
+		contentCheckMng.save(check, bean);
+		contentCountMng.save(new ContentCount(), bean);
+		return bean;
+	}
 	private Content saveContent(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
 			Integer channelId,Integer typeId, Boolean draft,Boolean contribute,CmsUser user, boolean forMember){
 		Channel channel = channelMng.findById(channelId);
@@ -554,27 +765,6 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			for (Integer gid : viewGroupIds) {
 				groups.add(cmsGroupMng.findById(gid));
 			}
-		}
-
-		// 保存浏览部门
-		Set<CmsDepartment> viewDepts = bean.getViewDepts();
-		viewDepts.clear();
-		if(viewDeptIds!=null && !viewDeptIds.isEmpty())
-		{
-			String[] aViewDeptIds = viewDeptIds.split(",");
-			for (String deptId :
-					aViewDeptIds) {
-				if(!deptId.isEmpty())
-				{
-					CmsDepartment dept = departmentMng.findById(Integer.parseInt(deptId));
-
-					if(dept!=null)
-					{
-						viewDepts.add(dept);
-					}
-				}
-			}
-
 		}
 		// 更新标签
 		contentTagMng.updateTags(bean.getTags(), tagArr);

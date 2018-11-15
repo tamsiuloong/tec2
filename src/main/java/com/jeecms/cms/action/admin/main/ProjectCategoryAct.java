@@ -1,7 +1,9 @@
 package com.jeecms.cms.action.admin.main;
 
+import com.jeecms.cms.entity.main.Content;
 import com.jeecms.cms.entity.main.ProjectCategory;
 import com.jeecms.cms.manager.main.ProjectCategoryMng;
+import com.jeecms.core.entity.CmsDepartment;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.web.WebCoreErrors;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ProjectCategoryAct {
@@ -112,6 +116,8 @@ public class ProjectCategoryAct {
 				+ ";name=" + bean.getName());
 		return "redirect:v_list.do?root="+(pid==null?"":pid);
 	}
+
+
 
 	@RequiresPermissions("projectCategory:o_update")
 	@RequestMapping("/projectCategory/o_update.do")

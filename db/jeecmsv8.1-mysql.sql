@@ -151,7 +151,7 @@ CREATE TABLE `jc_config` (
   `mark_width` int(11) NOT NULL default '120' COMMENT '图片最小宽度',
   `mark_height` int(11) NOT NULL default '120' COMMENT '图片最小高度',
   `mark_image` varchar(100) default '/r/cms/www/watermark.png' COMMENT '图片水印',
-  `mark_content` varchar(100) NOT NULL default 'www.jeecms.com' COMMENT '文字水印内容',
+  `mark_content` varchar(100) NOT NULL default 'www.honghe.com' COMMENT '文字水印内容',
   `mark_size` int(11) NOT NULL default '20' COMMENT '文字水印大小',
   `mark_color` varchar(10) NOT NULL default '#FF0000' COMMENT '文字水印颜色',
   `mark_alpha` int(11) NOT NULL default '50' COMMENT '水印透明度（0-100）',
@@ -182,7 +182,7 @@ CREATE TABLE `jc_config` (
 # Data for table "jc_config"
 #
 
-INSERT INTO `jc_config` VALUES (1,'/jeecmsv8',NULL,8081,'/dbfile.svl?n=',0,'/r/cms/www/no_picture.gif','/login.jspx',NULL,0,120,120,'/r/cms/www/watermark.png','www.jeecms.com',40,'#FF0000',100,1,0,0,'2016-10-12','2016-10-12 16:46:33','jeecms',12,NULL,NULL,NULL,NULL,NULL,0,'/opt/openoffice4','8820','D:/SWFTools/pdf2swf.exe',0,0,'2016-10-12','2016-10-15');
+INSERT INTO `jc_config` VALUES (1,'/jeecmsv8',NULL,8081,'/dbfile.svl?n=',0,'/r/cms/www/no_picture.gif','/login.jspx',NULL,0,120,120,'/r/cms/www/watermark.png','www.honghe.com',40,'#FF0000',100,1,0,0,'2016-10-12','2016-10-12 16:46:33','jeecms',12,NULL,NULL,NULL,NULL,NULL,0,'/opt/openoffice4','8820','D:/SWFTools/pdf2swf.exe',0,0,'2016-10-12','2016-10-15');
 
 #
 # Structure for table "jc_config_attr"
@@ -1088,7 +1088,7 @@ CREATE TABLE `jg_weixinmenu` (
 # Data for table "jg_weixinmenu"
 #
 
-INSERT INTO `jg_weixinmenu` VALUES (1,1,'找官方','view','http://demo.jeecms.com/html/news/','1',NULL),(2,1,'演示站','view','http://demo.jeecms.com/html/picture/','2',NULL),(3,1,'新闻资讯','view','http://demo.jeecms.com/html/veido/','3',NULL),(4,1,'论坛','view','http://bbs.jeecms.com','4',1),(5,1,'官网','view','http://www.jeecms.com/','5',1),(6,1,'JSPGOU','view','http://demo3.jeecms.com','6',2),(7,1,'JEEBBS','view','http://bbs.jeecms.com','7',2),(8,1,'图库','view','http://demo.jeecms.com/news/index.jhtml/pic/index.jhtml','8',3),(9,1,'新闻','click','','news',3),(10,1,'JEECMS','view','http://demo.jeecms.com/','',2),(11,1,'视频','view','http://demo.jeecms.com/veido/index.jhtml','',3),(12,1,'下载','view','http://demo.jeecms.com/download/index.jhtml','http://demo19.jeecms.com/download/index.jhtml',3),(13,1,'调查','view','http://demo.jeecms.com/survey.jhtml','http://demo19.jeecms.com/wldc/index.jhtml',3),(14,1,'JSPGOU店中店','view','http://dzd.jeecms.com/','http://dzd.jeecms.com/',2);
+INSERT INTO `jg_weixinmenu` VALUES (1,1,'找官方','view','http://demo.jeecms.com/html/news/','1',NULL),(2,1,'演示站','view','http://demo.jeecms.com/html/picture/','2',NULL),(3,1,'新闻资讯','view','http://demo.jeecms.com/html/veido/','3',NULL),(4,1,'论坛','view','http://bbs.jeecms.com','4',1),(5,1,'官网','view','http://www.honghe.com/','5',1),(6,1,'JSPGOU','view','http://demo3.jeecms.com','6',2),(7,1,'JEEBBS','view','http://bbs.jeecms.com','7',2),(8,1,'图库','view','http://demo.jeecms.com/news/index.jhtml/pic/index.jhtml','8',3),(9,1,'新闻','click','','news',3),(10,1,'JEECMS','view','http://demo.jeecms.com/','',2),(11,1,'视频','view','http://demo.jeecms.com/veido/index.jhtml','',3),(12,1,'下载','view','http://demo.jeecms.com/download/index.jhtml','http://demo19.jeecms.com/download/index.jhtml',3),(13,1,'调查','view','http://demo.jeecms.com/survey.jhtml','http://demo19.jeecms.com/wldc/index.jhtml',3),(14,1,'JSPGOU店中店','view','http://dzd.jeecms.com/','http://dzd.jeecms.com/',2);
 
 #
 # Structure for table "jg_weixinmessage"
@@ -1854,7 +1854,7 @@ CREATE TABLE `jc_advertising` (
 # Data for table "jc_advertising"
 #
 
-INSERT INTO `jc_advertising` VALUES (1,1,1,'www.jeecms.com','text',NULL,1,0,0,NULL,NULL,'1');
+INSERT INTO `jc_advertising` VALUES (1,1,1,'www.honghe.com','text',NULL,1,0,0,NULL,NULL,'1');
 
 #
 # Structure for table "jc_advertising_attr"
@@ -1872,7 +1872,7 @@ CREATE TABLE `jc_advertising_attr` (
 # Data for table "jc_advertising_attr"
 #
 
-INSERT INTO `jc_advertising_attr` VALUES (1,'text_title','www.jeecms.com'),(1,'text_target','_blank'),(1,'text_link','http://www.jeecms.com');
+INSERT INTO `jc_advertising_attr` VALUES (1,'text_title','www.honghe.com'),(1,'text_target','_blank'),(1,'text_link','http://www.honghe.com');
 
 #
 # Structure for table "jc_channel"
@@ -2738,7 +2738,7 @@ CREATE TABLE `jc_friendlink` (
 # Data for table "jc_friendlink"
 #
 
-INSERT INTO `jc_friendlink` VALUES (1,1,1,'JEECMS官网','http://www.jeecms.com',NULL,'jeecms@163.com','JEECMS是JavaEE版网站管理系统（Java Enterprise Edition Content Manage System）的简称。Java凭借其强大、稳定、安全、高效等多方面的优势，一直是企业级应用的首选。',35,'1',1),(2,1,1,'JEEBBS论坛','http://bbs.jeecms.com',NULL,'jeecms@163.com','JEEBBS论坛',5,'1',10),(3,1,2,'京东商城','http://www.360buy.com/','/u/cms/www/201112/1910271036lr.gif','','',4,'1',10),(4,1,2,'当当网','http://www.dangdang.com/','/u/cms/www/201112/191408344rwj.gif','','',1,'1',10),(5,1,2,'亚马逊','http://www.amazon.cn/','/u/cms/www/201112/19141012lh2q.gif','','',2,'1',10),(6,1,2,'ihush','http://www.ihush.com/','/u/cms/www/201112/19141255yrfb.gif','','',1,'1',10);
+INSERT INTO `jc_friendlink` VALUES (1,1,1,'JEECMS官网','http://www.honghe.com',NULL,'jeecms@163.com','JEECMS是JavaEE版网站管理系统（Java Enterprise Edition Content Manage System）的简称。Java凭借其强大、稳定、安全、高效等多方面的优势，一直是企业级应用的首选。',35,'1',1),(2,1,1,'JEEBBS论坛','http://bbs.jeecms.com',NULL,'jeecms@163.com','JEEBBS论坛',5,'1',10),(3,1,2,'京东商城','http://www.360buy.com/','/u/cms/www/201112/1910271036lr.gif','','',4,'1',10),(4,1,2,'当当网','http://www.dangdang.com/','/u/cms/www/201112/191408344rwj.gif','','',1,'1',10),(5,1,2,'亚马逊','http://www.amazon.cn/','/u/cms/www/201112/19141012lh2q.gif','','',2,'1',10),(6,1,2,'ihush','http://www.ihush.com/','/u/cms/www/201112/19141255yrfb.gif','','',1,'1',10);
 
 #
 # Structure for table "jc_guestbook_ctg"
@@ -2852,7 +2852,7 @@ CREATE TABLE `jc_keyword` (
 # Data for table "jc_keyword"
 #
 
-INSERT INTO `jc_keyword` VALUES (1,NULL,'内容管理系统','<a href=\"http://www.jeecms.com/\" target=\"_blank\">内容管理系统</a>',0);
+INSERT INTO `jc_keyword` VALUES (1,NULL,'内容管理系统','<a href=\"http://www.honghe.com/\" target=\"_blank\">内容管理系统</a>',0);
 
 #
 # Structure for table "jc_role"

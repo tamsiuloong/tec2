@@ -20,6 +20,31 @@ import com.jeecms.common.page.Pagination;
 import com.jeecms.core.entity.CmsUser;
 
 public interface ContentMng {
+	/**
+	 * 分页查询 for 项目资料列表
+	 * @param share
+	 * @param title
+	 * @param typeId
+	 * @param currUserId
+	 * @param inputUserId
+	 * @param topLevel
+	 * @param recommend
+	 * @param status
+	 * @param checkStep
+	 * @param siteId
+	 * @param channelId
+	 * @param userId
+	 * @param orderBy
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Pagination getPageByRight(Integer share,String title, Integer typeId,
+									 Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
+									 ContentStatus status, Byte checkStep, Integer siteId,
+									 Integer channelId,Integer userId, int orderBy, int pageNo,
+									 int pageSize,Integer parentId);
+
 	public Pagination getPageByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
 			ContentStatus status, Byte checkStep, Integer siteId,
@@ -146,6 +171,17 @@ public interface ContentMng {
                         Double rewardRandomMax, Double[] rewardFix,
                         CmsUser user, boolean forMember);
 
+	public Content save(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
+						Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+						String viewDeptIds, String[] tagArr, String[] attachmentPaths,
+						String[] attachmentNames, String[] attachmentFilenames,
+						String[] picPaths, String[] picDescs, Integer channelId,
+						Integer typeId, Boolean draft, Boolean contribute,
+						Short charge, Double chargeAmount,
+						Boolean rewardPattern, Double rewardRandomMin,
+						Double rewardRandomMax, Double[] rewardFix,
+						CmsUser user, boolean forMember, Integer parentId);
+
 	public Content save(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
 			Integer channelId,Integer typeId, Boolean draft, CmsUser user, boolean forMember);
 
@@ -214,5 +250,5 @@ public interface ContentMng {
 	public List<ContentListener> getListenerList();
 	
 	public List<Map<String, Object>> preChange(Content content);
-	
+
 }

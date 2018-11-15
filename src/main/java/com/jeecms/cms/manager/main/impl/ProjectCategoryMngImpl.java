@@ -3,6 +3,7 @@ package com.jeecms.cms.manager.main.impl;
 import com.jeecms.cms.dao.main.ProjectCategoryDao;
 import com.jeecms.cms.entity.main.ProjectCategory;
 import com.jeecms.cms.manager.main.ProjectCategoryMng;
+import com.jeecms.core.entity.CmsDepartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,5 +63,10 @@ public class ProjectCategoryMngImpl implements ProjectCategoryMng {
 
 		}
 		return result;
+	}
+
+	@Override
+	public List<CmsDepartment> getAll() {
+		return dao.findAll();
 	}
 }

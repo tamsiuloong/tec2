@@ -1,0 +1,4 @@
+[<#list list as a>
+{ "id":${a.id}, "pId":<#if  a.parent??>${a.parent.id}<#else>0</#if>, "name":"${a.name}", "checked":<#if infoType == a.name>true<#else>false</#if>, "open":true}<#if a_has_next>,</#if>
+</#list>
+]

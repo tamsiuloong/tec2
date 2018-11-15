@@ -167,7 +167,7 @@ public class AbstractContentMemberAct {
 				attachmentPaths,attachmentNames, attachmentFilenames
 				,picPaths,picDescs,channelId, typeId, null,true,
 				charge,chargeAmount, rewardPattern, rewardRandomMin,
-				rewardRandomMax,rewardFix, user, true);
+				rewardRandomMax,rewardFix, user, true, null);
 		if(doc!=null){
 			contentDocMng.save(doc, c);
 		}

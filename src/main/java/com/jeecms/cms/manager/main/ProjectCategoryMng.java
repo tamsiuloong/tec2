@@ -1,6 +1,7 @@
 package com.jeecms.cms.manager.main;
 
 import com.jeecms.cms.entity.main.ProjectCategory;
+import com.jeecms.core.entity.CmsDepartment;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface ProjectCategoryMng {
     ProjectCategory update(ProjectCategory bean);
 
     ProjectCategory[] deleteByIds(Integer[] ids);
+
+    List<CmsDepartment> getAll();
 }

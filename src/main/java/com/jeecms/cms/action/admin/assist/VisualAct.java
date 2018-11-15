@@ -187,7 +187,7 @@ public class VisualAct {
 				queryTitle, null,user.getId(),
 				queryInputUserId, false, false, status, user
 						.getCheckStep(siteId), siteId, cid, userId,
-				0, cpn(pageNo), CookieUtils.getPageSize(request));
+				0, cpn(pageNo), CookieUtils.getPageSize(request), null);
 		model.addAttribute("pagination", p);
 		model.addAttribute("cid", cid);
 		model.addAttribute("currStep", currStep);

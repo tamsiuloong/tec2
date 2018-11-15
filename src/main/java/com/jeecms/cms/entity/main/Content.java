@@ -124,7 +124,7 @@ public class Content extends BaseContent implements ContentInterface {
 		if (channel != null) {
 			return channel.getStaticContent();
 		} else {
-			return null;
+			return false;
 		}
 	}
 
@@ -414,7 +414,17 @@ public class Content extends BaseContent implements ContentInterface {
 		if(site.getConfig().getInsideSite()){
 			url.append("/").append(site.getAccessPath());
 		}
-		url.append(SPT).append(getChannel().getPath());
+		String channelPath = "";
+		if(getChannel()!=null)
+		{
+			channelPath = getChannel().getPath();
+		}
+		else
+		{
+			channelPath = getParent().getChannel().getPath();
+		}
+
+		url.append(SPT).append(channelPath);
 		url.append(SPT).append(getId()).append(site.getDynamicSuffix());
 		return url.toString();
 	}

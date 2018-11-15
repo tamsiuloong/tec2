@@ -177,7 +177,7 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		Content content = contentMng.save(c, cext, ctxt,null, null, null, null,
                 null, null, null, null, null, null, null, acqu.getChannel().getId(),
 				acqu.getType().getId(), false,false,
-				ContentCharge.MODEL_FREE,0d,false,0d,0d,null,acqu.getUser(), false);
+				ContentCharge.MODEL_FREE,0d,false,0d,0d,null,acqu.getUser(), false, null);
 		history.setTitle(title);
 		history.setContent(content);
 		history.setDescription(resultType.name());

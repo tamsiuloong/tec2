@@ -446,18 +446,22 @@ function optUnPigeonhole() {
 </head>
 <body>
 <div class="page-positon ove">
-  <div class="position-div"><@s.m "global.position"/>: <@s.m "content.function"/> > <@s.m "global.list"/></div>
+  <div class="position-div"><@s.m "global.position"/>: <@s.m "content.function"/> > 项目资料管理 > <@s.m "global.list"/></div>
 </div>
-<div class="box-positon" style="overflow:hidden;">
+
+<div class="box-positon ck" style="overflow:hidden;">
     <div style="float:left;">
+
 	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='../v_list.do';" class="return-button"/>
+
 		<@cms_perm url="/content/v_add.do">
-		 <ul id="jsddm">
-	        <li class="first"><a href="#"><@s.m "content.opt.add"/></a>
-	        <ul>
+		 <ul id="jsddm" style="width: 230px;">
+	        <li class="first" style="width: 120px;"><a href="#">发布项目资料</a>
+	        <ul style="width: 118px;">
 	            <#list models as m>
-			 	<li value="1">
-	            <a href="v_add.do?modelId=${m.id}&cid=${cid!}"">
+			 	<li value="1" style="width: 118px;">
+	            <a href="v_add.do?modelId=${m.id}&cid=${cid!}&parentId=${parentId}" >
 	            <#if m.id gt 0&&m.id lt 10><img src="${base}/res/common/img/theme/model-${m.id}.gif" / style="vertical-align:middle;">
 					<#else><img src="${base}/res/common/img/theme/model-0.gif"/>
 				</#if>
@@ -472,41 +476,43 @@ function optUnPigeonhole() {
 		<input type="hidden" name="cid" value="${cid!}"/>
 	</form>
     </div>
-    <div style="float:left; margin-left:100px;">
+    <div style="float:left; margin-left:50px;" >
     <form action="v_list.do" method="post">
-<div class="top-t">
-<span><@s.m "content.title"/>: <input type="text" name="queryTitle" value="${queryTitle!}" style="width:130px"/></span>
-<span><@s.m "content.user"/>: <input type="text" name="queryInputUsername" value="${queryInputUsername!}" style="width:70px"/></span>
-<span><label><input type="checkbox" name="queryTopLevel" value="true" <#if queryTopLevel?? && queryTopLevel> checked="checked"</#if>/><@s.m "content.topLevel.query"/></label></span>
-<span><label><input type="checkbox" name="queryRecommend" value="true" <#if queryRecommend?? && queryRecommend> checked="checked"</#if>/><@s.m "content.recommend"/></label></span>
-<@p.select name="queryTypeId" value=queryTypeId list=typeList listKey="id" listValue="name" headerKey="" headerValue="content.query.allType"/>
-<#--
-<@p.select name="queryStatus" value=queryStatus list={"0":"content.status.0","1":"content.status.1","2":"content.status.2"} headerKey="" headerValue="content.query.allStatus"/>
--->
-<@p.select name="queryOrderBy" value=queryOrderBy list={"0":"content.orderBy.0","1":"content.orderBy.1","2":"content.orderBy.2","3":"content.orderBy.3","4":"content.orderBy.4","5":"content.orderBy.5","6":"content.orderBy.6","7":"content.orderBy.7","8":"content.orderBy.8","9":"content.orderBy.9","10":"content.orderBy.10","11":"content.orderBy.11","12":"content.orderBy.12","13":"content.orderBy.13","14":"content.orderBy.14","15":"content.orderBy.15","16":"content.orderBy.16","17":"content.orderBy.17","18":"content.orderBy.18","19":"content.orderBy.19","20":"content.orderBy.20","21":"content.orderBy.21","22":"content.orderBy.22","23":"content.orderBy.23"}/>
-<input type="hidden" name="cid" value="${cid!}"/>
-<input class="query" type="submit" value="<@s.m "global.query"/>" style="border:none;"/>
-</div>
+<!--<div class="top-t" style="width: 300px;">-->
+<!--<span><@s.m "content.title"/>: <input type="text" name="queryTitle" value="${queryTitle!}" style="width:130px"/></span>-->
+<!--&lt;!&ndash;<span><@s.m "content.user"/>: <input type="text" name="queryInputUsername" value="${queryInputUsername!}" style="width:70px"/></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<span><label><input type="checkbox" name="queryTopLevel" value="true" <#if queryTopLevel?? && queryTopLevel> checked="checked"</#if>/><@s.m "content.topLevel.query"/></label></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<span><label><input type="checkbox" name="queryRecommend" value="true" <#if queryRecommend?? && queryRecommend> checked="checked"</#if>/><@s.m "content.recommend"/></label></span>&ndash;&gt;-->
+
+	<!--&lt;!&ndash;<@p.select name="queryTypeId" value=queryTypeId list=typeList listKey="id" listValue="name" headerKey="" headerValue="content.query.allType"/>&ndash;&gt;-->
+<!--<#&#45;&#45;-->
+<!--<@p.select name="queryStatus" value=queryStatus list={"0":"content.status.0","1":"content.status.1","2":"content.status.2"} headerKey="" headerValue="content.query.allStatus"/>-->
+<!--&ndash;&gt;-->
+<!--&lt;!&ndash;<@p.select name="queryOrderBy" value=queryOrderBy list={"0":"content.orderBy.0","1":"content.orderBy.1","2":"content.orderBy.2","3":"content.orderBy.3","4":"content.orderBy.4","5":"content.orderBy.5","6":"content.orderBy.6","7":"content.orderBy.7","8":"content.orderBy.8","9":"content.orderBy.9","10":"content.orderBy.10","11":"content.orderBy.11","12":"content.orderBy.12","13":"content.orderBy.13","14":"content.orderBy.14","15":"content.orderBy.15","16":"content.orderBy.16","17":"content.orderBy.17","18":"content.orderBy.18","19":"content.orderBy.19","20":"content.orderBy.20","21":"content.orderBy.21","22":"content.orderBy.22","23":"content.orderBy.23"}/>&ndash;&gt;-->
+
+<!--<input type="hidden" name="cid" value="${cid!}"/>-->
+<!--<input class="query" type="submit" value="<@s.m "global.query"/>" style="border:none;"/>-->
+<!--</div>-->
 </form>
     </div>
 </div>
 
 
 <div class="body-box" style="margin-top:5px;">
-<form action="v_list.do" method="post">
-<div class="top-l" style="text-indent:3px;">
-<label><input type="radio" name="queryStatus" value="all" onclick="chgStatus();" <#if (!status?? || queryStatus="all")&&(!queryShare?? || queryShare=0)> checked="checked"</#if>/><@s.m "content.status.all"/></label>
-<label><input type="radio" name="queryStatus" value="contribute" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="contribute"> checked="checked"</#if>/><@s.m "content.status.contribute"/></label>
-<label><input type="radio" name="queryStatus" value="draft" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="draft"> checked="checked"</#if>/><@s.m "content.status.draft"/></label>
-<label><input type="radio" name="queryStatus" value="prepared" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="prepared"> checked="checked"</#if>/><@s.m "content.status.prepared"/></label>
-<label><input type="radio" name="queryStatus" value="passed" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="passed"> checked="checked"</#if>/><@s.m "content.status.passed"/></label>
-<label><input type="radio" name="queryStatus" value="checked" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="checked"> checked="checked"</#if>/><@s.m "content.status.checked"/></label>
-<label><input type="radio" name="queryStatus" value="rejected" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="rejected"> checked="checked"</#if>/><@s.m "content.status.rejected"/></label>
-<label><input type="radio" name="queryStatus" value="pigeonhole" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="pigeonhole"> checked="checked"</#if>/><@s.m "content.status.pigeonhole"/></label>
-<label><input type="radio" name="queryShare" value="1" <#if queryShare?? && queryShare==1> checked="checked"</#if> onclick="chgShare();" /><@s.m "content.status.share"/></label>
-<input type="radio" name="queryShare" value="0" <#if !queryShare?? || queryShare=0> checked="checked"</#if> style="display: none;"/>
-</div>
-</form>
+<!--<form action="v_list.do" method="post">-->
+<!--<div class="top-l" style="text-indent:3px;">-->
+<!--<label><input type="radio" name="queryStatus" value="all" onclick="chgStatus();" <#if (!status?? || queryStatus="all")&&(!queryShare?? || queryShare=0)> checked="checked"</#if>/><@s.m "content.status.all"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="contribute" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="contribute"> checked="checked"</#if>/><@s.m "content.status.contribute"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="draft" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="draft"> checked="checked"</#if>/><@s.m "content.status.draft"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="prepared" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="prepared"> checked="checked"</#if>/><@s.m "content.status.prepared"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="passed" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="passed"> checked="checked"</#if>/><@s.m "content.status.passed"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="checked" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="checked"> checked="checked"</#if>/><@s.m "content.status.checked"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="rejected" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="rejected"> checked="checked"</#if>/><@s.m "content.status.rejected"/></label>-->
+<!--<label><input type="radio" name="queryStatus" value="pigeonhole" onclick="chgStatus();" <#if queryStatus?? && queryStatus=="pigeonhole"> checked="checked"</#if>/><@s.m "content.status.pigeonhole"/></label>-->
+<!--<label><input type="radio" name="queryShare" value="1" <#if queryShare?? && queryShare==1> checked="checked"</#if> onclick="chgShare();" /><@s.m "content.status.share"/></label>-->
+<!--<input type="radio" name="queryShare" value="0" <#if !queryShare?? || queryShare=0> checked="checked"</#if> style="display: none;"/>-->
+<!--</div>-->
+<!--</form>-->
 <form id="tableForm" method="post">
 <input type="hidden" name="pageNo" value="${pageNo!}"/>
 <input type="hidden" name="cid" value="${cid!}"/>
@@ -547,7 +553,7 @@ function optUnPigeonhole() {
 		</#if>
 		<#if content.topLevel gt 0><span style="color:#6da807">[<@s.m "content.topLevel.short"/>${content.topLevel}]</span></#if>
 		<#if content.recommend><span style="color:#6da807">[<@s.m "content.recommend.short"/>]</span></#if>
-		<strong>[${content.channel.name}]</strong>
+
 		<a href="${content.url}" target="_blank"><@text_cut s=content.title?html len=25 append="..."/></a>
 		<#if content.checkOpinion??>
 		<br/><span style="color:#6da807">${content.checkOpinion}</span>
@@ -636,13 +642,13 @@ function optUnPigeonhole() {
 	</@p.column><#t/>
 	<@p.column code="global.operate" align="center">
 		<#assign params>&cid=${cid!}&pageNo=${pageNo!}&queryTitle=${queryTitle!?url}&queryInputUsername=${queryInputUsername!?url}&queryTopLevel=${(queryTopLevel!false)?string}&queryRecommend=${(queryRecommend!false)?string}&queryTypeId=${queryTypeId!}&queryStatus=${queryStatus!}&queryOrderBy=${queryOrderBy!}</#assign>
-		<@cms_perm url="/content/v_view.do">
-		<a href="v_view.do?id=${content.id}${params}" class="pn-opt"><@s.m "content.opt.view"/></a> | <#rt/>
-		</@cms_perm>
+		<!--<@cms_perm url="/content/v_view.do">-->
+		<!--<a href="../v_view.do?id=${content.id}${params}" class="pn-opt"><@s.m "content.opt.view"/></a> | <#rt/>-->
+		<!--</@cms_perm>-->
 		<@cms_perm url="/content/v_edit.do">
 		<#if content.hasUpdateRight>
 			<#if content.siteId==site.id>
-			<a href="v_edit.do?id=${content.id}${params}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>
+			<a href="../project/v_edit.do?id=${content.id}${params}" class="pn-opt"><@s.m "global.edit"/></a> | <#rt/>
 			</#if>
 		<#else>
 			<span class="disabled"><@s.m "global.edit"/></span>
@@ -651,78 +657,72 @@ function optUnPigeonhole() {
 		<@cms_perm url="/content/v_delete.do">
 		<#if content.hasDeleteRight>
 			<#if content.siteId==site.id>
-				<a href="o_delete.do?ids=${content.id}${params}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a>
+				<a href="../project/o_delete.do?parentId=${content.parent.id}&ids=${content.id}${params}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a>
 			<#else>
 				<a href="o_delete_share.do?ids=${content.id}${params}" onclick="if(!$.confirmToUrl(this.href)) {return false;}" class="pn-opt"><@s.m "global.delete"/></a>
 			</#if>
 		<#else>
 			<span class="disabled"><@s.m "global.delete"/></span>
 		</#if>
-		</@cms_perm> | <#rt/>
-		<@cms_perm url="/content/record/list.do">
-			<a href="record/list.do?id=${content.id}" class="pn-opt"><@s.m "cms.content.records"/></a><#t/>
 		</@cms_perm>
 
-		<#if content.model.id == 11>
-|<#t/>
-				<a href="project/list.do?parentId=${content.id}&cid=${cid!}" class="pn-opt">项目资料</a><#t/>
-		</#if>
+
 	</@p.column><#t/>
 </@p.bigTable>
 <div class="content-bottom">
 	<@cms_perm url="/content/v_delete.do">
 	<input type="button" value="<@s.m "global.delete"/>" onclick="optDelete();" class="del-button"/ style="float:left;">
 	</@cms_perm>
-	<@cms_perm url="/content/v_move.do">
-        <input type="button" id="move" value="<@s.m "content.opt.move"/>" class="content_move"/ style="float:left;">
-    </@cms_perm>
-    <@cms_perm url="/content/v_copy.do">
-        <input type="button" id="copy" value="<@s.m "content.opt.copy"/>" class="content_copy"/ style="float:left;">
-    </@cms_perm>
-	<@cms_perm url="/content/v_check.do">
-	<input type="button" value="<@s.m "content.opt.check"/>" onclick="openCheckDialog();" class="check"/ style="float:left;">
-	</@cms_perm>
-	<@cms_perm url="/content/v_reject.do">
-	<input id="rejectButton" type="button" value="<@s.m "content.opt.reject"/>" onclick="optReject();" class="reject"  style="float:left;">
-	</@cms_perm>
-	<@cms_perm url="/content/v_submit.do">
-	<input id="submitButton" type="button" value="<@s.m "content.opt.submit"/>" onclick="optSubmit();"   style="float:left;">
-	</@cms_perm>
-	<@cms_perm url="/content/o_static.do">
-	<input type="button" value="<@s.m "content.opt.static"/>" onclick="optStatic();" class="generate-static"/ style="float:left;">
-	</@cms_perm>
-	<#if site.master??>
-	<#if site.master>
-	<@cms_perm url="/content/v_push.do">
-	<input class="pushButton"  id="channel" type="button" value="<@s.m "cms.push"/>"/ style="float:left;">	
-	<div id="channelDialog" title="<@s.m "cms.push"/>(${site.name})" style="display:none;">
-		<ul id="browser" class="filetree"></ul>
-	</div>
-	</@cms_perm>
-	<#else>
-	<@cms_perm url="/content/v_share.do">
-	<input class="sharing" id="channel" type="button" value="<@s.m "cms.share"/>"/ style="float:left;">	
-	<div id="channelDialog" title="<@s.m "cms.share"/>(${site.name})" style="display:none;">
-		<ul id="browser" class="filetree"></ul>
-	</div>
-	</@cms_perm>
-	</#if>
-	</#if>
-	<@cms_perm url="/content/v_priority.do">
-	<input class="save-order" type="submit" value="<@s.m "content.opt.saveTopLevel"/>" onclick="optPriority();"/ style="float:left;">
-	 </@cms_perm>
-	<@cms_perm url="/content/v_send_to_topic.do">
-        <input  type="button" id="sendtotopic" value="<@s.m "content.opt.sendtotopic"/>" class="content_sendtopic"/>
-    </@cms_perm>
-	<@cms_perm url="/content/v_pigeonhole.do">
-		<input type="button" value="<@s.m 'content.opt.pigeonhole'/>" onclick="optPigeonhole();" class="content_pigeonhole" />
-	</@cms_perm>
-	<@cms_perm url="/content/v_unpigeonhole.do">
-		<input type="button" value="<@s.m 'content.opt.unpigeonhole'/>" onclick="optUnPigeonhole();" class="content_unpigeonhole" />
-	</@cms_perm>
-    <@cms_perm url="/content/v_send_to_weixin.do">
-		<input type="button" value="<@s.m 'content.opt.sendweixin'/>" onclick="optWeixin();" class="content_sendtoweixin" />
-	</@cms_perm>
+	<!--<@cms_perm url="/content/v_move.do">-->
+        <!--<input type="button" id="move" value="<@s.m "content.opt.move"/>" class="content_move"/ style="float:left;">-->
+    <!--</@cms_perm>-->
+    <!--<@cms_perm url="/content/v_copy.do">-->
+        <!--<input type="button" id="copy" value="<@s.m "content.opt.copy"/>" class="content_copy"/ style="float:left;">-->
+    <!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/v_check.do">-->
+	<!--<input type="button" value="<@s.m "content.opt.check"/>" onclick="openCheckDialog();" class="check"/ style="float:left;">-->
+	<!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/v_reject.do">-->
+	<!--<input id="rejectButton" type="button" value="<@s.m "content.opt.reject"/>" onclick="optReject();" class="reject"  style="float:left;">-->
+	<!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/v_submit.do">-->
+	<!--<input id="submitButton" type="button" value="<@s.m "content.opt.submit"/>" onclick="optSubmit();"   style="float:left;">-->
+	<!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/o_static.do">-->
+	<!--<input type="button" value="<@s.m "content.opt.static"/>" onclick="optStatic();" class="generate-static"/ style="float:left;">-->
+	<!--</@cms_perm>-->
+	<!--<#if site.master??>-->
+	<!--<#if site.master>-->
+	<!--<@cms_perm url="/content/v_push.do">-->
+	<!--<input class="pushButton"  id="channel" type="button" value="<@s.m "cms.push"/>"/ style="float:left;">	-->
+	<!--<div id="channelDialog" title="<@s.m "cms.push"/>(${site.name})" style="display:none;">-->
+		<!--<ul id="browser" class="filetree"></ul>-->
+	<!--</div>-->
+	<!--</@cms_perm>-->
+	<!--<#else>-->
+	<!--<@cms_perm url="/content/v_share.do">-->
+	<!--<input class="sharing" id="channel" type="button" value="<@s.m "cms.share"/>"/ style="float:left;">	-->
+	<!--<div id="channelDialog" title="<@s.m "cms.share"/>(${site.name})" style="display:none;">-->
+		<!--<ul id="browser" class="filetree"></ul>-->
+	<!--</div>-->
+	<!--</@cms_perm>-->
+	<!--</#if>-->
+	<!--</#if>-->
+	<!--<@cms_perm url="/content/v_priority.do">-->
+	<!--<input class="save-order" type="submit" value="<@s.m "content.opt.saveTopLevel"/>" onclick="optPriority();"/ style="float:left;">-->
+	 <!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/v_send_to_topic.do">-->
+        <!--<input  type="button" id="sendtotopic" value="<@s.m "content.opt.sendtotopic"/>" class="content_sendtopic"/>-->
+    <!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/v_pigeonhole.do">-->
+		<!--<input type="button" value="<@s.m 'content.opt.pigeonhole'/>" onclick="optPigeonhole();" class="content_pigeonhole" />-->
+	<!--</@cms_perm>-->
+	<!--<@cms_perm url="/content/v_unpigeonhole.do">-->
+		<!--<input type="button" value="<@s.m 'content.opt.unpigeonhole'/>" onclick="optUnPigeonhole();" class="content_unpigeonhole" />-->
+	<!--</@cms_perm>-->
+    <!--<@cms_perm url="/content/v_send_to_weixin.do">-->
+		<!--<input type="button" value="<@s.m 'content.opt.sendweixin'/>" onclick="optWeixin();" class="content_sendtoweixin" />-->
+	<!--</@cms_perm>-->
 </div>
 </form>
 </div>

@@ -185,7 +185,7 @@ CREATE TABLE `jc_advertising` (
 --  Records of `jc_advertising`
 -- ----------------------------
 BEGIN;
-INSERT INTO `jc_advertising` VALUES ('1', '1', '1', 'www.jeecms.com', 'text', null, '1', '0', '0', null, null, '1');
+INSERT INTO `jc_advertising` VALUES ('1', '1', '1', 'www.honghe.com', 'text', null, '1', '0', '0', null, null, '1');
 COMMIT;
 
 -- ----------------------------
@@ -204,7 +204,7 @@ CREATE TABLE `jc_advertising_attr` (
 --  Records of `jc_advertising_attr`
 -- ----------------------------
 BEGIN;
-INSERT INTO `jc_advertising_attr` VALUES ('1', 'text_title', 'www.jeecms.com'), ('1', 'text_target', '_blank'), ('1', 'text_link', 'http://www.jeecms.com');
+INSERT INTO `jc_advertising_attr` VALUES ('1', 'text_title', 'www.honghe.com'), ('1', 'text_target', '_blank'), ('1', 'text_link', 'http://www.honghe.com');
 COMMIT;
 
 -- ----------------------------
@@ -605,7 +605,7 @@ CREATE TABLE `jc_config` (
   `mark_width` int(11) NOT NULL DEFAULT '120' COMMENT '图片最小宽度',
   `mark_height` int(11) NOT NULL DEFAULT '120' COMMENT '图片最小高度',
   `mark_image` varchar(100) DEFAULT '/r/cms/www/watermark.png' COMMENT '图片水印',
-  `mark_content` varchar(100) NOT NULL DEFAULT 'www.jeecms.com' COMMENT '文字水印内容',
+  `mark_content` varchar(100) NOT NULL DEFAULT 'www.honghe.com' COMMENT '文字水印内容',
   `mark_size` int(11) NOT NULL DEFAULT '20' COMMENT '文字水印大小',
   `mark_color` varchar(10) NOT NULL DEFAULT '#FF0000' COMMENT '文字水印颜色',
   `mark_alpha` int(11) NOT NULL DEFAULT '50' COMMENT '水印透明度（0-100）',
@@ -1464,7 +1464,7 @@ CREATE TABLE `jc_keyword` (
 --  Records of `jc_keyword`
 -- ----------------------------
 BEGIN;
-INSERT INTO `jc_keyword` VALUES ('1', null, '内容管理系统', '<a href=\"http://www.jeecms.com/\" target=\"_blank\">内容管理系统</a>', '0');
+INSERT INTO `jc_keyword` VALUES ('1', null, '内容管理系统', '<a href=\"http://www.honghe.com/\" target=\"_blank\">内容管理系统</a>', '0');
 COMMIT;
 
 -- ----------------------------
@@ -2760,7 +2760,7 @@ CREATE TABLE `jg_weixinmenu` (
 --  Records of `jg_weixinmenu`
 -- ----------------------------
 BEGIN;
-INSERT INTO `jg_weixinmenu` VALUES ('1', '1', '找官方', 'view', 'http://demo.jeecms.com/html/news/', '1', null), ('2', '1', '演示站', 'view', 'http://demo.jeecms.com/html/picture/', '2', null), ('3', '1', '新闻资讯', 'view', 'http://demo.jeecms.com/html/veido/', '3', null), ('4', '1', '论坛', 'view', 'http://bbs.jeecms.com', '4', '1'), ('5', '1', '官网', 'view', 'http://www.jeecms.com/', '5', '1'), ('6', '1', 'JSPGOU', 'view', 'http://demo3.jeecms.com', '6', '2'), ('7', '1', 'JEEBBS', 'view', 'http://bbs.jeecms.com', '7', '2'), ('8', '1', '图库', 'view', 'http://demo.jeecms.com/news/index.jhtml/pic/index.jhtml', '8', '3'), ('9', '1', '新闻', 'click', '', 'news', '3'), ('10', '1', 'JEECMS', 'view', 'http://demo.jeecms.com/', '', '2'), ('11', '1', '视频', 'view', 'http://demo.jeecms.com/veido/index.jhtml', '', '3'), ('12', '1', '下载', 'view', 'http://demo.jeecms.com/download/index.jhtml', 'http://demo19.jeecms.com/download/index.jhtml', '3'), ('13', '1', '调查', 'view', 'http://demo.jeecms.com/survey.jhtml', 'http://demo19.jeecms.com/wldc/index.jhtml', '3'), ('14', '1', 'JSPGOU店中店', 'view', 'http://dzd.jeecms.com/', 'http://dzd.jeecms.com/', '2');
+INSERT INTO `jg_weixinmenu` VALUES ('1', '1', '找官方', 'view', 'http://demo.jeecms.com/html/news/', '1', null), ('2', '1', '演示站', 'view', 'http://demo.jeecms.com/html/picture/', '2', null), ('3', '1', '新闻资讯', 'view', 'http://demo.jeecms.com/html/veido/', '3', null), ('4', '1', '论坛', 'view', 'http://bbs.jeecms.com', '4', '1'), ('5', '1', '官网', 'view', 'http://www.honghe.com/', '5', '1'), ('6', '1', 'JSPGOU', 'view', 'http://demo3.jeecms.com', '6', '2'), ('7', '1', 'JEEBBS', 'view', 'http://bbs.jeecms.com', '7', '2'), ('8', '1', '图库', 'view', 'http://demo.jeecms.com/news/index.jhtml/pic/index.jhtml', '8', '3'), ('9', '1', '新闻', 'click', '', 'news', '3'), ('10', '1', 'JEECMS', 'view', 'http://demo.jeecms.com/', '', '2'), ('11', '1', '视频', 'view', 'http://demo.jeecms.com/veido/index.jhtml', '', '3'), ('12', '1', '下载', 'view', 'http://demo.jeecms.com/download/index.jhtml', 'http://demo19.jeecms.com/download/index.jhtml', '3'), ('13', '1', '调查', 'view', 'http://demo.jeecms.com/survey.jhtml', 'http://demo19.jeecms.com/wldc/index.jhtml', '3'), ('14', '1', 'JSPGOU店中店', 'view', 'http://dzd.jeecms.com/', 'http://dzd.jeecms.com/', '2');
 COMMIT;
 
 -- ----------------------------

@@ -963,7 +963,7 @@ public class ContentApiAct {
 				picPaths, picDescs, channelId, typeId, null,null,
 				charge,chargeAmount,contentChargeConfig.getRewardPattern(),
 				contentChargeConfig.getRewardMin(),contentChargeConfig.getRewardMax(),
-				fixValues,user, true);
+				fixValues,user, true, null);
 		afterContentStatusChange(c,null, ContentStatusChangeThread.OPERATE_ADD);
 		return c.getId();
 	}

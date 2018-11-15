@@ -1,6 +1,7 @@
 package com.jeecms.cms.dao.main;
 
 import com.jeecms.cms.entity.main.ProjectCategory;
+import com.jeecms.core.entity.CmsDepartment;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ProjectCategoryDao {
     ProjectCategory findById(Integer id);
 
     ProjectCategory deleteById(Integer id);
+
+    List<CmsDepartment> findAll();
 }

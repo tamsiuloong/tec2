@@ -23,6 +23,10 @@
 		<many-to-one name="user" column="user_id" class="com.jeecms.core.entity.CmsUser" not-null="false"></many-to-one>
 		<many-to-one name="channel" column="channel_id" class="Channel" not-null="false"></many-to-one>
 		<many-to-one name="model" column="model_id" class="CmsModel" not-null="false"></many-to-one>
+		<many-to-one name="parent" column="parent_id" class="Content" not-null="false"></many-to-one>
+		<many-to-one name="dept" column="dept_id" class="com.jeecms.core.entity.CmsDepartment" not-null="false"></many-to-one>
+		<many-to-one name="projectCategory" column="project_category_id" class="ProjectCategory" not-null="false"></many-to-one>
+
 		<set name="channels" table="jc_content_channel">
 			<cache usage="read-write"/>
 			<key column="content_id"/>

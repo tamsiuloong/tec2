@@ -4,6 +4,7 @@ import com.jeecms.cms.dao.main.ProjectCategoryDao;
 import com.jeecms.cms.entity.main.ProjectCategory;
 import com.jeecms.common.hibernate4.Finder;
 import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.core.entity.CmsDepartment;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -57,6 +58,12 @@ public class ProjectCategoryDaoImpl extends HibernateBaseDao<ProjectCategory, In
 			getSession().delete(entity);
 		}
 		return entity;
+	}
+
+	@Override
+	public List<CmsDepartment> findAll() {
+		Finder f = Finder.create("from ProjectCategory bean");
+		return find(f);
 	}
 
 	@Override

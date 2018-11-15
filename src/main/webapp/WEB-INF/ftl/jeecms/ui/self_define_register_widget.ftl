@@ -34,7 +34,7 @@ width
 <#elseif type=="8">
 <@p.radio colspan=colspan width=width label=label  name=name value=value list=list!?split(",") help=help helpPosition=helpPosition/>
 <#elseif type=="11">
-	<@p.ztree colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
+	<@p.infotypeztree colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
 <#else>
 not support type: "${type}"
 </#if>

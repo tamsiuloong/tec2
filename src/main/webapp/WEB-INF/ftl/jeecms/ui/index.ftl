@@ -16,7 +16,8 @@
 <#include "form.ftl"/>
 <#include "td.ftl"/>
 <#include "tr.ftl"/>
-<#include "ztree.ftl"/>
+<#include "infotypeztree.ftl"/>
+<#include "deptztree.ftl"/>
 
 <#include "attachment.ftl"/>
 <#include "picture.ftl"/>

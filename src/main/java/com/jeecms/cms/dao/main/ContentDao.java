@@ -41,6 +41,100 @@ import com.jeecms.common.page.Pagination;
 public interface ContentDao {
 
 	/**
+	 * 获得自己发布的内容列表 for 项目资料列表
+	 *
+	 * @param title
+	 *            标题。支持模糊搜索，可以为null。
+	 * @param typeId
+	 *            内容类型ID。可以为null。
+	 * @param inputUserId
+	 *            内容录入员。可以为null。
+	 * @param topLevel
+	 *            是否固顶。
+	 * @param recommend
+	 *            是否推荐。
+	 * @param status
+	 *            状态。
+	 * @param checkStep
+	 *            审核步骤。当状态为prepared、passed、rejected时，不能为null。
+	 * @param siteId
+	 *            站点ID。可以为null。
+	 * @param channelId
+	 *            站点ID。可以为null。
+	 * @param userId
+	 *            用户ID
+	 * @param orderBy
+	 *            排序方式
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	Pagination getPageBySelf(Integer parentId, Integer share, String title, Integer typeId, Integer inputUserId, boolean topLevel, boolean recommend, ContentStatus status, Byte checkStep, Integer siteId, Integer channelId, Integer userId, int orderBy, int pageNo, int pageSize);
+
+
+	/**
+	 * 获得有权限的内容列表 for 项目资料列表
+	 *
+	 * @param title
+	 *            标题。支持模糊搜索，可以为null。
+	 * @param typeId
+	 *            内容类型ID。可以为null。
+	 * @param inputUserId
+	 *            内容录入员。可以为null。
+	 * @param topLevel
+	 *            是否固顶。
+	 * @param recommend
+	 *            是否推荐。
+	 * @param status
+	 *            状态。
+	 * @param checkStep
+	 *            审核步骤。当状态为prepared、passed、rejected时，不能为null。
+	 * @param siteId
+	 *            站点ID。可以为null。
+	 * @param channelId
+	 *            栏目ID。可以为null。
+	 * @param userId
+	 *            用户ID。
+	 * @param selfData
+	 *            是否只获取自己发表的数据。
+	 * @param orderBy
+	 *            排序方式
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 **/
+	Pagination getPageByRight(Integer parentId, Integer share, String title, Integer typeId, Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend, ContentStatus status, Byte checkStep, Integer siteId, Integer channelId, Integer departId, Integer userId, boolean selfData, int orderBy, int pageNo, int pageSize);
+
+	/**
+	 * 获得内容列表 for 项目资料列表
+	 *
+	 * @param title
+	 *            标题。支持模糊搜索，可以为null。
+	 * @param typeId
+	 *            内容类型ID。可以为null。
+	 * @param inputUserId
+	 *            内容录入员。可以为null。
+	 * @param topLevel
+	 *            是否固顶。
+	 * @param recommend
+	 *            是否推荐。
+	 * @param status
+	 *            状态。
+	 * @param checkStep
+	 *            审核步骤。当状态为prepared、passed、rejected时，不能为null。
+	 * @param siteId
+	 *            站点ID。可以为null。
+	 * @param channelId
+	 *            栏目ID。可以为null。
+	 * @param orderBy
+	 *            排序方式
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	Pagination getPage(Integer parentId, Integer share, String title, Integer typeId, Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend, ContentStatus status, Byte checkStep, Integer siteId, Integer modelId, Integer channelId, int orderBy, int pageNo, int pageSize);
+
+	/**
 	 * 获得内容列表
 	 * 
 	 * @param title
@@ -124,7 +218,8 @@ public interface ContentDao {
 			ContentStatus status, Byte checkStep, Integer siteId,
 			Integer channelId,Integer userId, int orderBy, int pageNo,
 			int pageSize);
-	
+
+
 	public Pagination getPageCountBySelf(Integer share,String title, Integer typeId,
 			Integer inputUserId, boolean topLevel, boolean recommend,
 			ContentStatus status, Byte checkStep, Integer siteId,
