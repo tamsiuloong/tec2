@@ -245,6 +245,18 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				recommend, title,open,attr, orderBy, option, pageNo, pageSize);
 	}
 
+	@Override
+	public Pagination getProjectPageByChannelIdsForTag(Integer[] channelIds, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, int option, int pageNo, int count) {
+		return dao.getProjectPageByChannelIdsForTag(channelIds, typeIds, titleImg,
+				recommend, title,open,attr, orderBy, option, pageNo, count);
+	}
+
+	@Override
+	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
+		return dao.getPageByParentIdForTag(infoTypeId, typeIds, titleImg,
+				recommend, title,open,attr, orderBy, pageNo, count);
+	}
+
 	@Transactional(readOnly = true)
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
@@ -253,7 +265,13 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				recommend, title,open,attr, orderBy, option,first, count);
 	}
 
-	@Transactional(readOnly = true)
+    @Override
+    public List<Content> getProjectListByChannelIdsForTag(Integer[] channelIds, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, int option, Integer first, Integer count) {
+        return dao.getProjectListByChannelIdsForTag(channelIds, typeIds, titleImg,
+                recommend, title,open,attr, orderBy, option,first, count);
+    }
+
+    @Transactional(readOnly = true)
 	public Pagination getPageByChannelPathsForTag(String[] paths,
 			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
 			Boolean recommend, String title,int open,Map<String,String[]>attr, int orderBy, int pageNo,

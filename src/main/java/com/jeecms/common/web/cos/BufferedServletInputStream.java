@@ -12,13 +12,13 @@ import javax.servlet.ServletInputStream;
  * <code>ServletInputStream</code>.
  * <p>
  * This is necessary because some servlet containers rely on the default
- * implementation of the <code>readLine</code> method provided by the Servlet
+ * IMPLEMENTATION of the <code>readLine</code> method provided by the Servlet
  * API classes, which is very slow. Tomcat 3.2, Tomcat 3.1, the JSWDK 1.0 web
  * server and the JSDK2.1 web server are all known to need this class for
  * performance reasons.
  * <p>
  * Also, it may be used to work around a bug in the Servlet API 2.0
- * implementation of <code>readLine</code> which contains a bug that causes
+ * IMPLEMENTATION of <code>readLine</code> which contains a bug that causes
  * <code>ArrayIndexOutOfBoundsExceptions</code> under certain conditions. Apache
  * JServ is known to suffer from this bug.
  * 

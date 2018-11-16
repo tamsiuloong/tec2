@@ -71,6 +71,11 @@ public abstract class AbstractContentDirective implements
 	 */
 	public static final String PARAM_TITLE = "title";
 	/**
+	 * 输入参数，父文章id。可以为null。
+	 */
+	public static final String PARAM_INFO_TYPE_ID = "infoTypeId";
+
+	/**
 	 * 输入参数，标题图片。0：所有；1：有；2：没有。默认所有。
 	 */
 	public static final String PARAM_IMAGE = "image";
@@ -83,22 +88,22 @@ public abstract class AbstractContentDirective implements
 	 * <li>3：发布时间升序
 	 * <li>4：固定级别降序,发布时间降序
 	 * <li>5：固定级别降序,发布时间升序
-	 * 
+	 *
 	 * <li>6：日访问降序（推荐）
 	 * <li>7：周访问降序
 	 * <li>8：月访问降序
 	 * <li>9：总访问降序
-	 * 
+	 *
 	 * <li>10：日评论降序（推荐）
 	 * <li>11：周评论降序
 	 * <li>12：月评论降序
 	 * <li>13：总评论降序
-	 * 
+	 *
 	 * <li>14：日下载降序（推荐）
 	 * <li>15：周下载降序
 	 * <li>16：月下载降序
 	 * <li>17：总下载降序
-	 * 
+	 *
 	 * <li>18：周顶降序（推荐）
 	 * <li>19：周顶降序
 	 * <li>20：周顶降序
@@ -114,7 +119,7 @@ public abstract class AbstractContentDirective implements
 	 * 输入参数，不包含的文章ID。用于按tag查询相关文章。
 	 */
 	public static final String PARAM_EXCLUDE_ID = "excludeId";
-	
+
 	/**
 	 * 自定义字段前缀(类似s_author)
 	 */
@@ -123,7 +128,7 @@ public abstract class AbstractContentDirective implements
 	 * 自定义字段运算操作前缀
 	 */
 	public static final String PARAM_ATTR_OPERATE_PREFIX = "o_";
-	
+
 	/**
 	 * （start左包含，end右包含，like，in包含，eq等于，gt大于，gte大于等于，lt小于，lte小于等于，默认等于）
 	 */
@@ -136,7 +141,7 @@ public abstract class AbstractContentDirective implements
 	public static final String PARAM_ATTR_GTE = "gte";
 	public static final String PARAM_ATTR_LT = "lt";
 	public static final String PARAM_ATTR_LTE = "lte";
-	
+
 	protected Integer[] getTagIds(Map<String, TemplateModel> params)
 			throws TemplateException {
 		Integer[] ids = DirectiveUtils.getIntArray(PARAM_TAG_ID, params);
@@ -206,7 +211,7 @@ public abstract class AbstractContentDirective implements
 
 	/**
 	 * 获取ID数组，如果ID不存在则获取PATH数组。
-	 * 
+	 *
 	 * @param params
 	 *            标签参数
 	 * @param siteIds
@@ -300,6 +305,11 @@ public abstract class AbstractContentDirective implements
 		return DirectiveUtils.getString(PARAM_TITLE, params);
 	}
 
+	protected String getInfoTypeId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_INFO_TYPE_ID, params);
+	}
+
 	protected int getOrderBy(Map<String, TemplateModel> params)
 			throws TemplateException {
 		Integer orderBy = DirectiveUtils.getInt(PARAM_ORDER_BY, params);
@@ -309,7 +319,7 @@ public abstract class AbstractContentDirective implements
 			return orderBy;
 		}
 	}
-	
+
 	/**
 	 * 返回key为字段名 value为字段值、字段类型、查询操作（大于或者等于等）
 	 * @param params
@@ -337,10 +347,10 @@ public abstract class AbstractContentDirective implements
 		}
 		return attrStringMap;
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param params
 	 * @return 是否公开文库文档参数
 	 * @throws TemplateException
@@ -354,7 +364,7 @@ public abstract class AbstractContentDirective implements
 			return open;
 		}
 	}
-	
+
 
 	protected Object getData(Map<String, TemplateModel> params, Environment env)
 			throws TemplateException {
@@ -365,11 +375,15 @@ public abstract class AbstractContentDirective implements
 		Integer[] typeIds = getTypeIds(params);
 		Integer[] siteIds = getSiteIds(params);
 		String title = getTitle(params);
+		String infoTypeId = getInfoTypeId(params);
 		Map<String,String[]>attr=getAttrMap(params);
 		int count = FrontUtils.getCount(params);
-		
+
 
 		Integer[] tagIds = getTagIds(params);
+
+
+
 		if (tagIds != null) {
 			Integer[] channelIds = getChannelIdsOrPaths(params, siteIds);
 			Integer excludeId = DirectiveUtils.getInt(PARAM_EXCLUDE_ID, params);
@@ -398,6 +412,20 @@ public abstract class AbstractContentDirective implements
 				return contentMng.getListByTopicIdForTag(topicId, siteIds,
 						channelIds, typeIds, titleImg, recommend, title,open,attr,
 						orderBy, first, count);
+			}
+		}
+
+		if (infoTypeId != null) {
+			if (isPage()) {
+				int pageNo = FrontUtils.getPageNo(env);
+				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),
+						typeIds, titleImg, recommend, title,open,attr, orderBy,
+						pageNo, count);
+			} else {
+				int first = FrontUtils.getFirst(params);
+				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),
+						typeIds, titleImg, recommend, title,open, attr,orderBy,
+						first, count);
 			}
 		}
 		Integer[] channelIds = getChannelIds(params);

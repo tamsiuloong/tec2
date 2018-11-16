@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
- * A singleton EhCacheRegionFactory implementation.
+ * A singleton EhCacheRegionFactory IMPLEMENTATION.
  *
  * @author Chris Dennis
  * @author Greg Luck

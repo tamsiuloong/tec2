@@ -45,7 +45,7 @@ public final class SpringEhCacheProvider extends EhCacheRegionFactory {
 
 	/**
 	 * Callback to perform any necessary initialization of the underlying cache
-	 * implementation during SessionFactory construction.
+	 * IMPLEMENTATION during SessionFactory construction.
 	 * <p/>
 	 * 
 	 * @param properties
@@ -89,7 +89,7 @@ public final class SpringEhCacheProvider extends EhCacheRegionFactory {
 
 	/**
 	 * Callback to perform any necessary cleanup of the underlying cache
-	 * implementation during SessionFactory.close().
+	 * IMPLEMENTATION during SessionFactory.close().
 	 */
 	public final void stop() {
 		if (manager != null) {

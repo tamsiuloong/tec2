@@ -46,6 +46,7 @@ import com.jeecms.common.page.Pagination;
 public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		implements ContentDao {
 
+
 	/** for 项目资料列表*/
 	@Override
 	public Pagination getPage(Integer parentId, Integer share, String title, Integer typeId, Integer currUserId,
@@ -843,11 +844,49 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f, pageNo, pageSize);
 	}
 
+	@Override
+	public Pagination getProjectPageByChannelIdsForTag(Integer[] channelIds, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, int option, int pageNo, int pageSize) {
+		Finder f = byChannelIdsForProject(channelIds, typeIds, titleImg, recommend,
+				title, open,attr,orderBy, option);
+		f.setCacheable(true);
+		return find(f, pageNo, pageSize);
+	}
+
+	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
+
+		Finder f = byInfoTypeId(infoTypeId, typeIds, titleImg, recommend,
+				title, open,attr,orderBy);
+		if (pageNo != null) {
+			f.setFirstResult(pageNo);
+		}
+		if (count != null) {
+			f.setMaxResults(count);
+		}
+		f.setCacheable(true);
+		return find(f,pageNo,count);
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open,Map<String,String[]>attr, int orderBy, int option, Integer first, Integer count) {
 		Finder f = byChannelIds(channelIds, typeIds, titleImg, recommend,
+				title, open,attr,orderBy, option);
+		if (first != null) {
+			f.setFirstResult(first);
+		}
+		if (count != null) {
+			f.setMaxResults(count);
+		}
+		f.setCacheable(true);
+		return find(f);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Content> getProjectListByChannelIdsForTag(Integer[] channelIds,
+												   Integer[] typeIds, Boolean titleImg, Boolean recommend,
+												   String title,int open,Map<String,String[]>attr, int orderBy, int option, Integer first, Integer count) {
+		Finder f = byChannelIdsForProject(channelIds, typeIds, titleImg, recommend,
 				title, open,attr,orderBy, option);
 		if (first != null) {
 			f.setFirstResult(first);
@@ -966,7 +1005,35 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		appendOrder(f, orderBy);
 		return f;
 	}
+	private Finder byInfoTypeId(Integer infoTypeId, Integer[] typeIds,
+								Boolean titleImg, Boolean recommend, String title, int open, Map<String,String[]>attr, int orderBy
+								) {
+		Finder f = Finder.create();
+		f.append("select  bean from Content bean ");
+		f.append(" where (bean.projectCategory.id=:infoTypeId)");
+		f.setParam("infoTypeId", infoTypeId);
 
+
+		if (titleImg != null) {
+			f.append(" and bean.hasTitleImg=:titleImg");
+			f.setParam("titleImg", titleImg);
+		}
+		if (recommend != null) {
+			f.append(" and bean.recommend=:recommend");
+			f.setParam("recommend", recommend);
+		}
+		appendOpen(f, open);
+		appendReleaseDate(f);
+		appendTypeIds(f, typeIds);
+		f.append(" and bean.status=" + ContentCheck.CHECKED);
+		if (!StringUtils.isBlank(title)) {
+			f.append(" and bean.contentExt.title like :title");
+			f.setParam("title", "%" + title + "%");
+		}
+		appendAttr(f, attr);
+		appendOrder(f, orderBy);
+		return f;
+	}
 	private Finder byChannelIds(Integer[] channelIds, Integer[] typeIds,
 			Boolean titleImg, Boolean recommend, String title, int open,Map<String,String[]>attr,int orderBy,
 			int option) {
@@ -1036,6 +1103,75 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return f;
 	}
 
+	private Finder byChannelIdsForProject(Integer[] channelIds, Integer[] typeIds,
+								Boolean titleImg, Boolean recommend, String title, int open,Map<String,String[]>attr,int orderBy,
+								int option) {
+		Finder f = Finder.create();
+		int len = channelIds.length;
+		// 如果多个栏目
+		if (option == 0 || len > 1) {
+			f.append("select  bean from Content bean ");
+			appendJoinConentDoc(f, open);
+			//f.append(" join bean.contentExt as ext");
+			if (len == 1) {
+				f.append(" where (bean.channel.id=:channelId)");
+				f.setParam("channelId", channelIds[0]);
+			} else {
+				f.append(" where (bean.channel.id in (:channelIds))");
+				f.setParamList("channelIds", channelIds);
+			}
+		} else if (option == 1) {
+			// 包含子栏目
+			f.append("select  bean from Content bean");
+			appendJoinConentDoc(f, open);
+			//f.append(" join bean.contentExt as ext");
+			f.append(" join bean.channel node,Channel parent");
+			f.append(" where (node.lft between parent.lft and parent.rgt");
+			f.append(" and bean.site.id=parent.site.id");
+			f.append(" and parent.id=:channelId)");
+			f.setParam("channelId", channelIds[0]);
+		} else if (option == 2) {
+			// 包含副栏目
+			f.append("select  bean from Content bean");
+			appendJoinConentDoc(f, open);
+			//f.append(" join bean.contentExt as ext");
+			f.append(" join bean.channels as channel");
+			f.append(" where (channel.id=:channelId)");
+			f.setParam("channelId", channelIds[0]);
+		}else {
+			throw new RuntimeException("option value must be 0 or 1 or 2.");
+		}
+		/*
+		else if(option == 3){
+			f.append(" select  bean from Content bean");
+			f.append(" join bean.channels as channel,Channel parent ");
+			f.append(" where (channel.lft  between parent.lft and parent.rgt");
+			f.append(" and bean.site.id=parent.site.id");
+			f.append(" and parent.id=:channelId)");
+			f.setParam("channelId", channelIds[0]);
+		}
+		*/
+		if (titleImg != null) {
+			f.append(" and bean.hasTitleImg=:titleImg");
+			f.setParam("titleImg", titleImg);
+		}
+		if (recommend != null) {
+			f.append(" and bean.recommend=:recommend");
+			f.setParam("recommend", recommend);
+		}
+		appendOpen(f, open);
+		appendReleaseDate(f);
+		appendTypeIds(f, typeIds);
+		f.append(" and bean.status=" + ContentCheck.CHECKED);
+		if (!StringUtils.isBlank(title)) {
+			f.append(" and bean.contentExt.title like :title");
+			f.setParam("title", "%" + title + "%");
+		}
+		f.append(" and bean.parent.id is null");
+		appendAttr(f, attr);
+		appendOrder(f, orderBy);
+		return f;
+	}
 	private Finder byChannelPaths(String[] paths, Integer[] siteIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title, int open,Map<String,String[]>attr,int orderBy) {

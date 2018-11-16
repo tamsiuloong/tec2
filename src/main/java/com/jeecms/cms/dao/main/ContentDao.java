@@ -312,9 +312,18 @@ public interface ContentDao {
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open,Map<String,String[]>attr, int orderBy, int option, int pageNo, int pageSize);
 
+	public Pagination getProjectPageByChannelIdsForTag(Integer[] channelIds,
+												Integer[] typeIds, Boolean titleImg, Boolean recommend,
+												String title,int open,Map<String,String[]>attr, int orderBy, int option, int pageNo, int pageSize);
+
+
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open, Map<String,String[]>attr, int orderBy, int option,Integer first, Integer count);
+
+	public List<Content> getProjectListByChannelIdsForTag(Integer[] channelIds,
+												   Integer[] typeIds, Boolean titleImg, Boolean recommend,
+												   String title,int open, Map<String,String[]>attr, int orderBy, int option,Integer first, Integer count);
 
 	public Pagination getPageByChannelPathsForTag(String[] paths,
 			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
@@ -361,4 +370,5 @@ public interface ContentDao {
 
 	public Content deleteById(Integer id);
 
+	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
 }

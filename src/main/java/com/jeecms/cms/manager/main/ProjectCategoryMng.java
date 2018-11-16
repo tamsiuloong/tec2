@@ -20,5 +20,5 @@ public interface ProjectCategoryMng {
 
     ProjectCategory[] deleteByIds(Integer[] ids);
 
-    List<CmsDepartment> getAll();
+    List<ProjectCategory> getAll();
 }

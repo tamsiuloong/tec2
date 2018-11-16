@@ -19,5 +19,5 @@ public interface ProjectCategoryDao {
 
     ProjectCategory deleteById(Integer id);
 
-    List<CmsDepartment> findAll();
+    List<ProjectCategory> findAll();
 }

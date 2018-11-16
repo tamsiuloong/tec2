@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.util.WebUtils;
 
 /**
- * {@link MultipartResolver} implementation for Jason Hunter's <a
+ * {@link MultipartResolver} IMPLEMENTATION for Jason Hunter's <a
  * href="http://www.servlets.com/cos">COS (com.oreilly.servlet)</a>. Works with
  * a COS MultipartRequest underneath.
  * 
@@ -207,7 +207,7 @@ public class CosMultipartResolver implements MultipartResolver,
 	 * Determine the encoding for the given request. Can be overridden in
 	 * subclasses.
 	 * <p>
-	 * The default implementation checks the request encoding, falling back to
+	 * The default IMPLEMENTATION checks the request encoding, falling back to
 	 * the default encoding specified for this resolver.
 	 * 
 	 * @param request

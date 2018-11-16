@@ -127,6 +127,9 @@ public interface ContentMng {
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open,Map<String,String[]>attr, int orderBy, int option, Integer first, Integer count);
+	public List<Content> getProjectListByChannelIdsForTag(Integer[] channelIds,
+												   Integer[] typeIds, Boolean titleImg, Boolean recommend,
+												   String title,int open,Map<String,String[]>attr, int orderBy, int option, Integer first, Integer count);
 
 	public Pagination getPageByChannelPathsForTag(String[] paths,
 			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
@@ -251,4 +254,7 @@ public interface ContentMng {
 	
 	public List<Map<String, Object>> preChange(Content content);
 
+	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
+
+    Pagination getProjectPageByChannelIdsForTag(Integer[] channelIds, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String,String[]> attr, int orderBy, int option, int pageNo, int count);
 }

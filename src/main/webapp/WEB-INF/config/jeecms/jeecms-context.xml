@@ -34,7 +34,7 @@
 	<bean id="cms_model" class="com.jeecms.cms.action.directive.CmsModelDirective"/>
 	<bean id="cms_score_group" class="com.jeecms.cms.action.directive.ScoreGroupDirective"/>
 	<bean id="cms_searchword_list" class="com.jeecms.cms.action.directive.CmsSearchWordListDirective"/>
-	
+	<bean id="cms_project_page" class="com.jeecms.cms.action.directive.ProjectPageDirective"/>
 	<!--后台权限标签-->
 	<bean id="cms_perm" class="com.jeecms.cms.web.PermistionDirective"/>
 	

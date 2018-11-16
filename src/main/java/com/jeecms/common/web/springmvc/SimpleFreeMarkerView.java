@@ -52,7 +52,7 @@ public class SimpleFreeMarkerView extends AbstractTemplateView {
 		} catch (NoSuchBeanDefinitionException ex) {
 			throw new ApplicationContextException(
 					"Must define a single FreeMarkerConfig bean in this web application context "
-							+ "(may be inherited): FreeMarkerConfigurer is the usual implementation. "
+							+ "(may be inherited): FreeMarkerConfigurer is the usual IMPLEMENTATION. "
 							+ "This bean may be given any name.", ex);
 		}
 	}

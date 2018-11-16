@@ -50,7 +50,9 @@
 	<bean id="accountDrawAct" class="com.jeecms.cms.action.member.AccountDrawAct"/>
 	<bean id="weiXinAuthAct" class="com.jeecms.cms.action.member.WeiXinAuthAct"/>
 	<bean id="userContentBuyAct" class="com.jeecms.cms.action.member.UserContentBuyAct"/>
-	
+	<bean id="projectInfoAct" class="com.jeecms.cms.action.front.ProjectInfoAct"/>
+	<bean id="ProjectAct" class="com.jeecms.cms.action.front.ProjectAct"/>
+
 	<!-- API -->
 	<bean id="uploadApiAct" class="com.jeecms.cms.api.UploadApiAct"/>
 	<bean id="contentApiAct" class="com.jeecms.cms.api.ContentApiAct"/>
@@ -71,4 +73,5 @@
 	<bean id="messageApiAct" class="com.jeecms.cms.api.MessageApiAct"/>
 	<bean id="contentOrderApiAct" class="com.jeecms.cms.api.ContentOrderApiAct"/>
 	<bean id="accountApiAct" class="com.jeecms.cms.api.AccountApiAct"/>
+	<bean id="projectCategoryApiAct" class="com.jeecms.cms.api.ProjectCategoryApiAct"/>
 </beans>

@@ -25,7 +25,7 @@ import com.jeecms.common.web.RequestUtils;
  * (such as non Latin-1 filenames).
  * <p>
  * To avoid collisions and have fine control over file placement, there's a
- * constructor variety that takes a pluggable FileRenamePolicy implementation.
+ * constructor variety that takes a pluggable FileRenamePolicy IMPLEMENTATION.
  * A particular policy can choose to rename or change the location of the file
  * before it's written.
  * <p>
@@ -176,7 +176,7 @@ public class CosMultipartRequest {
    * <tt>multipart/form-data</tt> and throws an IOException if there's any 
    * problem reading or parsing the request.
    *
-   * To avoid file collisions, this constructor takes an implementation of the
+   * To avoid file collisions, this constructor takes an IMPLEMENTATION of the
    * FileRenamePolicy interface to allow a pluggable rename policy.
    *
    * @param request the servlet request.

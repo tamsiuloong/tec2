@@ -8578,7 +8578,7 @@ if ( xhrSupported ) {
 
 									// If the request is local and we have data: assume a success
 									// (success with no data won't get notified, that's the best we
-									// can do given current implementations)
+									// can do given current Projects)
 									if ( !status && s.isLocal && !s.crossDomain ) {
 										status = responses.text ? 200 : 404;
 									// IE - #1450: sometimes returns 1223 when it should be 204

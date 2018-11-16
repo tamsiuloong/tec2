@@ -20,7 +20,7 @@ import javax.servlet.ServletInputStream;
  * @version 1.4, 2002/11/01, fix for "unexpected end of part" caused by
  *                           boundary newlines split across buffers
  * @version 1.3, 2001/05/21, fix to handle boundaries crossing 64K mark
- * @version 1.2, 2001/02/07, added read(byte[]) implementation for safety
+ * @version 1.2, 2001/02/07, added read(byte[]) IMPLEMENTATION for safety
  * @version 1.1, 2000/11/26, fixed available() to never return negative
  * @version 1.0, 2000/10/27, initial revision
  */

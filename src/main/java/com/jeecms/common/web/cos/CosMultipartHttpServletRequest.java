@@ -23,12 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.AbstractMultipartHttpServletRequest;
 
 /**
- * MultipartHttpServletRequest implementation for Jason Hunter's COS. Wraps a
+ * MultipartHttpServletRequest IMPLEMENTATION for Jason Hunter's COS. Wraps a
  * COS MultipartRequest with Spring MultipartFile instances.
  * 
  * <p>
  * Not intended for direct application usage. Application code can cast to this
- * implementation to access the underlying COS MultipartRequest, if it ever
+ * IMPLEMENTATION to access the underlying COS MultipartRequest, if it ever
  * needs to.
  * 
  * @author Juergen Hoeller

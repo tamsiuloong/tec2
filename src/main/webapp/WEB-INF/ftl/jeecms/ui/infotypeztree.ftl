@@ -55,6 +55,7 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
         }
         //将当前选中的节点赋值
         $("#${name}").val(treeId.name);
+        $("#infoTypeId").val(treeId.id);
         return true;
     }
     function beforeDrag(treeId, treeNodes) {
@@ -182,6 +183,7 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
 <div class="zTreeDemoBackground left">
     <ul id="treeDemo${name}" class="ztree"></ul>
 	<input type="hidden"  <#if name!=""> id="${name}" name="${name}"</#if> />
+	<input type="hidden"  id="infoTypeId" name="infoTypeId" />
 </div>
 <#include "control-close.ftl"/><#rt/>
 </#macro>

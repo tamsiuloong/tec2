@@ -781,7 +781,19 @@
 		  <artifactId>fastjson</artifactId>
 		  <version>1.2.44</version>
 	  </dependency>
-	</dependencies>
+	  <dependency>
+		  <groupId>org.projectlombok</groupId>
+		  <artifactId>lombok</artifactId>
+		  <version>1.18.4</version>
+		  <scope>provided</scope>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>com.alibaba</groupId>
+		  <artifactId>fastjson</artifactId>
+		  <version>1.2.44</version>
+	  </dependency>
+  </dependencies>
   
   <build>
 	  <!-- 默认源代码和资源文件目录配置 -->

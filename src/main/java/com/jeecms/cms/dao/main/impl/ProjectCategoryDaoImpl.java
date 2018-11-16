@@ -61,7 +61,7 @@ public class ProjectCategoryDaoImpl extends HibernateBaseDao<ProjectCategory, In
 	}
 
 	@Override
-	public List<CmsDepartment> findAll() {
+	public List<ProjectCategory> findAll() {
 		Finder f = Finder.create("from ProjectCategory bean");
 		return find(f);
 	}

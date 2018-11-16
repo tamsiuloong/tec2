@@ -9,6 +9,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.cms.entity.main.*;
 import com.jeecms.cms.manager.main.*;
 import com.jeecms.common.office.PoiUtils;
 import com.jeecms.core.manager.*;
@@ -28,17 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jeecms.cms.entity.main.Channel;
-import com.jeecms.cms.entity.main.CmsModel;
-import com.jeecms.cms.entity.main.CmsModelItem;
-import com.jeecms.cms.entity.main.CmsTopic;
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.entity.main.ContentCheck;
-import com.jeecms.cms.entity.main.ContentDoc;
-import com.jeecms.cms.entity.main.ContentExt;
 import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
-import com.jeecms.cms.entity.main.ContentTxt;
-import com.jeecms.cms.entity.main.ContentType;
 import com.jeecms.cms.entity.main.Content.ContentStatus;
 import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
 import com.jeecms.cms.manager.assist.CmsFileMng;
@@ -224,7 +215,7 @@ public class ContentAct{
 
 
 		//一次性查出所有部门
-		List<CmsDepartment> list = projectCategoryMng.getAll();
+		List<ProjectCategory> list = projectCategoryMng.getAll();
 
 		model.addAttribute("list", list);
 		response.setHeader("Cache-Control", "no-cache");
@@ -862,7 +853,7 @@ public class ContentAct{
 	}
 	@RequiresPermissions("content:o_save")
 	@RequestMapping("/content/project/o_save.do")
-	public String saveProject(Integer parentId,Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
+	public String saveProject(Integer parentId,Integer infoTypeId,Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
 					   Boolean copyimg,Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,String viewDeptIds,
 					   String[] attachmentPaths, String[] attachmentNames,
 					   String[] attachmentFilenames, String[] picPaths, String[] picDescs,
@@ -886,6 +877,14 @@ public class ContentAct{
 			ext.setTplMobileContent(tplPath + ext.getTplMobileContent());
 		}
 		bean.setAttr(RequestUtils.getRequestMap(request, "attr_"));
+		//设置内容类型id
+		if(infoTypeId!=null)
+		{
+			ProjectCategory pc = new ProjectCategory();
+			pc.setId(infoTypeId);
+			bean.setProjectCategory(pc);
+		}
+
 		String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver
 				.getMessage(request, "content.tagStr.split"));
 		if(txt!=null&&copyimg!=null&&copyimg){

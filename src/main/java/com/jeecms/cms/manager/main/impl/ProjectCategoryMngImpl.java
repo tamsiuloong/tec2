@@ -66,7 +66,7 @@ public class ProjectCategoryMngImpl implements ProjectCategoryMng {
 	}
 
 	@Override
-	public List<CmsDepartment> getAll() {
+	public List<ProjectCategory> getAll() {
 		return dao.findAll();
 	}
 }
