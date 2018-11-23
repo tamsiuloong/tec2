@@ -331,7 +331,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		Content entity = dao.findById(id);
 		return entity;
 	}
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	public Content save(Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
 						Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
 						String viewDeptIds, String[] tagArr, String[] attachmentPaths,

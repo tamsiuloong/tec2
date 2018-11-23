@@ -21,7 +21,7 @@ import com.jeecms.core.entity.CmsUser;
 
 public interface ContentMng {
 	/**
-	 * 分页查询 for 项目资料列表
+	 * 分页查询 for 内容资料列表
 	 * @param share
 	 * @param title
 	 * @param typeId

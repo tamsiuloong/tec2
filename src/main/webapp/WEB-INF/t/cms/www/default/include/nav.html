@@ -1,7 +1,7 @@
 <div id="menu">
     <ul id="nav">
         <li class="mainlevel" id="mainlevel_01"><a href="${base}">首页</a></li>
-        [@cms_channel_list]
+        [@cms_channel_list count=13]
         [#list tag_list as c]
         <li class="mainlevel" id="mainlevel_01"><a href="${c.url}">${c.name}</a></li>
         [/#list]

@@ -47,7 +47,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		implements ContentDao {
 
 
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	@Override
 	public Pagination getPage(Integer parentId, Integer share, String title, Integer typeId, Integer currUserId,
 							  Integer inputUserId, boolean topLevel, boolean recommend,
@@ -59,7 +59,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	}
 
 
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	//只能管理自己的数据不能审核他人信息，工作流相关表无需查询
 	public Pagination getPageBySelf(Integer parentId, Integer share, String title, Integer typeId,
 									Integer inputUserId, boolean topLevel, boolean recommend,
@@ -70,7 +70,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 				topLevel, recommend, status, checkStep, siteId, channelId,
 				userId, orderBy, pageNo, pageSize, parentId);
 	}
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	public Pagination getPageByRight(Integer parentId, Integer share, String title, Integer typeId,
 									 Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
 									 ContentStatus status, Byte checkStep, Integer siteId,
@@ -81,7 +81,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 				siteId, channelId, departId, userId, selfData,
 				orderBy, pageNo, pageSize, parentId);
 	}
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	private Pagination getPageData(Integer queryMode, Integer share, String title,
 								   Integer typeId, Integer currUserId, Integer inputUserId,
 								   boolean topLevel, boolean recommend, ContentStatus status,
@@ -153,7 +153,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			return findBigData(f, pageNo, pageSize);
 		}
 	}
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	private Pagination getPageDataBySelf(Integer queryMode, Integer share, String title, Integer typeId,
 										 Integer inputUserId, boolean topLevel, boolean recommend,
 										 ContentStatus status, Byte checkStep, Integer siteId,
@@ -227,7 +227,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			return findBigData(f, pageNo, pageSize);
 		}
 	}
-	/** for 项目资料列表*/
+	/** for 内容资料列表*/
 	private Pagination getPageDataByRight(Integer queryMode,
 										  Integer share, String title, Integer typeId,
 										  Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,

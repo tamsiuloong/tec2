@@ -168,7 +168,7 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
 
     $(document).ready(function(){
         $.ajax({
-            url:"../v_infotype_tree.do?<#if content??>cid=${content.id}</#if>",
+            url:"${base}/jeeadmin/jeecms/content/v_infotype_tree.do?<#if content??>cid=${content.id}</#if>",
             type:"get",
             dataType: "json",
             success:function (data) {

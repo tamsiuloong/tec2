@@ -41,7 +41,7 @@ import com.jeecms.common.page.Pagination;
 public interface ContentDao {
 
 	/**
-	 * 获得自己发布的内容列表 for 项目资料列表
+	 * 获得自己发布的内容列表 for 内容资料列表
 	 *
 	 * @param title
 	 *            标题。支持模糊搜索，可以为null。
@@ -73,7 +73,7 @@ public interface ContentDao {
 
 
 	/**
-	 * 获得有权限的内容列表 for 项目资料列表
+	 * 获得有权限的内容列表 for 内容资料列表
 	 *
 	 * @param title
 	 *            标题。支持模糊搜索，可以为null。
@@ -106,7 +106,7 @@ public interface ContentDao {
 	Pagination getPageByRight(Integer parentId, Integer share, String title, Integer typeId, Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend, ContentStatus status, Byte checkStep, Integer siteId, Integer channelId, Integer departId, Integer userId, boolean selfData, int orderBy, int pageNo, int pageSize);
 
 	/**
-	 * 获得内容列表 for 项目资料列表
+	 * 获得内容列表 for 内容资料列表
 	 *
 	 * @param title
 	 *            标题。支持模糊搜索，可以为null。

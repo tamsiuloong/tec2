@@ -294,7 +294,7 @@ public class ContentAct{
 		return "content/list";
 	}
 
-	/** 项目资料列表*/
+	/** 内容资料列表*/
 	@RequiresPermissions("content:v_list")
 	@RequestMapping("/content/project/list.do")
 	public String projectlist(@RequestParam("parentId") Integer parentId,Integer queryShare,String queryStatus, Integer queryTypeId,

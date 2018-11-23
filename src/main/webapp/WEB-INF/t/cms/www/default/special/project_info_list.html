@@ -137,11 +137,10 @@
         <!--</div>-->
         <ul class="hi" >
           <li style=" background:none; background-color:#eee; text-align:center;">
-            <dd class="x1"><strong>颁布时间</strong></dd>
-            <dd class="x2"><strong>主题</strong></dd>
-            <!--<dd class="x3"><strong>文号</strong></dd>-->
-            <dd class="x4"><strong>发布人</strong></dd>
-            <dd class="x5"><strong>类型</strong> </dd>
+            <dd class="x1" style="text-align:left;width: 200px"><strong>名称</strong></dd>
+            <dd class="x2" style="text-align:left;width: 100px"><strong>维护人员</strong></dd>
+            <dd class="x3" style="text-align:left;"><strong>建项时间</strong></dd>
+            <dd class="x4" style="text-align:left;"><strong>备注</strong> </dd>
             <div class="clear"></div>
           </li>
           [#if q??]
@@ -151,8 +150,8 @@
             <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
             <dd class="x2"><a href="${s.url}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
             <!--<dd class="x3">银科技888888号 </dd>-->
-            <dd class="x4">${author}</dd>
-            <dd class="x5">${a.channel.name} </dd>
+            <dd class="x4">${s.author}</dd>
+            <dd class="x5">${a.description} </dd>
             <div class="clear"></div>
           </li>
           [/#list]
@@ -163,11 +162,11 @@
           [@cms_content_page count='20' orderBy='4' infoTypeId=typeId channelOption='0' dateFormat='yyyy-MM-dd']
           [#list tag_pagination.list as s]
           <li>
-            <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-            <dd class="x2"><a href="projectInfo.jspx?id=${s.id}&typeId=${pc.id}&parentId=${content.id}">[@text_cut s=s.title len=15 append='...'/]</a></dd>
+            <dd class="x1" style="text-align:left;width: 200px"><a href="projectInfoList.jspx?id=${s.id}&typeId=0" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
+            <dd class="x2" style="width: 100px">${s.author!'本站编辑'}</dd>
             <!--<dd class="x3">银科技888888号 </dd>-->
-            <dd class="x4">${s.author!'本站编辑'}</dd>
-            <dd class="x5">${s.channel.name} </dd>
+            <dd class="x3">${s.releaseDate?string(dateFormat)}</dd>
+            <dd class="x4" style="text-align:left;width: 300px">[@text_cut s=s.description!'未填写' len=25 append='...'/]</dd>
             <div class="clear"></div>
           </li>
           [/#list]

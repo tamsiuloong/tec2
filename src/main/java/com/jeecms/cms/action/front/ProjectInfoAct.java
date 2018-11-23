@@ -24,7 +24,7 @@ import static com.jeecms.cms.Constants.TPLDIR_SPECIAL;
 import static com.jeecms.cms.Constants.TPLDIR_TOPIC;
 
 /**
- * 项目资料
+ * 内容资料
  */
 @Controller
 public class ProjectInfoAct {
