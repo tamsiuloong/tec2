@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>项目资料列表 - ${site.name}</title>
+<title>内容资料列表 - ${site.name}</title>
 <script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
 <script type="text/JavaScript" src="/${res}/images/slide.js"></script>
 <link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
@@ -60,7 +60,7 @@
 [#include "../include/nav.html"/]
 <div class="center">
   <div class="center1">
-    <div class="center1a">项目资料列表</div>
+    <div class="center1a">资料列表</div>
     <div class=""><div id="content">
   <div class="menu">
     [#include "../include/infotype_tree.html"/]
@@ -107,7 +107,7 @@
           </tr>
         </table>
         <p class="p">
-          ${content.txt!}
+          ${content.title!}
         </p>
         [#if  content.attachments?size gt 0 ]
 
@@ -159,7 +159,7 @@
 
           [/@cms_lucene_page]
           [#else]
-          [@cms_content_page count='20' orderBy='4' infoTypeId=typeId channelOption='0' dateFormat='yyyy-MM-dd']
+          [@cms_content_page count='20' orderBy='4' infoTypeId=typeId parentId=id channelOption='0' dateFormat='yyyy-MM-dd']
           [#list tag_pagination.list as s]
           <li>
             <dd class="x1" style="text-align:left;width: 200px"><a href="projectInfoList.jspx?id=${s.id}&typeId=0" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>

@@ -252,8 +252,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	}
 
 	@Override
-	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
-		return dao.getPageByParentIdForTag(infoTypeId, typeIds, titleImg,
+	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
+		return dao.getPageByParentIdForTag(infoTypeId, parentId, typeIds, titleImg,
 				recommend, title,open,attr, orderBy, pageNo, count);
 	}
 

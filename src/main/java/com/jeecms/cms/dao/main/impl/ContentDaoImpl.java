@@ -834,7 +834,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		f.setCacheable(true);
 		return find(f);
 	}
-
+	@Override
 	public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open, Map<String,String[]>attr, int orderBy, int option,int pageNo, int pageSize) {
@@ -851,10 +851,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
 	}
+	@Override
+	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
 
-	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
-
-		Finder f = byInfoTypeId(infoTypeId, typeIds, titleImg, recommend,
+		Finder f = byInfoTypeId(infoTypeId, parentId, typeIds, titleImg, recommend,
 				title, open,attr,orderBy);
 		if (pageNo != null) {
 			f.setFirstResult(pageNo);
@@ -1005,15 +1005,17 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		appendOrder(f, orderBy);
 		return f;
 	}
-	private Finder byInfoTypeId(Integer infoTypeId, Integer[] typeIds,
-								Boolean titleImg, Boolean recommend, String title, int open, Map<String,String[]>attr, int orderBy
-								) {
+	private Finder byInfoTypeId(Integer infoTypeId, Integer parentId, Integer[] typeIds,
+								Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy) {
 		Finder f = Finder.create();
 		f.append("select  bean from Content bean ");
 		f.append(" where (bean.projectCategory.id=:infoTypeId)");
 		f.setParam("infoTypeId", infoTypeId);
 
-
+		if (parentId != null) {
+			f.append(" and bean.parent.id=:parentId");
+			f.setParam("parentId", parentId);
+		}
 		if (titleImg != null) {
 			f.append(" and bean.hasTitleImg=:titleImg");
 			f.setParam("titleImg", titleImg);

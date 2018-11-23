@@ -71,9 +71,13 @@ public abstract class AbstractContentDirective implements
 	 */
 	public static final String PARAM_TITLE = "title";
 	/**
-	 * 输入参数，父文章id。可以为null。
+	 * 输入参数，资料类型id。可以为null。
 	 */
 	public static final String PARAM_INFO_TYPE_ID = "infoTypeId";
+	/**
+	 * 输入参数，父文章id。可以为null。
+	 */
+	public static final String PARAM_PARENT_ID = "parentId";
 
 	/**
 	 * 输入参数，标题图片。0：所有；1：有；2：没有。默认所有。
@@ -310,6 +314,11 @@ public abstract class AbstractContentDirective implements
 		return DirectiveUtils.getString(PARAM_INFO_TYPE_ID, params);
 	}
 
+	protected String getParamParentId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_PARENT_ID, params);
+	}
+
 	protected int getOrderBy(Map<String, TemplateModel> params)
 			throws TemplateException {
 		Integer orderBy = DirectiveUtils.getInt(PARAM_ORDER_BY, params);
@@ -376,6 +385,7 @@ public abstract class AbstractContentDirective implements
 		Integer[] siteIds = getSiteIds(params);
 		String title = getTitle(params);
 		String infoTypeId = getInfoTypeId(params);
+		String parentId = getParamParentId(params);
 		Map<String,String[]>attr=getAttrMap(params);
 		int count = FrontUtils.getCount(params);
 
@@ -418,13 +428,13 @@ public abstract class AbstractContentDirective implements
 		if (infoTypeId != null) {
 			if (isPage()) {
 				int pageNo = FrontUtils.getPageNo(env);
-				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),
-						typeIds, titleImg, recommend, title,open,attr, orderBy,
+				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),Integer.valueOf(parentId)
+						, typeIds, titleImg, recommend, title,open,attr, orderBy,
 						pageNo, count);
 			} else {
 				int first = FrontUtils.getFirst(params);
-				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),
-						typeIds, titleImg, recommend, title,open, attr,orderBy,
+				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),Integer.valueOf(parentId)
+						, typeIds, titleImg, recommend, title,open, attr,orderBy,
 						first, count);
 			}
 		}

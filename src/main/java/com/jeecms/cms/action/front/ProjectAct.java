@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import static com.jeecms.cms.Constants.TPLDIR_SPECIAL;
 
 /**
- * 项目资料
+ * 资料
  */
 @Controller
 public class ProjectAct {
@@ -80,6 +80,7 @@ public class ProjectAct {
 
 		Content content = contentMng.findById(id);
 		model.addAttribute("content", content);
+		model.addAttribute("id", id);
 
 		return FrontUtils.getTplPath(request, site.getSolutionPath(),
 				TPLDIR_SPECIAL, PROJECT_INFO_LIST);

@@ -254,7 +254,7 @@ public interface ContentMng {
 	
 	public List<Map<String, Object>> preChange(Content content);
 
-	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
+	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
 
     Pagination getProjectPageByChannelIdsForTag(Integer[] channelIds, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String,String[]> attr, int orderBy, int option, int pageNo, int count);
 }

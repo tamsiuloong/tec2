@@ -370,5 +370,5 @@ public interface ContentDao {
 
 	public Content deleteById(Integer id);
 
-	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
+	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
 }
