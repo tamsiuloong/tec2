@@ -61,7 +61,7 @@ public class ProjectAct {
 	 * @return
 	 */
 	@RequestMapping(value = "/*/projectInfoList.jspx", method = RequestMethod.GET)
-	public String infoList(Integer id,Integer typeId,HttpServletRequest request,
+	public String infoList(Integer id,Integer typeId,Integer cid,HttpServletRequest request,
 						HttpServletResponse response,
 						ModelMap model) {
 		// 全部？按站点？按栏目？要不同模板？
@@ -81,23 +81,25 @@ public class ProjectAct {
 		Content content = contentMng.findById(id);
 		model.addAttribute("content", content);
 		model.addAttribute("id", id);
-
+		Channel channel = channelMng.findById(cid);
+		model.addAttribute("channel", channel);
 		return FrontUtils.getTplPath(request, site.getSolutionPath(),
 				TPLDIR_SPECIAL, PROJECT_INFO_LIST);
 
 	}
 
 	@RequestMapping(value = "/*/projectInfo.jspx", method = RequestMethod.GET)
-	public String projectInfo(Integer id,Integer typeId,Integer parentId,HttpServletRequest request,
+	public String projectInfo(Integer id,Integer typeId,Integer cid,Integer parentId,HttpServletRequest request,
 						   HttpServletResponse response,
 						   ModelMap model) {
 		// 全部？按站点？按栏目？要不同模板？
 		CmsSite site = CmsUtils.getSite(request);
 		FrontUtils.frontData(request, model, site);
 		FrontUtils.frontPageData(request, model);
-		model.putAll(RequestUtils.getQueryParams(request));
+//		model.putAll(RequestUtils.getQueryParams(request));
 
 		model.addAttribute("typeId", typeId);
+		model.addAttribute("id", parentId);
 
 		ProjectCategory projectCategory = projectCategoryMng.findById(typeId);
 		if(projectCategory!=null)
@@ -108,7 +110,10 @@ public class ProjectAct {
 		model.addAttribute("parent", parent);
 
 		Content content = contentMng.findById(id);
-		model.addAttribute("content", content);
+		model.addAttribute("c", content);
+
+		Channel channel = channelMng.findById(cid);
+		model.addAttribute("channel", channel);
 
 		return FrontUtils.getTplPath(request, site.getSolutionPath(),
 				TPLDIR_SPECIAL, PROJECT_INFO);

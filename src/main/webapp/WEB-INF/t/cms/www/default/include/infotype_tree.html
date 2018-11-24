@@ -20,7 +20,7 @@
             return !treeNode.isParent ;
         };
         function zTreeOnClick(event, treeId, treeNode) {
-            window.location.href="${base}/xmglv2/projectInfoList.jspx?typeId="+treeNode.id+"&id=${id}";
+            window.location.href="${base}/xmglv2/projectInfoList.jspx?typeId="+treeNode.id+"&id=${id}&&cid=${channel.id}";
         };
         var zNodes =[
 

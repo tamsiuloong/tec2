@@ -70,7 +70,7 @@
     </div>
   </div>
   <div class=" bu">
-    <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> <a href="projectInfoList.jspx?typeId=${pc.id}&id=278" style="float: left;padding-top: 0px;text-decoration:blink">[#if pc??]${pc.name}[/#if]   >   [#if parent??]${parent.title}[/#if]</a>  </div>
+    <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> <a href="projectInfoList.jspx?typeId=${pc.id}&id=${id}&cid=${channel.id}" style="float: left;padding-top: 0px;text-decoration:blink">[#if parent??]${parent.title}[/#if]   >  [#if pc??]${pc.name}[/#if] </a>  </div>
     <div class="center2">
       <div class="center2c hh" style=" width:770px;">
 
@@ -105,15 +105,15 @@
             <td></td>
           </tr>
         </table>
-        <h3>${content.title}</h3>
-        <dl>发布时间：${content.releaseDate}</dl>
+        <h3>${c.title}</h3>
+        <dl>发布时间：${c.releaseDate}</dl>
         <p class="p">
-          ${content.txt!}
+          ${c.txt!}
         </p>
-        [#if  content.attachments?size gt 0 ]
+        [#if  c.attachments?size gt 0 ]
 
         <div class="bus">
-          [#list content.attachments as att]
+          [#list c.attachments as att]
           <a href="${att.path}" style="margin-right: 10px">${att.name}</a>
           [/#list]
         </div>

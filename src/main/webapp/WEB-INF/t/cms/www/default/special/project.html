@@ -116,7 +116,7 @@ $(document).ready(function (){
             [@cms_project_page count='20' orderBy='4' channelId=channel.id channelOption='0' dateFormat='yyyy-MM-dd']
             [#list tag_pagination.list as s]
               <li>
-                <dd class="x1" style="text-align:left;width: 200px"><a href="projectInfoList.jspx?id=${s.id}&typeId=0" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
+                <dd class="x1" style="text-align:left;width: 200px"><a href="projectInfoList.jspx?id=${s.id}&typeId=0&cid=${channel.id}" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
                 <dd class="x2" style="width: 100px">${s.author!'本站编辑'}</dd>
                 <!--<dd class="x3">银科技888888号 </dd>-->
                 <dd class="x3">${s.releaseDate?string(dateFormat)}</dd>

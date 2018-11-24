@@ -2,7 +2,7 @@
     <div class="center1a">工作动态排行榜</div>
     <div class="center1b">
         <ul>
-            [@cms_content_list  count='10' orderBy='9' channelId='75' channelOption='0']
+            [@cms_content_list  count='10' orderBy='9' channelId='75' channelOption='1']
             [#list tag_list as a]
             [#if a_index<3]
             <li><span style=" background-color:#177acd;">${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
