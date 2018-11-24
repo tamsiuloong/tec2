@@ -561,7 +561,11 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			channel =content.getChannel();
 			bean.setChannel(channel);
 		}
-
+		else
+		{
+			channel = channelMng.findById(channelId);
+			bean.setChannel(channel);
+		}
 
 		bean.setType(contentTypeMng.findById(typeId));
 		bean.setUser(user);
@@ -1075,6 +1079,16 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				workflowEventMng.deleteById(event.getId());
 			}
 			bean.clear();
+			//删除子文章
+			List<Content> chirdren = dao.getListByPid(id);
+			if(chirdren!=null && chirdren.size()>0)
+			{
+				for(Content child:chirdren)
+				{
+					deleteByIdWithShare(child.getId(),siteId);
+				}
+			}
+			dao.deleteByParentId(id);
 			bean = dao.deleteById(id);
 			//栏目内容计数（保存+1 真实删除-1）
 			channelCountMng.afterDelContent(bean.getChannel());

@@ -1576,6 +1576,23 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		}
 		return entity;
 	}
+
+	@Override
+	public void deleteByParentId(Integer id) {
+		Query query = getSession().createQuery("delete from Content where parent.id = :parentId");
+		query.setParameter("parentId",id);
+		query.executeUpdate();
+	}
+
+	@Override
+	public List<Content> getListByPid(Integer id) {
+		List<Content> result = null;
+		Query query = getSession().createQuery("from Content where parent.id = :parentId");
+		query.setParameter("parentId",id);
+		result=query.list();
+		return result;
+	}
+
 	/**不知为何要重写，此处先注释
 	protected Pagination find(Finder finder, int pageNo, int pageSize) {
 		int totalCount = countQueryResult(finder);
