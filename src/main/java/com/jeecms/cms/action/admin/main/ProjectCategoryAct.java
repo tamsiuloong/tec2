@@ -31,7 +31,7 @@ public class ProjectCategoryAct {
 	@RequiresPermissions("projectCategory:projectCategory_main")
 	@RequestMapping("/projectCategory/projectCategory_main.do")
 	public String projectCategoryMain(ModelMap model) {
-		return "projectcategory/projectCategory_main";
+		return "projectCategory/projectCategory_main";
 	}
 	
 	@RequiresPermissions("projectCategory:v_left")

@@ -1,7 +1,7 @@
 <div class="head1">
   <div class="head1a">
     [#if user??]
-    <div class="head1a1">您好，${user.username} <a href="logout.jspx?returnUrl=/">退出登录</a></div>
+    <div class="head1a1">您好，${user.username} <a href="${base}/logout.jspx?returnUrl=/">退出登录</a>&nbsp;&nbsp;&nbsp;<a href="${base}/jeeadmin/jeecms/index.do" target="_blank">信息维护</a></div>
     <div class="head1a6"><a href="#">设为首页</a><a href="#">加为收藏</a></div>
     [#else]
     <script type="text/javascript">
