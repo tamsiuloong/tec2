@@ -100,7 +100,6 @@
     <orderEntry type="library" name="Maven: com.sun.mail:mailapi:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.44" level="project" />
     <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.1.7" level="project" />
-    <orderEntry type="library" name="Maven: c3p0:c3p0:0.9.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-cas:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.jasig.cas.client:cas-client-core:3.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-core:1.4.0" level="project" />
@@ -148,7 +147,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:jcaptcha:1.0">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jcaptcha-1.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/jcaptcha-1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -157,7 +156,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:activation:1.0.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/activation-1.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/activation-1.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -166,7 +165,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:IKAnalyzer:2012_u6">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/IKAnalyzer2012_u6.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/IKAnalyzer2012_u6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -175,7 +174,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:jodconverter:2.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jodconverter-2.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/jodconverter-2.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -184,7 +183,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:jodconverter-cli:2.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jodconverter-cli-2.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/jodconverter-cli-2.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -193,7 +192,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:jodconverter-core:3.0-beta-4">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jodconverter-core-3.0-beta-4.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/jodconverter-core-3.0-beta-4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -202,7 +201,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:commons-net-ftp:2.0">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-net-ftp-2.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/commons-net-ftp-2.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -211,7 +210,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:alipay-sdk-java:20160912120058">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/alipay-sdk-java20160912120058.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/alipay-sdk-java20160912120058.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -220,7 +219,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:ganymed-ssh2-build:251beta1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ganymed-ssh2-build251beta1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/ganymed-ssh2-build251beta1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -229,7 +228,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:spymemcached:2.3.1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spymemcached-2.3.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/spymemcached-2.3.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -238,7 +237,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:jug:2.0.0">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jug-2.0.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/jug-2.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -247,7 +246,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:json-lib:2.3">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/json-lib.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/json-lib.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -256,7 +255,7 @@
     <orderEntry type="module-library">
       <library name="Maven: local:memcachedclient:2.0.1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/memcachedclient-2.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/memcachedclient-2.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
