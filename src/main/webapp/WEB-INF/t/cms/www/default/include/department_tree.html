@@ -1,0 +1,41 @@
+<ul id="treeDemo" class="ztree" style="height:600px;width:200px"></ul>
+<link rel="stylesheet" href="${base}/r/cms/ztree/css/demo.css" type="text/css">
+<link rel="stylesheet" href="${base}/r/cms/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="${base}/r/cms/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${base}/r/cms/ztree/js/jquery.ztree.core.js"></script>
+<SCRIPT type="text/javascript">
+    <!--
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: zTreeOnClick,
+            beforeClick: zTreeBeforeClick
+        }
+    };
+    function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+        return !treeNode.isParent ;
+    };
+    function zTreeOnClick(event, treeId, treeNode) {
+        window.location.href="${base}/xmglv2/employeeInfoList.jspx?departId="+treeNode.id+"&cid=${channel.id}";
+    };
+    var zNodes =[
+
+    ];
+
+    $(document).ready(function(){
+        $.ajax({
+            url:"${base}/api/depart/v_tree.jspx",
+            type:"get",
+            dataType: "json",
+            success:function (data) {
+                $.fn.zTree.init($("#treeDemo"), setting, data);
+            }
+        });
+
+    });
+    //-->
+</SCRIPT>

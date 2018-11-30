@@ -49,13 +49,13 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
 	var zNodes =[
     ];
     var log, className = "dark";
-
     function beforeCheck(event, treeId, treeNodes) {
         if (treeId.children && treeId.children.length>0) {
             return false;
         }
         //将当前选中的节点赋值
         $("#${name}").val(treeId.name);
+        $("#departId").val(treeId.id);
         return true;
     }
     function beforeDrag(treeId, treeNodes) {
@@ -161,6 +161,7 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
     };
+
     function selectAll() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo${name}");
         zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
@@ -174,6 +175,14 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
             success:function (data) {
                 $.fn.zTree.init($("#treeDemo${name}"), setting, data);
                 $("#selectAll").bind("click", selectAll);
+
+                <#if content?? && content.dept??>
+                    //选中需要选中的节点
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo${name}");
+                var node = zTree.getNodeByParam("id","${content.dept.id}");
+                zTree.checkNode(node, true, true);
+                </#if>
+
             }
         });
     });
@@ -183,6 +192,7 @@ onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove=
 <div class="zTreeDemoBackground left">
     <ul id="treeDemo${name}" class="ztree"></ul>
     <input type="hidden"  <#if name!=""> id="${name}" name="${name}"</#if> />
+    <input type="hidden"   id="departId" name="departId" <#if content?? && content.dept??>value="${content.dept.id!}"</#if> />
 </div>
     <#include "control-close.ftl"/><#rt/>
 </#macro>

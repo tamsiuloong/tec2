@@ -985,7 +985,7 @@ public class ContentAct{
 
 	@RequiresPermissions("content:o_save")
 	@RequestMapping("/content/o_save.do")
-	public String save(Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
+	public String save(Content bean, ContentExt ext,Integer departId, ContentTxt txt,ContentDoc doc,
 			Boolean copyimg,Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,String viewDeptIds,
 			String[] attachmentPaths, String[] attachmentNames,
 			String[] attachmentFilenames, String[] picPaths, String[] picDescs,
@@ -1007,6 +1007,12 @@ public class ContentAct{
 		}
 		if (!StringUtils.isBlank(ext.getTplMobileContent())) {
 			ext.setTplMobileContent(tplPath + ext.getTplMobileContent());
+		}
+
+		if (departId!=null){
+			CmsDepartment depart = new CmsDepartment();
+			depart.setId(departId);
+			bean.setDept(depart);
 		}
 		bean.setAttr(RequestUtils.getRequestMap(request, "attr_"));
 		String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver
@@ -1164,7 +1170,7 @@ public class ContentAct{
 
 	@RequiresPermissions("content:o_update")
 	@RequestMapping("/content/o_update.do")
-	public String update(Integer queryShare, String queryStatus, Integer queryTypeId,
+	public String update(Integer queryShare, Integer departId,String queryStatus, Integer queryTypeId,
 						 Boolean queryTopLevel, Boolean queryRecommend,
 						 Integer queryOrderBy, Content bean, ContentExt ext, ContentTxt txt, ContentDoc doc,
 						 Boolean copyimg, Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
@@ -1185,6 +1191,13 @@ public class ContentAct{
 		// 加上模板前缀
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser user = CmsUtils.getUser(request);
+
+		if (departId!=null){
+			CmsDepartment depart = new CmsDepartment();
+			depart.setId(departId);
+			bean.setDept(depart);
+		}
+
 		String tplPath = site.getTplPath();
 		if (!StringUtils.isBlank(ext.getTplContent())) {
 			ext.setTplContent(tplPath + ext.getTplContent());

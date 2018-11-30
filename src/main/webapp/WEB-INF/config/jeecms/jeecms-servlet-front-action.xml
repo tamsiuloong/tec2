@@ -52,6 +52,7 @@
 	<bean id="userContentBuyAct" class="com.jeecms.cms.action.member.UserContentBuyAct"/>
 	<bean id="projectInfoAct" class="com.jeecms.cms.action.front.ProjectInfoAct"/>
 	<bean id="ProjectAct" class="com.jeecms.cms.action.front.ProjectAct"/>
+	<bean id="employeeAct" class="com.jeecms.cms.action.front.EmployeeAct"/>
 
 	<!-- API -->
 	<bean id="uploadApiAct" class="com.jeecms.cms.api.UploadApiAct"/>
