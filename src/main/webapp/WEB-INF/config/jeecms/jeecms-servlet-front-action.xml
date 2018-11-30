@@ -74,4 +74,5 @@
 	<bean id="contentOrderApiAct" class="com.jeecms.cms.api.ContentOrderApiAct"/>
 	<bean id="accountApiAct" class="com.jeecms.cms.api.AccountApiAct"/>
 	<bean id="projectCategoryApiAct" class="com.jeecms.cms.api.ProjectCategoryApiAct"/>
+	<bean id="departmentApiAct" class="com.jeecms.cms.api.DepartmentApiAct"/>
 </beans>

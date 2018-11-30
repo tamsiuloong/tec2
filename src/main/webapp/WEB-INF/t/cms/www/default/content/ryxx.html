@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${title} - ${site.name}</title>
+  <meta content="${content.tagStr!}" http-equiv="keywords" />
+  <meta content="${content.description!}" http-equiv="description" />
+<script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
+<script type="text/JavaScript" src="/${res}/images/slide.js"></script>
+<link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/${res}/css/layout.css">
+<link rel="stylesheet" href="/${res}/css/animate.min.css">
+<link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="${base}/r/cms/front.js"></script>
+<script type="text/javascript" src="/${res}/js/menu_min.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){ 
+  
+  $(".menu ul li").menu();
+  
+}); 
+</script>
+<link rel="stylesheet" type="text/css" href="/${res}/css/menu-css.css">
+<link rel="stylesheet" type="text/css" href="/${res}/css/style.css">
+
+  <script type="text/javascript">
+      $(function() {
+          Cms.checkPerm("${base}","${content.id}");
+          Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+          Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+          Cms.viewCount("${base}","${content.id}");
+          Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+      });
+  </script>
+</head>
+
+<body>
+[#include "../include/header.html"/]
+[#include "../include/nav.html"/]
+<div class="center">
+  <div class="center1">
+    <div class="center1a">${channel.firstLevelChannel.name!}</div>
+    <div class=""><div id="content">
+  <div class="menu">
+    <ul>
+      [@cms_channel_list parentId=channel.firstLevelChannel.id hasContent='true']
+      [#list tag_list as c]
+      <li><a  class="active" [#if c.child??] [#if (c.child?size == 0)]href="${c.url}"[/#if]  [/#if] > ${c.name}</a>
+        [#if c.child??]
+        <ul>
+          [@cms_channel_list parentId=c.id  hasContent='true']
+          [#list tag_list as c2]
+          <li><a [#if c2.child??] [#if (c2.child?size == 0)]href="${c2.url}"[/#if]  [/#if] >${c2.name}</a>
+            [#if c2.child??]
+            <ul>
+              [@cms_channel_list parentId=c2.id  hasContent='true']
+              [#list tag_list as c3]
+              <li><a [#if c3.child??] [#if (c3.child?size == 0)]href="${c3.url}"[/#if]  [/#if]>${c3.name}</a> </li>
+              [/#list]
+              [/@cms_channel_list]
+            </ul>
+            [/#if]
+          </li>
+          [/#list]
+          [/@cms_channel_list]
+        </ul>
+        [/#if]
+      </li>
+      [/#list]
+      [/@cms_channel_list]
+
+    </ul>
+  </div>
+</div> 
+    
+    </div>
+  </div>
+  <div class=" bu">
+    <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> ${channel.name}</div>
+    <div class="center2">
+      <div class="center2c hh" style=" width:540px;">
+          <h3>${content.title}</h3>
+          <dl>发布时间：${content.releaseDate}</dl>
+          <p class="p">
+            ${txt!}
+          </p>
+            [#if  content.attachments?size gt 0 ]
+
+              <div class="bus">
+                [#list content.attachments as att]
+                <a href="${att.path}" style="margin-right: 10px">${att.name}</a>
+                [/#list]
+              </div>
+
+            [/#if]
+      </div>
+
+    </div>
+    [#include "../include/gzdt.html"/]
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+[#include "../include/friend_link.html"/]
+[#include "../include/footer.html"/]
+
+</body>
+</html>
