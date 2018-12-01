@@ -49,7 +49,7 @@ public class LuceneContentAct {
 			ModelMap model) throws JSONException {
 		try {
 			Integer lastId = luceneContentSvc.createIndex(siteId, channelId,
-					startDate, endDate, startId, max);
+					startDate, endDate, startId, max, null);
 			JSONObject json = new JSONObject();
 			json.put("success", true);
 			if (lastId != null) {

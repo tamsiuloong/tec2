@@ -38,7 +38,7 @@ public class SearchApiAct {
 	 * @param count 数量  非必选 默认10
 	 */
 	@RequestMapping(value = "/api/content/search.jspx")
-	public void search(Integer siteId,Integer channelId,Integer format,
+	public void search(Integer siteId,Integer departId,Integer channelId,Integer format,
 			String q,String workplace,String category,String queryBeginDate,
 			String queryEndDate,Integer first,Integer count,Integer https,
 			HttpServletRequest request,HttpServletResponse response) 
@@ -75,7 +75,7 @@ public class SearchApiAct {
 		try {
 			String path = realPathResolver.get(Constants.LUCENE_PATH);
 			list = luceneContentSvc.searchList(path, q,category,workplace,
-					siteId, channelId,startDate, endDate, first, count);
+					siteId, channelId,startDate, endDate, first, count,departId );
 		} catch (Exception e) {
 			//throw new RuntimeException(e);
 		}

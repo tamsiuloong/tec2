@@ -1,14 +1,5 @@
 package com.jeecms.cms.action.directive.abs;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.jeecms.cms.entity.main.Channel;
 import com.jeecms.cms.entity.main.ContentDoc;
 import com.jeecms.cms.entity.main.ContentTag;
@@ -19,11 +10,14 @@ import com.jeecms.common.web.freemarker.DirectiveUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsSiteMng;
 import com.jeecms.core.web.util.FrontUtils;
-
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
 
 /**
  * 内容标签基类
@@ -74,6 +68,10 @@ public abstract class AbstractContentDirective implements
 	 * 输入参数，资料类型id。可以为null。
 	 */
 	public static final String PARAM_INFO_TYPE_ID = "infoTypeId";
+	/**
+	 * 输入参数，部门id。可以为null。
+	 */
+	public static final String PARAM_DEPART_ID = "departId";
 	/**
 	 * 输入参数，父文章id。可以为null。
 	 */
@@ -314,6 +312,11 @@ public abstract class AbstractContentDirective implements
 		return DirectiveUtils.getString(PARAM_INFO_TYPE_ID, params);
 	}
 
+	protected String getDepartId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_DEPART_ID, params);
+	}
+
 	protected String getParamParentId(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_PARENT_ID, params);
@@ -393,6 +396,11 @@ public abstract class AbstractContentDirective implements
 		Integer[] tagIds = getTagIds(params);
 
 
+		Integer departId = null ;
+		if(getDepartId(params)!=null)
+		{
+			departId=Integer.valueOf(getDepartId(params));
+		}
 
 		if (tagIds != null) {
 			Integer[] channelIds = getChannelIdsOrPaths(params, siteIds);
@@ -443,7 +451,7 @@ public abstract class AbstractContentDirective implements
 			int option = getChannelOption(params);
 			if (isPage()) {
 				int pageNo = FrontUtils.getPageNo(env);
-				return contentMng.getPageByChannelIdsForTag(channelIds,
+				return contentMng.getPageByChannelIdsForTag(departId, channelIds,
 						typeIds, titleImg, recommend, title,open,attr, orderBy, option,
 						pageNo, count);
 			} else {
@@ -474,7 +482,7 @@ public abstract class AbstractContentDirective implements
 				if (channelIds != null) {
 					if (isPage()) {
 						int pageNo = FrontUtils.getPageNo(env);
-						return contentMng.getPageByChannelIdsForTag(channelIds,
+						return contentMng.getPageByChannelIdsForTag(departId, channelIds,
 								typeIds, titleImg, recommend, title, open,attr, orderBy,
 								option,pageNo, count);
 					} else {

@@ -34,6 +34,11 @@ public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel 
 	 * 输入参数，职位类型
 	 */
 	public static final String PARAM_CATEGORY = "category";
+
+	/**
+	 * 输入参数，部门id。可以为null。
+	 */
+	public static final String PARAM_DEPART_ID = "parentId";
 	/**
 	 * 输入参数，工作地点
 	 */
@@ -72,6 +77,11 @@ public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel 
 	protected String getWorkplace(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_WORKPLACE, params);
+	}
+
+	protected String getDepartId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_DEPART_ID, params);
 	}
 
 }

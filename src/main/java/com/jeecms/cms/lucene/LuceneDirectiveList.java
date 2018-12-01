@@ -47,6 +47,12 @@ public class LuceneDirectiveList extends LuceneDirectiveAbstract {
 		String workplace= getWorkplace(params);
 		String category= getCategory(params);
 		Integer siteId = getSiteId(params);
+
+		Integer departId = null ;
+		if(getDepartId(params)!=null)
+		{
+			departId  = Integer.valueOf(getDepartId(params));
+		}
 		Integer channelId = getChannelId(params);
 		Date startDate = getStartDate(params);
 		Date endDate = getEndDate(params);
@@ -54,7 +60,7 @@ public class LuceneDirectiveList extends LuceneDirectiveAbstract {
 		try {
 			String path = realPathResolver.get(Constants.LUCENE_PATH);
 			list = luceneContentSvc.searchList(path, query,category,workplace, siteId, channelId,
-					startDate, endDate, first, count);
+					startDate, endDate, first, count, departId);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}

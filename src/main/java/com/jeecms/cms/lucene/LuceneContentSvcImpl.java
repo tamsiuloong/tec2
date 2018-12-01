@@ -36,25 +36,25 @@ import javax.annotation.PostConstruct;
 public class LuceneContentSvcImpl implements LuceneContentSvc {
 	@Transactional(readOnly = true)
 	public Integer createIndex(Integer siteId, Integer channelId,
-			Date startDate, Date endDate, Integer startId, Integer max)
+							   Date startDate, Date endDate, Integer startId, Integer max, Integer departId)
 			throws IOException, ParseException {
 /*		String path = realPathResolver.get(Constants.LUCENE_PATH);
 		Directory dir = new SimpleFSDirectory(new File(path));*/
 		return createIndex(siteId, channelId, startDate, endDate, startId, max,
-				this.luceneDir);
+				this.luceneDir, departId);
 	}
 
 	@Transactional(readOnly = true)
 	public Integer createIndex(Integer siteId, Integer channelId,
-			Date startDate, Date endDate, Integer startId, Integer max,
-			Directory dir) throws IOException, ParseException {
+							   Date startDate, Date endDate, Integer startId, Integer max,
+							   Directory dir, Integer departId) throws IOException, ParseException {
 		boolean exist = IndexReader.indexExists(dir);
 		IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(
 				Version.LUCENE_30), !exist, IndexWriter.MaxFieldLength.LIMITED);
 		try {
 			if (exist) {
                 luceneContent.delete(siteId, channelId, startDate, endDate,
-						writer);
+						writer, departId);
 			}
 			Integer lastId = luceneContentDao.index(writer, siteId, channelId,
 					startDate, endDate, startId, max);
@@ -130,25 +130,25 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 	}
 
 	@Transactional(readOnly = true)
-	public Pagination searchPage(String path, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int pageNo, int pageSize) throws CorruptIndexException,
+	public Pagination searchPage(String path, String queryString, String category, String workplace,
+                                 Integer siteId, Integer channelId, Date startDate, Date endDate,
+                                 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
 			IOException, ParseException {
 		Directory dir = new SimpleFSDirectory(new File(path));
 		return searchPage(dir, queryString,category,workplace, siteId, channelId, startDate,
-				endDate, pageNo, pageSize);
+				endDate, pageNo, pageSize, departId);
 	}
 
 	@Transactional(readOnly = true)
-	public Pagination searchPage(Directory dir, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int pageNo, int pageSize) throws CorruptIndexException,
+	public Pagination searchPage(Directory dir, String queryString, String category, String workplace,
+								 Integer siteId, Integer channelId, Date startDate, Date endDate,
+								 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
 			IOException, ParseException {
 		Searcher searcher = new IndexSearcher(dir);
 		try {
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
 			Query query = luceneContent.createQuery(queryString,category,workplace, siteId,
-					channelId, startDate, endDate, analyzer);
+					channelId, startDate, endDate, analyzer, departId);
 			TopDocs docs = searcher.search(query, pageNo * pageSize);
 			Pagination p = luceneContent.getResultPage(searcher, docs, pageNo,
 					pageSize);
@@ -165,25 +165,25 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Content> searchList(String path, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int first, int max) throws CorruptIndexException, IOException,
+	public List<Content> searchList(String path, String queryString, String category, String workplace,
+									Integer siteId, Integer channelId, Date startDate, Date endDate,
+									int first, int max, Integer departId) throws CorruptIndexException, IOException,
 			ParseException {
 		Directory dir = new SimpleFSDirectory(new File(path));
 		return searchList(dir, queryString, category,workplace,siteId, channelId, startDate,
-				endDate, first, max);
+				endDate, first, max, departId);
 	}
 
 	@Transactional(readOnly = true)
-	public List<Content> searchList(Directory dir, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int first, int max) throws CorruptIndexException, IOException,
+	public List<Content> searchList(Directory dir, String queryString, String category, String workplace,
+									Integer siteId, Integer channelId, Date startDate, Date endDate,
+									int first, int max, Integer departId) throws CorruptIndexException, IOException,
 			ParseException {
 		Searcher searcher = new IndexSearcher(dir);
 		try {
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
 			Query query = luceneContent.createQuery(queryString,category,workplace, siteId,
-					channelId, startDate, endDate, analyzer);
+					channelId, startDate, endDate, analyzer, departId);
 			if (first < 0) {
 				first = 0;
 			}

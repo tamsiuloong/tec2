@@ -62,11 +62,11 @@
             <div class="clear"></div>
           </li>
           [#if q??]
-          [@cms_lucene_page q=q channelId=channelId descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
+          [@cms_lucene_page q=q channelId=channelId departId=departId descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
           [#list tag_list as s]
           <li>
             <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-            <dd class="x2"><a href="${s.url}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
+            <dd class="x2"><a href="employeeInfo.jspx?id=${s.id}&cid=${channel.id}&departId=${departId}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
             <!--<dd class="x3">银科技888888号 </dd>-->
             <dd class="x4">${author}</dd>
             <dd class="x5">[@text_cut s=s.channel.name len=6 append='...'/]</dd>
@@ -77,11 +77,11 @@
 
           [/@cms_lucene_page]
           [#else]
-          [@cms_content_page count='20' orderBy='4' channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd']
+          [@cms_content_page count='20' orderBy='4' departId=departId channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd']
           [#list tag_pagination.list as s]
           <li>
             <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-            <dd class="x2"><a href="${s.url}">[@text_cut s=s.title len=15 append='...'/]</a></dd>
+            <dd class="x2"><a href="employeeInfo.jspx?id=${s.id}&cid=${channel.id}&departId=${departId}">[@text_cut s=s.title len=15 append='...'/]</a></dd>
             <!--<dd class="x3">银科技888888号 </dd>-->
             <dd class="x4">${s.author!'本站编辑'}</dd>
             <dd class="x5">[@text_cut s=s.channel.name len=6 append='...'/]</dd>

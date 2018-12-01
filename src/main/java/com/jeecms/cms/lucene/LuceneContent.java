@@ -145,6 +145,12 @@ public class LuceneContent {
 		}
 		doc.add(new Field(TITLE, c.getTitle(), Field.Store.NO,
 				Field.Index.ANALYZED));
+
+		if (c.getDept()!=null) {
+			doc.add(new Field(DEPART_ID, c.getDept().getId().toString(), Field.Store.NO,
+					Field.Index.ANALYZED));
+		}
+
 		if (!StringUtils.isBlank(c.getTxt())) {
 			doc.add(new Field(CONTENT, c.getTxt(), Field.Store.NO,
 					Field.Index.ANALYZED));
@@ -177,8 +183,8 @@ public class LuceneContent {
 
 
 
-	public Query createQuery(String queryString, String category,String workplace,Integer siteId,
-			Integer channelId, Date startDate, Date endDate, Analyzer analyzer)
+	public Query createQuery(String queryString, String category, String workplace, Integer siteId,
+                             Integer channelId, Date startDate, Date endDate, Analyzer analyzer, Integer departId)
 			throws ParseException {
 		BooleanQuery bq = new BooleanQuery();
 		Query q;
@@ -201,6 +207,10 @@ public class LuceneContent {
 			q = new TermQuery(new Term(SITE_ID, siteId.toString()));
 			bq.add(q, BooleanClause.Occur.MUST);
 		}
+		if (departId != null) {
+			q = new TermQuery(new Term(DEPART_ID, departId.toString()));
+			bq.add(q, BooleanClause.Occur.MUST);
+		}
 		if (channelId != null) {
 			q = new TermQuery(new Term(CHANNEL_ID_ARRAY, channelId.toString()));
 			bq.add(q, BooleanClause.Occur.MUST);
@@ -221,10 +231,10 @@ public class LuceneContent {
 	}
 
 	public void delete(Integer siteId, Integer channelId,
-			Date startDate, Date endDate, IndexWriter writer)
+					   Date startDate, Date endDate, IndexWriter writer, Integer departId)
 			throws CorruptIndexException, IOException, ParseException {
 		writer.deleteDocuments(createQuery(null,null,null, siteId, channelId, startDate,
-				endDate, null));
+				endDate, null, departId));
 	}
 
 	public void delete(Integer contentId, IndexWriter writer)
@@ -275,6 +285,8 @@ public class LuceneContent {
 
 	public static final String ID = "id";
 	public static final String SITE_ID = "siteId";
+	public static final String DEPART_ID = "departId";
+
 	public static final String CHANNEL_ID_ARRAY = "channelIdArray";
 	public static final String RELEASE_DATE = "releaseDate";
 	public static final String TITLE = "title";

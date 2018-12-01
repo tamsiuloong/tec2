@@ -835,10 +835,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 	@Override
-	public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
-			Integer[] typeIds, Boolean titleImg, Boolean recommend,
-			String title,int open, Map<String,String[]>attr, int orderBy, int option,int pageNo, int pageSize) {
-		Finder f = byChannelIds(channelIds, typeIds, titleImg, recommend,
+	public Pagination getPageByChannelIdsForTag(Integer departId, Integer[] channelIds,
+                                                Integer[] typeIds, Boolean titleImg, Boolean recommend,
+                                                String title, int open, Map<String, String[]> attr, int orderBy, int option, int pageNo, int pageSize) {
+		Finder f = byChannelIds(departId, channelIds, typeIds, titleImg, recommend,
 				title, open,attr,orderBy, option);
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
@@ -870,7 +870,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open,Map<String,String[]>attr, int orderBy, int option, Integer first, Integer count) {
-		Finder f = byChannelIds(channelIds, typeIds, titleImg, recommend,
+		Finder f = byChannelIds(null, channelIds, typeIds, titleImg, recommend,
 				title, open,attr,orderBy, option);
 		if (first != null) {
 			f.setFirstResult(first);
@@ -1036,9 +1036,9 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		appendOrder(f, orderBy);
 		return f;
 	}
-	private Finder byChannelIds(Integer[] channelIds, Integer[] typeIds,
-			Boolean titleImg, Boolean recommend, String title, int open,Map<String,String[]>attr,int orderBy,
-			int option) {
+	private Finder byChannelIds(Integer departId, Integer[] channelIds, Integer[] typeIds,
+								Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy,
+								int option) {
 		Finder f = Finder.create();
 		int len = channelIds.length;
 		// 如果多个栏目
@@ -1092,6 +1092,13 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append(" and bean.recommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
+
+		if (departId != null)
+		{
+			f.append(" and bean.dept.id=:departId");
+			f.setParam("departId", departId);
+		}
+
 		appendOpen(f, open);
 		appendReleaseDate(f);
 		appendTypeIds(f, typeIds);

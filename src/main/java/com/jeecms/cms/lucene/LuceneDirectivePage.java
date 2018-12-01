@@ -50,11 +50,17 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 		Integer channelId = getChannelId(params);
 		Date startDate = getStartDate(params);
 		Date endDate = getEndDate(params);
+
+		Integer departId = null ;
+		if(getDepartId(params)!=null)
+		{
+			departId=Integer.valueOf(getDepartId(params));
+		}
 		Pagination page;
 		try {
 			String path = realPathResolver.get(Constants.LUCENE_PATH);
 			page = luceneContentSvc.searchPage(path, query,category,workplace, siteId, channelId,
-					startDate, endDate, pageNo, count);
+					startDate, endDate, pageNo, count, departId);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}

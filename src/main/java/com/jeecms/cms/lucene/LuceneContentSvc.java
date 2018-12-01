@@ -13,12 +13,12 @@ import com.jeecms.common.page.Pagination;
 
 public interface LuceneContentSvc {
 	public Integer createIndex(Integer siteId, Integer channelId,
-			Date startDate, Date endDate, Integer startId, Integer max)
+							   Date startDate, Date endDate, Integer startId, Integer max, Integer departId)
 			throws IOException, ParseException;
 
 	public Integer createIndex(Integer siteId, Integer channelId,
-			Date startDate, Date endDate, Integer startId, Integer max,
-			Directory dir) throws IOException, ParseException;
+							   Date startDate, Date endDate, Integer startId, Integer max,
+							   Directory dir, Integer departId) throws IOException, ParseException;
 
 	public void createIndex(Content content, Directory dir) throws IOException;
 
@@ -35,24 +35,24 @@ public interface LuceneContentSvc {
 	public void updateIndex(Content content, Directory dir) throws IOException,
 			ParseException;
 
-	public Pagination searchPage(String path, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int pageNo, int pageSize) throws CorruptIndexException,
+	public Pagination searchPage(String path, String queryString, String category, String workplace,
+								 Integer siteId, Integer channelId, Date startDate, Date endDate,
+								 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
 			IOException, ParseException;
 
-	public Pagination searchPage(Directory dir, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int pageNo, int pageSize) throws CorruptIndexException,
+	public Pagination searchPage(Directory dir, String queryString, String category, String workplace,
+								 Integer siteId, Integer channelId, Date startDate, Date endDate,
+								 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
 			IOException, ParseException;
 
-	public List<Content> searchList(String path, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int pageNo, int pageSize) throws CorruptIndexException,
+	public List<Content> searchList(String path, String queryString, String category, String workplace,
+									Integer siteId, Integer channelId, Date startDate, Date endDate,
+									int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
 			IOException, ParseException;
 
-	public List<Content> searchList(Directory dir, String queryString,String category,String workplace,
-			Integer siteId, Integer channelId, Date startDate, Date endDate,
-			int first, int max) throws CorruptIndexException, IOException,
+	public List<Content> searchList(Directory dir, String queryString, String category, String workplace,
+									Integer siteId, Integer channelId, Date startDate, Date endDate,
+									int first, int max, Integer departId) throws CorruptIndexException, IOException,
 			ParseException;
 
 }

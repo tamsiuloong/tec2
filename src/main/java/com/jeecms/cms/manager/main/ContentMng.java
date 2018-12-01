@@ -120,9 +120,9 @@ public interface ContentMng {
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,int open,Map<String,String[]>attr, int orderBy, Integer first, Integer count);
 
-	public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
-			Integer[] typeIds, Boolean titleImg, Boolean recommend,
-			String title, int open,Map<String,String[]>attr, int orderBy, int option,int pageNo, int pageSize);
+	public Pagination getPageByChannelIdsForTag(Integer departId, Integer[] channelIds,
+                                                Integer[] typeIds, Boolean titleImg, Boolean recommend,
+                                                String title, int open, Map<String, String[]> attr, int orderBy, int option, int pageNo, int pageSize);
 
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
