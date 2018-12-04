@@ -1,46 +1,23 @@
 package com.jeecms.cms.dao.main.impl;
 
-import static com.jeecms.cms.entity.main.Content.ContentStatus.all;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.checked;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.draft;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.passed;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.prepared;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.recycle;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.rejected;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.contribute;
-import static com.jeecms.cms.entity.main.Content.ContentStatus.pigeonhole;
-
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_START;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_END;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_LIKE;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_IN;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_EQ;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_GT;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_GTE;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_LT;
-import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.PARAM_ATTR_LTE;
-
-
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.jeecms.cms.dao.main.ContentDao;
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.Content.ContentStatus;
+import com.jeecms.cms.entity.main.ContentCheck;
+import com.jeecms.cms.entity.main.ContentDoc;
+import com.jeecms.cms.service.ContentQueryFreshTimeCache;
+import com.jeecms.common.hibernate4.Finder;
+import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.page.Pagination;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.cms.dao.main.ContentDao;
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.entity.main.ContentCheck;
-import com.jeecms.cms.entity.main.ContentDoc;
-import com.jeecms.cms.entity.main.Content.ContentStatus;
-import com.jeecms.cms.service.ContentQueryFreshTimeCache;
-import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
-import com.jeecms.common.page.Pagination;
+import java.util.*;
+
+import static com.jeecms.cms.action.directive.abs.AbstractContentDirective.*;
+import static com.jeecms.cms.entity.main.Content.ContentStatus.*;
 
 @Repository
 public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
@@ -852,10 +829,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f, pageNo, pageSize);
 	}
 	@Override
-	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
+	public Pagination getPageByParentIdForTag(Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count, Map<String, Object> paramMap) {
 
-		Finder f = byInfoTypeId(infoTypeId, parentId, typeIds, titleImg, recommend,
-				title, open,attr,orderBy);
+		Finder f = byInfoTypeId(parentId, typeIds, titleImg, recommend,
+				title, open,attr,orderBy, paramMap);
 		if (pageNo != null) {
 			f.setFirstResult(pageNo);
 		}
@@ -1005,13 +982,26 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		appendOrder(f, orderBy);
 		return f;
 	}
-	private Finder byInfoTypeId(Integer infoTypeId, Integer parentId, Integer[] typeIds,
-								Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy) {
+	private Finder byInfoTypeId(Integer parentId, Integer[] typeIds,
+								Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Map<String, Object> paramMap) {
 		Finder f = Finder.create();
-		f.append("select  bean from Content bean ");
-		f.append(" where (bean.projectCategory.id=:infoTypeId)");
-		f.setParam("infoTypeId", infoTypeId);
+		f.append("select  bean from Content bean where 1=1 ");
 
+		Integer infoTypeId = (Integer)paramMap.get("infoTypeId");
+
+		if(infoTypeId!=null)
+		{
+			f.append(" and (bean.projectCategory.id=:infoTypeId)");
+			f.setParam("infoTypeId", infoTypeId);
+		}
+
+		Integer maintenanceId = (Integer)paramMap.get("maintenanceId");
+
+		if(maintenanceId!=null)
+		{
+			f.append(" and bean.maintenance.id=:maintenanceId");
+			f.setParam("maintenanceId", maintenanceId);
+		}
 		if (parentId != null) {
 			f.append(" and bean.parent.id=:parentId");
 			f.setParam("parentId", parentId);

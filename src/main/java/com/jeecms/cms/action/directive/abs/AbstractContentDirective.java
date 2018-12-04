@@ -68,6 +68,10 @@ public abstract class AbstractContentDirective implements
 	 * 输入参数，资料类型id。可以为null。
 	 */
 	public static final String PARAM_INFO_TYPE_ID = "infoTypeId";
+
+	public static final String PARAM_MAINTENANCE_ID = "maintenanceId";
+
+
 	/**
 	 * 输入参数，部门id。可以为null。
 	 */
@@ -312,6 +316,10 @@ public abstract class AbstractContentDirective implements
 		return DirectiveUtils.getString(PARAM_INFO_TYPE_ID, params);
 	}
 
+	protected String getMaintenanceId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_MAINTENANCE_ID, params);
+	}
 	protected String getDepartId(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_DEPART_ID, params);
@@ -388,6 +396,7 @@ public abstract class AbstractContentDirective implements
 		Integer[] siteIds = getSiteIds(params);
 		String title = getTitle(params);
 		String infoTypeId = getInfoTypeId(params);
+		String maintenanceId = getMaintenanceId(params);
 		String parentId = getParamParentId(params);
 		Map<String,String[]>attr=getAttrMap(params);
 		int count = FrontUtils.getCount(params);
@@ -433,19 +442,37 @@ public abstract class AbstractContentDirective implements
 			}
 		}
 
+		Map<String, Object> paramMap = new HashMap<>();
 		if (infoTypeId != null) {
 			if (isPage()) {
+				paramMap.put("infoTypeId",Integer.valueOf(infoTypeId));
 				int pageNo = FrontUtils.getPageNo(env);
-				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),Integer.valueOf(parentId)
+				return contentMng.getPageByMapForTag(Integer.valueOf(parentId)
 						, typeIds, titleImg, recommend, title,open,attr, orderBy,
-						pageNo, count);
+						pageNo, count, paramMap);
 			} else {
 				int first = FrontUtils.getFirst(params);
-				return contentMng.getPageByInfoTypeIdForTag(Integer.valueOf(infoTypeId),Integer.valueOf(parentId)
+				return contentMng.getPageByMapForTag(Integer.valueOf(parentId)
 						, typeIds, titleImg, recommend, title,open, attr,orderBy,
-						first, count);
+						first, count, paramMap);
 			}
 		}
+
+		if (maintenanceId != null) {
+			if (isPage()) {
+				int pageNo = FrontUtils.getPageNo(env);
+				paramMap.put("maintenanceId",Integer.valueOf(maintenanceId));
+				return contentMng.getPageByMapForTag(Integer.valueOf(parentId)
+						, typeIds, titleImg, recommend, title,open,attr, orderBy,
+						pageNo, count, paramMap);
+			} else {
+				int first = FrontUtils.getFirst(params);
+				return contentMng.getPageByMapForTag(Integer.valueOf(parentId)
+						, typeIds, titleImg, recommend, title,open, attr,orderBy,
+						first, count, null);
+			}
+		}
+
 		Integer[] channelIds = getChannelIds(params);
 		if (channelIds != null) {
 			int option = getChannelOption(params);

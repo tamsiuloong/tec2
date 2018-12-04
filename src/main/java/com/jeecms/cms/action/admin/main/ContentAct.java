@@ -190,7 +190,7 @@ public class ContentAct{
 	@RequestMapping(value = "/content/v_infotype_tree.do")
 	public String selectInfoTypeTree(String root, String cid,HttpServletRequest request,
 							   HttpServletResponse response, ModelMap model) {
-		model.addAttribute("infoType", "0");
+		model.addAttribute("infoType", 0);
 		if(cid!=null&&!cid.isEmpty())
 		{
 			Content content = manager.findById(Integer.parseInt(cid));
@@ -221,7 +221,7 @@ public class ContentAct{
 	@RequestMapping(value = "/content/v_maintenance_tree.do")
 	public String selectMaintenanceTree(String root, String cid,HttpServletRequest request,
 									 HttpServletResponse response, ModelMap model) {
-		model.addAttribute("maintenanceId", "0");
+		model.addAttribute("maintenanceId", 0);
 		if(cid!=null&&!cid.isEmpty())
 		{
 			Content content = manager.findById(Integer.parseInt(cid));
@@ -234,7 +234,6 @@ public class ContentAct{
 		}
 
 
-		//一次性查出所有部门
 		List<Maintenance> list = maintenanceMng.getAll();
 
 		model.addAttribute("list", list);

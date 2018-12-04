@@ -1,13 +1,13 @@
 package com.jeecms.cms.dao.main;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.jeecms.cms.entity.main.Content;
 import com.jeecms.cms.entity.main.Content.ContentStatus;
 import com.jeecms.common.hibernate4.Updater;
 import com.jeecms.common.page.Pagination;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 内容DAO接口。
@@ -370,7 +370,7 @@ public interface ContentDao {
 
 	public Content deleteById(Integer id);
 
-	public Pagination getPageByParentIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
+	public Pagination getPageByParentIdForTag(Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count, Map<String, Object> paramMap);
 
 	void deleteByParentId(Integer id);
 

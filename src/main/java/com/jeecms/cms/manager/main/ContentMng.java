@@ -1,23 +1,19 @@
 package com.jeecms.cms.manager.main;
 
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.Content.ContentStatus;
+import com.jeecms.cms.entity.main.ContentDoc;
+import com.jeecms.cms.entity.main.ContentExt;
+import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
+import com.jeecms.cms.entity.main.ContentTxt;
+import com.jeecms.cms.service.ContentListener;
+import com.jeecms.cms.staticpage.exception.*;
+import com.jeecms.common.page.Pagination;
+import com.jeecms.core.entity.CmsUser;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.entity.main.ContentDoc;
-import com.jeecms.cms.entity.main.ContentExt;
-import com.jeecms.cms.entity.main.ContentTxt;
-import com.jeecms.cms.entity.main.Content.ContentStatus;
-import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
-import com.jeecms.cms.service.ContentListener;
-import com.jeecms.cms.staticpage.exception.ContentNotCheckedException;
-import com.jeecms.cms.staticpage.exception.GeneratedZeroStaticPageException;
-import com.jeecms.cms.staticpage.exception.StaticPageNotOpenException;
-import com.jeecms.cms.staticpage.exception.TemplateNotFoundException;
-import com.jeecms.cms.staticpage.exception.TemplateParseException;
-import com.jeecms.common.page.Pagination;
-import com.jeecms.core.entity.CmsUser;
 
 public interface ContentMng {
 	/**
@@ -254,7 +250,7 @@ public interface ContentMng {
 	
 	public List<Map<String, Object>> preChange(Content content);
 
-	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count);
+	public Pagination getPageByMapForTag(Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count, Map<String, Object> paramMap);
 
     Pagination getProjectPageByChannelIdsForTag(Integer[] channelIds, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String,String[]> attr, int orderBy, int option, int pageNo, int count);
 }

@@ -51,7 +51,8 @@
 	<bean id="weiXinAuthAct" class="com.jeecms.cms.action.member.WeiXinAuthAct"/>
 	<bean id="userContentBuyAct" class="com.jeecms.cms.action.member.UserContentBuyAct"/>
 	<bean id="projectInfoAct" class="com.jeecms.cms.action.front.ProjectInfoAct"/>
-	<bean id="ProjectAct" class="com.jeecms.cms.action.front.ProjectAct"/>
+	<bean id="projectAct" class="com.jeecms.cms.action.front.ProjectAct"/>
+	<bean id="maintenanceAct" class="com.jeecms.cms.action.front.MaintenanceAct"/>
 	<bean id="employeeAct" class="com.jeecms.cms.action.front.EmployeeAct"/>
 
 	<!-- API -->
@@ -75,5 +76,6 @@
 	<bean id="contentOrderApiAct" class="com.jeecms.cms.api.ContentOrderApiAct"/>
 	<bean id="accountApiAct" class="com.jeecms.cms.api.AccountApiAct"/>
 	<bean id="projectCategoryApiAct" class="com.jeecms.cms.api.ProjectCategoryApiAct"/>
+	<bean id="maintenanceApiAct" class="com.jeecms.cms.api.MaintenanceApiAct"/>
 	<bean id="departmentApiAct" class="com.jeecms.cms.api.DepartmentApiAct"/>
 </beans>

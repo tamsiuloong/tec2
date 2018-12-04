@@ -1,67 +1,33 @@
 package com.jeecms.cms.manager.main.impl;
 
-import static com.jeecms.cms.entity.main.ContentCheck.DRAFT;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.jeecms.cms.dao.main.ContentDao;
+import com.jeecms.cms.entity.assist.CmsFile;
+import com.jeecms.cms.entity.main.*;
+import com.jeecms.cms.entity.main.Channel.AfterCheckEnum;
+import com.jeecms.cms.entity.main.Content.ContentStatus;
+import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
+import com.jeecms.cms.manager.assist.CmsCommentMng;
+import com.jeecms.cms.manager.assist.CmsFileMng;
+import com.jeecms.cms.manager.main.*;
+import com.jeecms.cms.service.ChannelDeleteChecker;
+import com.jeecms.cms.service.ContentListener;
+import com.jeecms.cms.staticpage.StaticPageSvc;
+import com.jeecms.cms.staticpage.exception.*;
+import com.jeecms.common.hibernate4.Updater;
+import com.jeecms.common.page.Pagination;
 import com.jeecms.core.entity.*;
 import com.jeecms.core.manager.*;
+import freemarker.template.TemplateException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import com.jeecms.cms.dao.main.ContentDao;
-import com.jeecms.cms.entity.assist.CmsFile;
-import com.jeecms.cms.entity.main.Channel;
-import com.jeecms.cms.entity.main.CmsTopic;
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.entity.main.ContentCheck;
-import com.jeecms.cms.entity.main.ContentCount;
-import com.jeecms.cms.entity.main.ContentDoc;
-import com.jeecms.cms.entity.main.ContentExt;
-import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
-import com.jeecms.cms.entity.main.ContentShareCheck;
-import com.jeecms.cms.entity.main.ContentTag;
-import com.jeecms.cms.entity.main.ContentTxt;
-import com.jeecms.cms.entity.main.Channel.AfterCheckEnum;
-import com.jeecms.cms.entity.main.Content.ContentStatus;
-import com.jeecms.cms.entity.main.ContentCharge;
-import com.jeecms.cms.manager.assist.CmsCommentMng;
-import com.jeecms.cms.manager.assist.CmsFileMng;
-import com.jeecms.cms.manager.main.ChannelCountMng;
-import com.jeecms.cms.manager.main.ChannelMng;
-import com.jeecms.cms.manager.main.CmsTopicMng;
-import com.jeecms.cms.manager.main.ContentChargeMng;
-import com.jeecms.cms.manager.main.ContentCheckMng;
-import com.jeecms.cms.manager.main.ContentCountMng;
-import com.jeecms.cms.manager.main.ContentDocMng;
-import com.jeecms.cms.manager.main.ContentExtMng;
-import com.jeecms.cms.manager.main.ContentMng;
-import com.jeecms.cms.manager.main.ContentRecordMng;
-import com.jeecms.cms.manager.main.ContentShareCheckMng;
-import com.jeecms.cms.manager.main.ContentTagMng;
-import com.jeecms.cms.manager.main.ContentTxtMng;
-import com.jeecms.cms.manager.main.ContentTypeMng;
-import com.jeecms.cms.service.ChannelDeleteChecker;
-import com.jeecms.cms.service.ContentListener;
-import com.jeecms.cms.staticpage.StaticPageSvc;
-import com.jeecms.cms.staticpage.exception.ContentNotCheckedException;
-import com.jeecms.cms.staticpage.exception.GeneratedZeroStaticPageException;
-import com.jeecms.cms.staticpage.exception.StaticPageNotOpenException;
-import com.jeecms.cms.staticpage.exception.TemplateNotFoundException;
-import com.jeecms.cms.staticpage.exception.TemplateParseException;
-import com.jeecms.common.hibernate4.Updater;
-import com.jeecms.common.page.Pagination;
 
-import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.util.*;
+
+import static com.jeecms.cms.entity.main.ContentCheck.DRAFT;
 
 @Service
 @Transactional
@@ -252,9 +218,9 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	}
 
 	@Override
-	public Pagination getPageByInfoTypeIdForTag(Integer infoTypeId, Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count) {
-		return dao.getPageByParentIdForTag(infoTypeId, parentId, typeIds, titleImg,
-				recommend, title,open,attr, orderBy, pageNo, count);
+	public Pagination getPageByMapForTag(Integer parentId, Integer[] typeIds, Boolean titleImg, Boolean recommend, String title, int open, Map<String, String[]> attr, int orderBy, Integer pageNo, Integer count, Map<String, Object> paramMap) {
+		return dao.getPageByParentIdForTag(parentId, typeIds, titleImg,
+				recommend, title,open,attr, orderBy, pageNo, count, paramMap);
 	}
 
 	@Transactional(readOnly = true)
