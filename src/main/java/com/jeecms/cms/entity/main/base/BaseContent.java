@@ -1,6 +1,7 @@
 package com.jeecms.cms.entity.main.base;
 
 import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.Maintenance;
 import com.jeecms.cms.entity.main.ProjectCategory;
 import com.jeecms.core.entity.CmsDepartment;
 
@@ -120,6 +121,9 @@ public abstract class BaseContent  implements Serializable {
 	private CmsDepartment dept;
 		/** 所属项目类别. */
 	private ProjectCategory projectCategory;
+
+		/** 所属运维管理类型. */
+	private Maintenance maintenance;
 
 	// collections
 	private java.util.Set<com.jeecms.cms.entity.main.Channel> channels;
@@ -717,6 +721,14 @@ public abstract class BaseContent  implements Serializable {
 
 	public void setProjectCategory(ProjectCategory projectCategory) {
 		this.projectCategory = projectCategory;
+	}
+
+	public Maintenance getMaintenance() {
+		return maintenance;
+	}
+
+	public void setMaintenance(Maintenance maintenance) {
+		this.maintenance = maintenance;
 	}
 
 	public boolean equals (Object obj) {

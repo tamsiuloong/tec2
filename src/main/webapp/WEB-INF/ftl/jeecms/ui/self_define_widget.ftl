@@ -38,6 +38,8 @@ width
 	<@p.deptztree  colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
 <#elseif type=="12">
 	<@p.infotypeztree  colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
+<#elseif type=="13">
+	<@p.maintenanceztree  colspan=colspan width=width label=label  name=name value=value size=size help=help helpPosition=helpPosition vld=vld required=required class=(required=="true")?string("required","")/>
 <#else>
 not support type: "${type}"
 </#if>

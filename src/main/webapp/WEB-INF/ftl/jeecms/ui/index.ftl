@@ -17,6 +17,7 @@
 <#include "td.ftl"/>
 <#include "tr.ftl"/>
 <#include "infotypeztree.ftl"/>
+<#include "maintenanceztree.ftl"/>
 <#include "deptztree.ftl"/>
 
 <#include "attachment.ftl"/>

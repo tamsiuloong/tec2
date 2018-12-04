@@ -52,7 +52,7 @@ function changeDataType(){
 		<@p.text colspan="1" width="50" label="cmsModelItem.cols" name="cols" value=cmsModelItem.cols! class="digits" maxlength="3"/><@p.tr/>
 	</#if>
 <#else>
-	<@p.select colspan="2" label="cmsModelItem.dataType" name="dataType"  id="dataType" onchange="changeDataType()" value=cmsModelItem.dataType list={"1":"cmsModelItem.type1","2":"cmsModelItem.type2","3":"cmsModelItem.type3","4":"cmsModelItem.type4","5":"cmsModelItem.type5","6":"cmsModelItem.type6","7":"cmsModelItem.type7","8":"cmsModelItem.type8","9":"cmsModelItem.type9","10":"cmsModelItem.type10","11":"cmsModelItem.type11","12":"cmsModelItem.type12"}/><@p.tr/>
+	<@p.select colspan="2" label="cmsModelItem.dataType" name="dataType"  id="dataType" onchange="changeDataType()" value=cmsModelItem.dataType list={"1":"cmsModelItem.type1","2":"cmsModelItem.type2","3":"cmsModelItem.type3","4":"cmsModelItem.type4","5":"cmsModelItem.type5","6":"cmsModelItem.type6","7":"cmsModelItem.type7","8":"cmsModelItem.type8","9":"cmsModelItem.type9","10":"cmsModelItem.type10","11":"cmsModelItem.type11","12":"cmsModelItem.type12","13":"cmsModelItem.type13"}/><@p.tr/>
 	<@p.text colspan="1" width="50" label="cmsModelItem.defValue" name="defValue" value=cmsModelItem.defValue! maxlength="255"/>
 	<@p.text colspan="1" width="50" label="cmsModelItem.size" name="size" value=cmsModelItem.size! class="digits" maxlength="10"/><@p.tr/>
 	<@p.text colspan="2" label="cmsModelItem.optValue" name="optValue" value=cmsModelItem.optValue! size="70" maxlength="255" help="cmsModelItem.optValue.help"/><@p.tr/>

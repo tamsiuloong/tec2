@@ -1,18 +1,33 @@
 package com.jeecms.cms.action.admin.main;
 
-import static com.jeecms.common.page.SimplePage.cpn;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.jeecms.cms.entity.main.*;
+import com.jeecms.cms.entity.main.Content.ContentStatus;
+import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
+import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
+import com.jeecms.cms.manager.assist.CmsFileMng;
 import com.jeecms.cms.manager.main.*;
+import com.jeecms.cms.service.ImageSvc;
+import com.jeecms.cms.staticpage.ContentStatusChangeThread;
+import com.jeecms.cms.staticpage.exception.*;
+import com.jeecms.common.image.ImageUtils;
+import com.jeecms.common.office.FileUtils;
+import com.jeecms.common.office.OpenOfficeConverter;
 import com.jeecms.common.office.PoiUtils;
+import com.jeecms.common.page.Pagination;
+import com.jeecms.common.upload.FileRepository;
+import com.jeecms.common.upload.UploadUtils;
+import com.jeecms.common.util.StrUtils;
+import com.jeecms.common.web.CookieUtils;
+import com.jeecms.common.web.RequestUtils;
+import com.jeecms.common.web.ResponseUtils;
+import com.jeecms.common.web.springmvc.MessageResolver;
+import com.jeecms.common.web.springmvc.RealPathResolver;
+import com.jeecms.core.entity.*;
 import com.jeecms.core.manager.*;
+import com.jeecms.core.tpl.TplManager;
+import com.jeecms.core.web.WebErrors;
+import com.jeecms.core.web.util.CmsUtils;
+import com.jeecms.core.web.util.CoreUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -29,39 +44,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
-import com.jeecms.cms.entity.main.Content.ContentStatus;
-import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
-import com.jeecms.cms.manager.assist.CmsFileMng;
-import com.jeecms.cms.service.ImageSvc;
-import com.jeecms.cms.staticpage.ContentStatusChangeThread;
-import com.jeecms.cms.staticpage.exception.ContentNotCheckedException;
-import com.jeecms.cms.staticpage.exception.GeneratedZeroStaticPageException;
-import com.jeecms.cms.staticpage.exception.StaticPageNotOpenException;
-import com.jeecms.cms.staticpage.exception.TemplateNotFoundException;
-import com.jeecms.cms.staticpage.exception.TemplateParseException;
-import com.jeecms.common.image.ImageUtils;
-import com.jeecms.common.office.FileUtils;
-import com.jeecms.common.office.OpenOfficeConverter;
-import com.jeecms.common.page.Pagination;
-import com.jeecms.common.upload.FileRepository;
-import com.jeecms.common.upload.UploadUtils;
-import com.jeecms.common.util.StrUtils;
-import com.jeecms.common.web.CookieUtils;
-import com.jeecms.common.web.RequestUtils;
-import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.common.web.springmvc.MessageResolver;
-import com.jeecms.common.web.springmvc.RealPathResolver;
-import com.jeecms.core.entity.CmsDepartment;
-import com.jeecms.core.entity.CmsGroup;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.entity.CmsWorkflowRecord;
-import com.jeecms.core.entity.Ftp;
-import com.jeecms.core.tpl.TplManager;
-import com.jeecms.core.web.WebErrors;
-import com.jeecms.core.web.util.CmsUtils;
-import com.jeecms.core.web.util.CoreUtils;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
+import static com.jeecms.common.page.SimplePage.cpn;
 
 @Controller
 public class ContentAct{
@@ -205,10 +194,16 @@ public class ContentAct{
 		if(cid!=null&&!cid.isEmpty())
 		{
 			Content content = manager.findById(Integer.parseInt(cid));
-			String infoType = content.getAttr().get("infoType");
-			if(infoType!=null && !infoType.isEmpty())
+//			String infoType = content.getAttr().get("infoType");
+//			if(infoType!=null && !infoType.isEmpty())
+//			{
+//				model.addAttribute("infoType", infoType);
+//			}
+
+			ProjectCategory projectCategory = content.getProjectCategory();
+			if(projectCategory!=null )
 			{
-				model.addAttribute("infoType", infoType);
+				model.addAttribute("infoTypeId", projectCategory.getId());
 			}
 
 		}
@@ -221,6 +216,31 @@ public class ContentAct{
 		response.setHeader("Cache-Control", "no-cache");
 		response.setContentType("text/json;charset=UTF-8");
 		return "content/infotype_tree";
+	}
+
+	@RequestMapping(value = "/content/v_maintenance_tree.do")
+	public String selectMaintenanceTree(String root, String cid,HttpServletRequest request,
+									 HttpServletResponse response, ModelMap model) {
+		model.addAttribute("maintenanceId", "0");
+		if(cid!=null&&!cid.isEmpty())
+		{
+			Content content = manager.findById(Integer.parseInt(cid));
+			Maintenance maintenance = content.getMaintenance();
+			if(maintenance!=null )
+			{
+				model.addAttribute("maintenanceId", maintenance.getId());
+			}
+
+		}
+
+
+		//一次性查出所有部门
+		List<Maintenance> list = maintenanceMng.getAll();
+
+		model.addAttribute("list", list);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=UTF-8");
+		return "content/maintenance_tree";
 	}
 
 	@RequiresPermissions("content:v_list")
@@ -853,7 +873,7 @@ public class ContentAct{
 	}
 	@RequiresPermissions("content:o_save")
 	@RequestMapping("/content/project/o_save.do")
-	public String saveProject(Integer parentId,Integer infoTypeId,Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
+	public String saveProject(Integer parentId,Integer infoTypeId,Integer maintenanceId,Content bean, ContentExt ext, ContentTxt txt,ContentDoc doc,
 					   Boolean copyimg,Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,String viewDeptIds,
 					   String[] attachmentPaths, String[] attachmentNames,
 					   String[] attachmentFilenames, String[] picPaths, String[] picDescs,
@@ -883,6 +903,13 @@ public class ContentAct{
 			ProjectCategory pc = new ProjectCategory();
 			pc.setId(infoTypeId);
 			bean.setProjectCategory(pc);
+		}
+		//设置运维资料类型id
+		if(maintenanceId!=null)
+		{
+			Maintenance maintenance = new Maintenance();
+			maintenance.setId(maintenanceId);
+			bean.setMaintenance(maintenance);
 		}
 
 		String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver
@@ -2477,4 +2504,6 @@ public class ContentAct{
 
 	@Autowired
 	private ProjectCategoryMng projectCategoryMng;
+	@Autowired
+	private MaintenanceMng maintenanceMng;
 }
