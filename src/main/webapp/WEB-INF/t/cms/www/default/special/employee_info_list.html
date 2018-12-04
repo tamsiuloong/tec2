@@ -41,7 +41,7 @@
   <div class="bu">
     <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> ${channel.name}</div>
     <div class="center2">
-      <div class=" hh" style=" width:540px;">
+      <div class=" hh" style=" width:550px;">
         <div class="sou">
           <form action="${base}/search.jspx"  id="searchForm">
             <div class="sou1">
@@ -54,22 +54,17 @@
         </div>
         <ul class="hi" >
           <li style=" background:none; background-color:#eee; text-align:center;">
-            <dd class="x1"><strong>颁布时间</strong></dd>
-            <dd class="x2"><strong>主题</strong></dd>
-            <!--<dd class="x3"><strong>文号</strong></dd>-->
-            <dd class="x4"><strong>发布人</strong></dd>
-            <dd class="x5"><strong>类型</strong> </dd>
-            <div class="clear"></div>
+            [#include "../include/ryxx_titles.html"/]
           </li>
           [#if q??]
           [@cms_lucene_page q=q channelId=channelId departId=departId descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
           [#list tag_list as s]
           <li>
-            <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-            <dd class="x2"><a href="employeeInfo.jspx?id=${s.id}&cid=${channel.id}&departId=${departId}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
-            <!--<dd class="x3">银科技888888号 </dd>-->
-            <dd class="x4">${author}</dd>
-            <dd class="x5">[@text_cut s=s.channel.name len=6 append='...'/]</dd>
+            <dd class="x1" style="text-align:center;width: 100px"><a href="employeeInfo.jspx?id=${s.id}&cid=${channel.id}&departId=${departId}">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
+            <dd class="x2" style="text-align:left;width: 100px">${s.attr.zhiwu!}</dd>
+            <dd class="x3" style="text-align:left;width: 100px">${s.attr.bgdh!}</dd>
+            <dd class="x4" style="text-align:left;width: 100px">${s.attr.yddh!}</dd>
+            <dd class="x5" style="text-align:left;width: 100px">${s.attr.gzzt!}</dd>
             <div class="clear"></div>
           </li>
           [/#list]
@@ -80,12 +75,7 @@
           [@cms_content_page count='20' orderBy='4' departId=departId channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd']
           [#list tag_pagination.list as s]
           <li>
-            <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-            <dd class="x2"><a href="employeeInfo.jspx?id=${s.id}&cid=${channel.id}&departId=${departId}">[@text_cut s=s.title len=15 append='...'/]</a></dd>
-            <!--<dd class="x3">银科技888888号 </dd>-->
-            <dd class="x4">${s.author!'本站编辑'}</dd>
-            <dd class="x5">[@text_cut s=s.channel.name len=6 append='...'/]</dd>
-            <div class="clear"></div>
+            [#include "../include/ryxx_list.html"/]
           </li>
           [/#list]
           <div style=" text-align:center; padding-top:20px; font-size:12px; padding-bottom:10px;">[#include "../include/page.html"/]</div>

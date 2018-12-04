@@ -1,7 +1,7 @@
 <div class="center4">
     <div class="center4a">友情链接</div>
     <div class="center4b">
-        [@cms_friendlink_list]
+        [@cms_friendlink_list ctgId="1"]
         [#list tag_list as link]
         <a href="${link.domain}" onclick="$.get('${base}/friendlink_view.jspx?id=${link.id}')" target="_blank">
             [#if link.logo??]<img src="${link.logo}" width="159" height="25"/>[#else]${link.name}[/#if]

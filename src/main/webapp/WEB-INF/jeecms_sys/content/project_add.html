@@ -232,8 +232,8 @@ function generateTags(){
 }
 var swfu;
 window.onload=function() {
-	var uploadPicsUrl = "../common/o_swfPicsUpload.do";
-	var uploadAttachsUrl = "../common/o_swfAttachsUpload.do";
+	var uploadPicsUrl = "${base}/jeeadmin/jeecms/common/o_swfPicsUpload.do";
+	var uploadAttachsUrl = "${base}/jeeadmin/jeecms/common/o_swfAttachsUpload.do";
 	//在firefox、chrome下，上传不能保留登录信息，所以必须加上jsessionid。
 	var jsessionid = "${sessionId!}";
 	if(jsessionid) {

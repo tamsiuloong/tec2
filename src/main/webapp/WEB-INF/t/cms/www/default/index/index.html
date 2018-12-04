@@ -1,19 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>${site.name}</title>
-<script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
-<script type="text/JavaScript" src="/${res}/images/slide.js"></script>
-<link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="/${res}/css/layout.css">
-<link rel="stylesheet" href="/${res}/css/animate.min.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>${site.name}</title>
+  <script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
+  <script type="text/JavaScript" src="/${res}/images/slide.js"></script>
+  <link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/${res}/css/layout.css">
+  <link rel="stylesheet" href="/${res}/css/animate.min.css">
   <script src="${resSys}/front.js" type="text/javascript"></script>
-<link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
+  <link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript">
       $(function() {
           Cms.siteFlow("${base}", location.href, document.referrer, "${site.config.flowSwitch?string}");
-          $.cookie("_site_id_cookie","${site.id!}",{path: '${base}' });
+          //$.cookie("_site_id_cookie","${site.id!}",{path: '${base}' });
       });
   </script>
 </head>
@@ -27,19 +27,36 @@
     <div class="center1a">工作动态排行榜</div>
     <div class="center1b">
       <ul>
-        [@cms_content_list  count='10' orderBy='9' channelId='75' channelOption='1']
-        [#list tag_list as a]
-        [#if a_index<3]
-        <li><span style=" background-color:#177acd;">${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
-        [/#if]
-        [#if a_index>2 && a_index<9 ]
-        <li><span>${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
-        [/#if]
-        [#if a_index>8 ]
-        <li><span style=" padding:0px 2px;">10</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
-        [/#if]
-        [/#list]
-        [/@cms_content_list]
+        <!--[@cms_content_list  count='10' orderBy='9' channelId='75' channelOption='1']-->
+        <!--[#list tag_list as a]-->
+        <!--[#if a_index<3]-->
+        <!--<li><span style=" background-color:#177acd;">${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>-->
+        <!--[/#if]-->
+        <!--[#if a_index>2 && a_index<9 ]-->
+        <!--<li><span>${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>-->
+        <!--[/#if]-->
+        <!--[#if a_index>8 ]-->
+        <!--<li><span style=" padding:0px 2px;">10</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>-->
+        <!--[/#if]-->
+        <!--[/#list]-->
+        <!--[/@cms_content_list]-->
+
+        <li>1、昆明中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;98</li>
+        <li>2、曲靖中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;87</li>
+        <li>3、红河中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;84</li>
+        <li>4、玉溪中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80</li>
+        <li>5、大理中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67</li>
+        <li>6、楚雄中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65</li>
+        <li>7、昭通中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64</li>
+        <li>8、文山中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;57</li>
+        <li>9、保山中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51</li>
+        <li>10、普洱中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48</li>
+        <!--<li>11、临沧中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45</li>-->
+        <!--<li title="西双版纳中支">12、西双版纳 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;44</li>-->
+        <!--<li>13、德宏中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40</li>-->
+        <!--<li>14、丽江中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25</li>-->
+        <!--<li>15、迪庆中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20</li>-->
+        <!--<li>16、怒江中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12</li>-->
       </ul>
     </div>
     <div class="center1a" style=" margin-top:15px; padding-left:25px;">下载排行榜</div>
@@ -48,13 +65,13 @@
         [@cms_content_list  count='10' orderBy='9' channelId='96' channelOption='1']
         [#list tag_list as a]
         [#if a_index<3]
-        <li><span style=" background-color:#177acd;">${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        <li title="${a.title}"><span style=" background-color:#177acd;" >${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
         [/#if]
         [#if a_index>2 && a_index<9 ]
-        <li><span>${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        <li title="${a.title}"><span>${a_index+1}</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
         [/#if]
         [#if a_index>8 ]
-        <li><span style=" padding:0px 2px;">10</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
+        <li title="${a.title}"><span style=" padding:0px 2px;">10</span><a href="${a.url}">[@text_cut s=a.title len='12' append='...' /]</a></li>
         [/#if]
         [/#list]
         [/@cms_content_list]
@@ -64,21 +81,27 @@
       <div class="center1c1">综合管理系统</div>
       <div class="center1c2">
         <ul>
-          <li><a href="#">昆明</a></li>
+          <!--<li><a href="#">昆明</a></li>
+          <li><a href="#">曲靖</a></li>
           <li><a href="#">红河</a></li>
-          <li><a href="#">蒙自</a></li>
-          <li><a href="#">泸西</a></li>
-          <li><a href="#">屏边</a></li>
-          <li><a href="#">红河县</a></li>
-          <li><a href="#">绿春</a></li>
-          <li><a href="#">开远</a></li>
-          <li><a href="#">建水</a></li>
-          <li><a href="#">石屏</a></li>
-          <li><a href="#">弥勒</a></li>
-          <li><a href="#">河口</a></li>
-          <li><a href="#">元阳</a></li>
-          <li><a href="#">金平</a></li>
-          <li><a href="#">旧系统</a></li>
+          <li><a href="#">玉溪</a></li>
+          <li><a href="#">大理</a></li>
+          <li><a href="#">楚雄</a></li>
+          <li><a href="#">昭通</a></li>
+          <li><a href="#">文山</a></li>
+          <li><a href="#">保山</a></li>
+          <li><a href="#">普洱</a></li>
+          <li><a href="#">临沧</a></li>
+          <li><a href="#" title="西双版纳">西双</a></li>
+          <li><a href="#">德宏</a></li>
+          <li><a href="#">丽江</a></li>
+          <li><a href="#">迪庆</a></li>
+          <li><a href="#">怒江</a></li>-->
+          [@cms_friendlink_list ctgId="4"]
+          [#list tag_list as link]
+          <li><a href="#"  onclick="$.get('${base}/friendlink_view.jspx?id=${link.id}')" target="_blank"> [@text_cut s=link.name len=2 append=''/]</a> </li>
+          [/#list]
+          [/@cms_friendlink_list]
           <div class="clear"></div>
         </ul>
       </div>
@@ -89,12 +112,12 @@
       <div id="cxslide_x" class="cxslide_x">
         <div class="box">
           <ul class="list">
-            [@cms_content_list typeId='2' recommend='1' count='10' channelId='104' orderBy='4' titLen='22' channelOption='1' dateFormat='yyyy-MM-dd']
-              [#list tag_list as a]
-                <li><a href="${a.url}"><img src="${a.typeImg!}"></a>
-                  <p>[@text_cut s=a.title len=titLen /]</p>
-                </li>
-              [/#list]
+            [@cms_content_list  recommend='0' count='10' channelId='104' orderBy='4' titLen='22' channelOption='1' dateFormat='yyyy-MM-dd']
+            [#list tag_list as a]
+            <li title="${a.title}"><a href="${a.url}"><img src="${a.titleImg!}"></a>
+              <p>[@text_cut s=a.title len=titLen /]</p>
+            </li>
+            [/#list]
             [/@cms_content_list]
             </li>
           </ul>
@@ -106,7 +129,7 @@
       <ul>
         [@cms_content_list count='8' titLen='25' channelId='75' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
         [#list tag_list as a]
-        <li><span>${a.date?string(dateFormat)} </span><a href="${a.url}">【${a.channel.name}】 [@text_cut s=a.title len=28 append='...'/]</a></li>
+        <li title="${a.title}"><span>${a.date?string(dateFormat)} </span><a href="${a.url}">【${a.channel.name}】 [@text_cut s=a.title len=28 append='...'/]</a></li>
         [/#list]
         [/@cms_content_list]
       </ul>
@@ -116,7 +139,7 @@
       <ul>
         [@cms_content_list count='8' titLen='25' channelId='94' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
         [#list tag_list as a]
-        <li><span>${a.date?string(dateFormat)} </span><a href="${a.url}">【${a.channel.name}】 [@text_cut s=a.title len=28 append='...'/]</a></li>
+        <li title="${a.title}"><span>${a.date?string(dateFormat)} </span><a href="${a.url}">【${a.channel.name}】 [@text_cut s=a.title len=28 append='...'/]</a></li>
         [/#list]
         [/@cms_content_list]
       </ul>
@@ -126,9 +149,9 @@
     <div class="center1a" style=" padding-left:25px;">科技成果</div>
     <div class="center1c2a">
       <ul>
-        [@cms_content_list count='8' titLen='25' channelId='100' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
+        [@cms_content_list count='8' titLen='25' channelId='147' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
         [#list tag_list as a]
-        <li><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
+        <li title="${a.title}"><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
         [/#list]
         [/@cms_content_list]
         <div class="clear"></div>
@@ -140,7 +163,7 @@
         <ul>
           [@cms_content_list count='8' titLen='25' channelId='97' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
           [#list tag_list as a]
-          <li><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
+          <li title="${a.title}"><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
           [/#list]
           [/@cms_content_list]
           <div class="clear"></div>
@@ -153,7 +176,7 @@
         <ul>
           [@cms_content_list count='8' titLen='25' channelId='95' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
           [#list tag_list as a]
-          <li><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
+          <li title="${a.title}"><a href="${a.url}">[@text_cut s=a.title len=14 append='...'/]</a></li>
           [/#list]
           [/@cms_content_list]
           <div class="clear"></div>
@@ -166,49 +189,49 @@
 [#include "../include/friend_link.html"/]
 [#include "../include/footer.html"/]
 
-<script src="/${res}/js/jquery.min.js"></script> 
-<script src="/${res}/js/jquery.cxslide.min.js"></script> 
+<script src="/${res}/js/jquery.min.js"></script>
+<script src="/${res}/js/jquery.cxslide.min.js"></script>
 <script>
-(function(){
-  var acts = $('#acts');
-  var cxSlideApi;
+    (function(){
+        var acts = $('#acts');
+        var cxSlideApi;
 
-  $('#cxslide_x').cxSlide({
-    auto: false,
-    plus: true,
-    minus: true
-  }, function(api){
-    cxSlideApi = api;
-  });
+        $('#cxslide_x').cxSlide({
+            auto: true,
+            plus: true,
+            minus: true
+        }, function(api){
+            cxSlideApi = api;
+        });
 
-  acts.on('click', 'a', function(){
-    var _rel = this.rel;
-    var _rev = this.rev;
+        acts.on('click', 'a', function(){
+            var _rel = this.rel;
+            var _rev = this.rev;
 
-    switch (_rel) {
-      case 'play':
-        cxSlideApi.play();
-        break;
+            switch (_rel) {
+                case 'play':
+                    cxSlideApi.play();
+                    break;
 
-      case 'stop':
-        cxSlideApi.stop();
-        break;
+                case 'stop':
+                    cxSlideApi.stop();
+                    break;
 
-      case 'goto':
-        cxSlideApi.goto(_rev);
-        break;
+                case 'goto':
+                    cxSlideApi.goto(_rev);
+                    break;
 
-      case 'prev':
-        cxSlideApi.prev();
-        break;
+                case 'prev':
+                    cxSlideApi.prev();
+                    break;
 
-      case 'next':
-        cxSlideApi.next();
-        break;
-    };
+                case 'next':
+                    cxSlideApi.next();
+                    break;
+            };
 
-  });
-})();
+        });
+    })();
 </script>
 </body>
 </html>

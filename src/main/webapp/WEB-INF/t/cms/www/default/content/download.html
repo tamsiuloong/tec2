@@ -78,7 +78,7 @@
   <div class=" bu">
     <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> ${channel.name}</div>
     <div class="center2">
-      <div class="center2c hh" style=" width:540px;">
+      <div class="center2c hh" style=" width:770px;">
         <h3>${content.title}</h3>
         <dl>发布时间：${content.releaseDate}</dl>
 
@@ -96,22 +96,22 @@
 
 
         [#if  content.attachments?size gt 0 ]
-          <div class="bus">
-            [#list content.attachments as att]
-            <a id="attach${att_index}">立即下载</a></div>
-          [/#list]
-        </div>
-        [/#if]
-
-
-
+        <div class="bus">
+          [#list content.attachments as att]
+          <a id="attach${att_index}" target="_blank">立即下载</a></div>
+        [/#list]
       </div>
+      [/#if]
+
+
 
     </div>
-    [#include "../include/gzdt.html"/]
-    <div class="clear"></div>
+
   </div>
+  <!--[#include "../include/gzdt.html"/]-->
   <div class="clear"></div>
+</div>
+<div class="clear"></div>
 </div>
 [#include "../include/friend_link.html"/]
 [#include "../include/footer.html"/]
