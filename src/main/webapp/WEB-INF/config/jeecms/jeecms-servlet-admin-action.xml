@@ -109,4 +109,5 @@
 	<bean id="apiUserLoginAct" class="com.jeecms.cms.action.admin.main.ApiUserLoginAct"/>
 
 	<bean id="projectCategoryAct" class="com.jeecms.cms.action.admin.main.ProjectCategoryAct"/>
+	<bean id="maintenanceAct" class="com.jeecms.cms.action.admin.main.MaintenanceAct"/>
 </beans>

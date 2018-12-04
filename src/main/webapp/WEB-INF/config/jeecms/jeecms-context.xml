@@ -182,6 +182,7 @@
 	<bean id="apiRecordMng" class="com.jeecms.cms.manager.main.impl.ApiRecordMngImpl"/>
 	<bean id="apiUserLoginMng" class="com.jeecms.cms.manager.main.impl.ApiUserLoginMngImpl"/>
 	<bean id="projectCategoryMng" class="com.jeecms.cms.manager.main.impl.ProjectCategoryMngImpl"/>
+	<bean id="maintenanceMng" class="com.jeecms.cms.manager.main.impl.MaintenanceMngImpl"/>
 	<!--DAO-->
 	<bean id="channelDao" class="com.jeecms.cms.dao.main.impl.ChannelDaoImpl"/>
 	<bean id="channelExtDao" class="com.jeecms.cms.dao.main.impl.ChannelExtDaoImpl"/>
@@ -285,4 +286,5 @@
 	<bean id="apiUserLoginDao" class="com.jeecms.cms.dao.main.impl.ApiUserLoginDaoImpl"/>
 
 	<bean id="projectCategoryDao" class="com.jeecms.cms.dao.main.impl.ProjectCategoryDaoImpl"/>
+	<bean id="maintenanceDao" class="com.jeecms.cms.dao.main.impl.MaintenanceDaoImpl"/>
 </beans>
