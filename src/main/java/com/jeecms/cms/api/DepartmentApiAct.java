@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,8 +62,18 @@ public class DepartmentApiAct {
 		String json = JSON.toJSONString(ztreeVOList);
 		ResponseUtils.renderJson(response, json);
 	}
-	
 
+	@RequestMapping(value = "/api/depart/workload.jspx")
+	public void workload(@RequestParam(name = "pid",defaultValue = "1") Integer pid, @RequestParam(name = "pageSize",defaultValue = "10")Integer pageSize, HttpServletRequest request,
+						 HttpServletResponse response, ModelMap model) {
+
+
+		List result = manager.workload(pid,pageSize);
+
+		String json = JSON.toJSONString(result);
+		ResponseUtils.renderJson(response, json);
+
+	}
 
 
 	@Autowired

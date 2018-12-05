@@ -462,3 +462,17 @@ Cms.MobileUA=function(){
     return mua;  
 }
 
+Cms.workload = function() {
+    $.ajax({
+		url:"api/depart/workload.jspx",
+		type:"get",
+		success:function(json){
+			for(var i = 0 ;i < json.length;i++)
+			{
+				var o = json[i];
+
+                $("#workload").append("<li>"+(i+1)+"、<a href='#'>"+o[0]+"</a> <div  style=\"float: right;text-align: center;padding: 0px 5px;border-radius: 3px;\">"+o[1]+"</div></li>");
+            }
+		}
+	})
+}

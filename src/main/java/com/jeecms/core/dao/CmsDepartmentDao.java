@@ -1,10 +1,10 @@
 package com.jeecms.core.dao;
 
-import java.util.List;
-
 import com.jeecms.common.hibernate4.Updater;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.entity.CmsDepartment;
+
+import java.util.List;
 
 public interface CmsDepartmentDao {
 
@@ -23,4 +23,10 @@ public interface CmsDepartmentDao {
 	public CmsDepartment updateByUpdater(Updater<CmsDepartment> updater);
 
     List<CmsDepartment> getAll();
+
+    List workload();
+
+    List<CmsDepartment> findByParentId(int parentId, int pageSize);
+
+	Integer getWorkloadById(Integer id);
 }

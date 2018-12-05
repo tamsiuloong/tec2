@@ -1,9 +1,9 @@
 package com.jeecms.core.manager;
 
-import java.util.List;
-
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.entity.CmsDepartment;
+
+import java.util.List;
 
 public interface CmsDepartmentMng {
 
@@ -37,4 +37,6 @@ public interface CmsDepartmentMng {
 
 
 	List<CmsDepartment> getAll();
+
+    List workload(Integer pid, Integer pageSize);
 }
