@@ -167,6 +167,16 @@
 		</property>		
 		<qualifier value="contentOrderTemp"/>
 	</bean>
+	<!--工作量统计缓存-->
+	<bean id="workloadCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager">
+			<ref bean="cacheManager"/>
+		</property>
+		<property name="cacheName">
+			<value>com.jeecms.cms.workload</value>
+		</property>
+		<qualifier value="workload"/>
+	</bean>
 	
 	<!--shiro缓存
 	<bean id="ehShiroCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
