@@ -81,6 +81,8 @@ public abstract class BaseContentExt  implements Serializable {
 	private java.lang.String shortTitle;
 	private java.lang.String description;
 	private java.lang.String author;
+	//作业记录
+	private String authorRecords;
 	private java.lang.String origin;
 	private java.lang.String originUrl;
 	private java.util.Date releaseDate;
@@ -434,7 +436,13 @@ public abstract class BaseContentExt  implements Serializable {
 		this.content = content;
 	}
 
+	public String getAuthorRecords() {
+		return authorRecords;
+	}
 
+	public void setAuthorRecords(String authorRecords) {
+		this.authorRecords = authorRecords;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

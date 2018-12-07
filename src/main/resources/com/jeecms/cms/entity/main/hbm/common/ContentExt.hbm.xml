@@ -11,6 +11,7 @@
 		<property name="shortTitle" column="short_title" type="string" not-null="false" length="150"/>
 		<property name="description" column="description" type="string" not-null="false" length="1000"/>
 		<property name="author" column="author" type="string" not-null="false" length="100"/>
+		<property name="authorRecords" column="author_records" type="string" not-null="false" length="255"/>
 		<property name="origin" column="origin" type="string" not-null="false" length="100"/>
 		<property name="originUrl" column="origin_url" type="string" not-null="false" length="255"/>
 		<property name="releaseDate" column="release_date" type="timestamp" not-null="true" length="19"/>

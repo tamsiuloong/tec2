@@ -78,31 +78,35 @@
         <table class="hovertable">
           <tr>
             <td width="15%">项目名字:</td>
-            <td width="35%">${parent.title}</td>
+            <td width="35%">${parent.title!}</td>
             <td width="15%">项目年度:</td>
-            <td width="35%">${parent.attr.year}</td>
+            <td width="35%">${parent.attr.year!}</td>
           </tr>
           <tr>
           </tr>
           <tr>
             <td>项目部门:</td>
-            <td>${parent.attr.deptName}</td>
+            <td>${parent.attr.deptName!}</td>
             <td>项目类别:</td>
-            <td>${parent.attr.projectType}</td>
+            <td>${parent.attr.projectType!}</td>
           </tr>
           <tr>
           </tr>
           <tr>
             <td>预算:</td>
-            <td>${parent.attr.budget}</td>
+            <td>${parent.attr.budget!}</td>
             <td>预算规模:</td>
-            <td>${parent.attr.budgetScale}</td>
+            <td>${parent.attr.budgetScale!}</td>
           </tr>
           <tr>
             <td>使用范围:</td>
-            <td>${parent.attr.scope}</td>
-            <td></td>
-            <td></td>
+            <td>${parent.attr.scope!}</td>
+            <td>维护人员</td>
+            <td>${content.author!}</td>
+          </tr>
+          <tr>
+            <td>维护人员记录:</td>
+            <td colspan="3">${content.authorRecords!}</td>
           </tr>
         </table>
         <h3>${c.title}</h3>

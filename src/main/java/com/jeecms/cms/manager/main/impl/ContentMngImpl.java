@@ -653,6 +653,22 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 						  Double rewardRandomMax, Double[] rewardFix,
 						  CmsUser user, boolean forMember) {
 		Content entity = findById(bean.getId());
+		//检测维护人员有没有发生变化
+		if(!entity.getAuthor().equals(ext.getAuthor()))
+		{
+			//维护人员记录=老记录+上一位维护人员
+			String oldAuthorRecords = entity.getContentExt().getAuthorRecords();
+			if(oldAuthorRecords==null)
+			{
+				oldAuthorRecords = "";
+			}
+			else
+			{
+				oldAuthorRecords+=",";
+			}
+			String authorRecords = oldAuthorRecords+entity.getAuthor();
+			entity.getContentExt().setAuthorRecords(authorRecords);
+		}
 		// 执行监听器
 		List<Map<String, Object>> mapList = preChange(entity);
 		// 更新主表

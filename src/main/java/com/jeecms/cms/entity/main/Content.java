@@ -949,6 +949,15 @@ public class Content extends BaseContent implements ContentInterface {
 		}
 	}
 
+	public String getAuthorRecords() {
+		ContentExt ext = getContentExt();
+		if (ext != null) {
+			return ext.getAuthorRecords();
+		} else {
+			return null;
+		}
+	}
+
 	public String getOrigin() {
 		ContentExt ext = getContentExt();
 		if (ext != null) {
