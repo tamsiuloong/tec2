@@ -20,8 +20,11 @@
 <script type="text/javascript" src="${base}/thirdparty/flexpaper/js/flexpaper_flash_debug.js"></script>
 <script type="text/javascript">
 $(function() {
-  Cms.siteFlow("${base}", location.href, document.referrer);
-  Cms.viewCount("${base}","${content.id}");
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
 });
 </script>
 <style type="text/css" media="screen"> 
@@ -39,7 +42,7 @@ body{ margin:0; padding:0; overflow:auto;}
     [#include "../include/navi.html"/]
     
     <div class="hundred100 mt10">
-    	<div class="website">当前位置：<a href="${base}/">首页</a> > [#list channel.nodeList as n]<a target="_blank" href="${n.url}">${n.name}</a>[#if n_has_next] > [/#if][/#list] > 正文</div>
+    	<div class="website">当前位置: <a href="${base}/">首页</a> > [#list channel.nodeList as n]<a target="_blank" href="${n.url}">${n.name}</a>[#if n_has_next] > [/#if][/#list] > 正文</div>
         <div class="clear"></div>
         
         <div class="w700 mt10">
@@ -100,8 +103,8 @@ body{ margin:0; padding:0; overflow:auto;}
                 <span class="menufl">
                 <a href="${base}/downdoc.jspx?cid=${content.id}">
                 <img src="../../${res}/img/h5/menu_xz.gif"></a></span>
-                <span class="menufl">需要财富值：${content.downNeed!}&nbsp;&nbsp;</span>
-                <span class="menufl">评分：${content.avgScore!}</span>
+                <span class="menufl">需要财富值: ${content.downNeed!}&nbsp;&nbsp;</span>
+                <span class="menufl">评分: ${content.avgScore!}</span>
                 </div>
             
             	<div class="clear"></div>

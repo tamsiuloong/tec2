@@ -3,7 +3,7 @@
 		countUnreadMsg();
 	});
 	function countUnreadMsg(){
-		 $.post("message_countUnreadMsg.jspx", {
+		 $.post("${base}/member/message_countUnreadMsg.jspx", {
 			}, function(data) {
 				if(data.result){
 					 $("#countDiv").html(""+data.count+"");

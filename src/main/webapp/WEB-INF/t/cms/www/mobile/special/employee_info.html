@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>资料列表 - ${site.name}</title>
+<script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
+<script type="text/JavaScript" src="/${res}/images/slide.js"></script>
+<link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/${res}/css/layout.css">
+<link rel="stylesheet" href="/${res}/css/animate.min.css">
+<link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
+
+
+
+  <script type="text/javascript" src="${base}/r/cms/front.js"></script>
+
+
+  <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+  <style type="text/css">
+    table.hovertable {
+      font-family: verdana,arial,sans-serif;
+      font-size:11px;
+      width: 100%;
+      color:#333333;
+      border-width: 1px;
+      border-color: #999999;
+      border-collapse: collapse;
+    }
+    table.hovertable th {
+      background-color:#c3dde0;
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    }
+    table.hovertable tr {
+      background-color:#d4e3e5;
+    }
+    table.hovertable td {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    }
+  </style>
+
+
+
+<link rel="stylesheet" type="text/css" href="/${res}/css/style.css">
+
+  <script type="text/javascript">
+      $(function() {
+          Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+      });
+  </script>
+</head>
+
+<body>
+[#include "../include/header.html"/]
+[#include "../include/nav.html"/]
+<div class="center">
+  <div class="center1">
+    <div class="center1a">资料列表</div>
+    <div class=""><div id="content">
+  <div class="menu">
+    [#include "../include/department_tree.html"/]
+  </div>
+
+</div> 
+    </div>
+  </div>
+  <div class=" bu">
+    <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> <a href="employeeInfoList.jspx?departId=${departId}&cid=${cid}" style="float: left;padding-top: 0px;text-decoration:blink">[#if c.dept??]${c.dept.name}[/#if]   </a>  </div>
+    <div class="center2">
+      <div class="center2c hh" style=" width:770px;">
+
+
+        <table class="hovertable">
+          <tr>
+            <td width="15%">姓名:</td>
+            <td width="35%">${c.title}</td>
+            <td width="15%">所属部门:</td>
+            <td width="35%">${c.dept.name!}</td>
+          </tr>
+          <tr>
+          </tr>
+          <tr>
+            <td>职务:</td>
+            <td>${c.attr.zhiwu!}</td>
+            <td>性别:</td>
+            <td>${c.attr.xingbie!}</td>
+          </tr>
+          <tr>
+          </tr>
+          <tr>
+            <td>民族:</td>
+            <td>${c.attr.mingzu!}</td>
+            <td>政治面貌:</td>
+            <td>${c.attr.zzmm!}</td>
+          </tr>
+          <tr>
+            <td>出生年月:</td>
+            <td>${c.attr.csny!}</td>
+            <td>工作年月:</td>
+            <td>${c.attr.gzny!}</td>
+          </tr>
+          <tr>
+            <td>来源地:</td>
+            <td>${c.attr.laiyuandi!}</td>
+            <td>本科毕业院校:</td>
+            <td>${c.attr.bkbyyx!}</td>
+          </tr>
+          <tr>
+            <td>来源地:</td>
+            <td>${c.attr.laiyuandi!}</td>
+            <td>本科毕业院校:</td>
+            <td>${c.attr.bkbyyx!}</td>
+          </tr>
+          <tr>
+            <td>本科所学专业:</td>
+            <td>${c.attr.bksxzy!}</td>
+            <td>本科毕业时间:</td>
+            <td>${c.attr.bkbysj!}</td>
+          </tr>
+          <tr>
+            <td>研究生毕业院校:</td>
+            <td>${c.attr.yjsbyyx!}</td>
+            <td>研究生所学专业:</td>
+            <td>${c.attr.yjssxzy!}</td>
+          </tr>
+          <tr>
+            <td>研究生毕业时间:</td>
+            <td>${c.attr.yjsbysj!}</td>
+            <td>科技岗位工作年限:</td>
+            <td>${c.attr.kjgwgznx!}</td>
+          </tr>
+          <tr>
+            <td>目前从事工作方向:</td>
+            <td>${c.attr.mqcsgzfx!}</td>
+            <td>曾经从事的工作方向:</td>
+            <td>${c.attr.cjcsdgzfx!}</td>
+          </tr>
+          <tr>
+            <td>获得荣誉或奖励:</td>
+            <td>${c.attr.hdryhjl!}</td>
+            <td>参与建设、开发的项目情况:</td>
+            <td>${c.attr.cyjsxm!}</td>
+          </tr>
+          <tr>
+            <td>熟悉的开发平台、工具软件和数据库:</td>
+            <td>${c.attr.gjsjk!}</td>
+            <td>信息技术相关证书:</td>
+            <td>${c.attr.xxjsxgzs!}</td>
+          </tr>
+          <tr>
+            <td>专业职称:</td>
+            <td>${c.attr.zyzz!}</td>
+            <td>专业意向:</td>
+            <td>${c.attr.zyyx!}</td>
+          </tr>
+          <tr>
+            <td>获评专业职称年限:</td>
+            <td>${c.attr.hpzyzcnx!}</td>
+            <td>省级及以上期刊公开发表专业论文数量:</td>
+            <td>${c.attr.sjjysqggkfbsl!}</td>
+          </tr>
+          <tr>
+            <td>备注:</td>
+            <td>${c.attr.remark!}</td>
+            <td></td>
+            <td></td>
+          </tr>
+
+        </table>
+        <h3>${c.title}</h3>
+        <dl>发布时间：${c.releaseDate}</dl>
+        <p class="p">
+          ${c.txt!}
+        </p>
+        [#if  c.attachments?size gt 0 ]
+
+        <div class="bus">
+          [#list c.attachments as att]
+          <a href="${att.path}" style="margin-right: 10px">${att.name}</a>
+          [/#list]
+        </div>
+
+        [/#if]
+      </div>
+
+    </div>
+
+    <!--[#include "../include/gzdt.html"/]-->
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+[#include "../include/friend_link.html"/]
+[#include "../include/footer.html"/]
+
+</body>
+</html>

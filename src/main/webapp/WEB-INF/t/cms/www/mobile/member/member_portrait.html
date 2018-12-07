@@ -1,11 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>更换头像 - ${site.name}</title>
+<title>${site.name}</title>
 <link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
-<link type="text/css" rel="stylesheet" href="css/index.css" />
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -15,8 +17,8 @@ $(function() {
 </script>
 
 <!--[if lt IE 9]> 
-<script src="js/html5shiv.min.js"></script>
-<script src="js/respond.min.js"></script>
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
 <![endif]-->
 
 </head>
@@ -42,24 +44,29 @@ $(function() {
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/index.jspx">用户信息</a>|<a href="${base}/member/profile.jspx" class="on">修改个人资料</a>|<a href="${base}/member/portrait.jspx">更换头像</a>|<a href="${base}/member/pwd.jspx">修改密码</a></div>
+        <div class="member-child"><a href="${base}/member/index.jspx">用户信息</a>|<a href="${base}/member/profile.jspx">修改个人资料</a>|<a href="${base}/member/portrait.jspx" class="on">更换头像</a>|<a href="${base}/member/pwd.jspx">修改密码</a></div>
         <div class="member-text">
           [#include "image_upload.html"/]
           <form id="jvForm" action="profile.jspx" method="post">
-          <table cellpadding="0" cellspacing="0">
             <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
-                <td width="180" style="padding-top:30px;"><div class="ghtx">[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/${res}/images/userImg.jpg">[/#if]<div></td>
+                <td width="180" style="padding-top:30px;"><div class="ghtx"><img id="preImg1" src="${user.userImg!}"><div></td>
                 <td>
-                  <input type="text" name="name" class="member-change" style="width:320px;">
+                  <div id="ufc1" style="position:relative">
+                  <input type="text" id='uploadFileText1' size="14" class="member-change" style="width:320px; float:left;" /><input type="button" class="change-Btn" value="浏览" style="height:32px; margin-left:4px; border:1px solid #c7c7c7;" />
+                  <input onchange="$('#uploadFileText1').val(this.value)" size="14" type="file" id="uploadFile1" style="height:32px;width:376px;opacity:0;filter:alpha(opacity=0);position:absolute;top:0;left:0;cursor:pointer;" />
+                  </div>
                   <p style="font-size:12px; color:#b4b4b4; line-height:36px;">上传图片格式： jpg、png、gif</p>
-                  <div><input type="button" class="change-Btn" value="浏览"><input type="button" class="change-Btn" value="上传"><input type="button" class="change-Btn" value="裁剪"></div>
+                  <span style="display: none;">宽: <input type="text" id="zoomWidth1" value="${(site.config.memberConfig.userImgWidth)!}" size="5" />
+			高: <input type="text" id="zoomHeight1" value="${(site.config.memberConfig.userImgHeight)!}" size="5" />
+		  </span> 
+                  <div><input type="button" class="change-Btn" value="上传" onclick="upload(1);" /><input type="button" class="change-Btn" value="剪裁" onclick="imgCut(1);" /><input id="uploadImgPath1" name="userImg" style="width:220px" value="${user.userImg!}" type="hidden"/></div>
                 </td>
               </tr>
               <tr>
                 <td></td>
-                <td><input type="submit" class="member-submit" value="提交"></td>
+                <td><input type="hidden" name="nextUrl" value="index.jspx" /><input type="submit" class="member-submit" value="提交" /></td>
               </tr>
             </tbody>
           </table>
@@ -67,11 +74,7 @@ $(function() {
         </div>
       </div>
     </div>
-    <div class="memberRight">
-      <div class="memberImg">[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/${res}/images/userImg.jpg">[/#if]</div>
-      <div class="memberName">您好，<span>${user.username}</span></div>
-      <div class="memberOut"><a href="logout.jspx?returnUrl=/">退出</a></div>
-    </div>
+    [#include "../include/member-right.html" /]
     <div class="m-sj"></div>
   </div>
 </div>

@@ -47,7 +47,7 @@
                 [#list tag_list as a]
                 <li>
                 <div class="v-rank2-order2 v-rank4-top4">${a_index+1}</div>
-                <a href="${a.mobileUrl}" title="${a.title}" target="_blank">
+                <a href="${a.url}" title="${a.title}" target="_blank">
                 <span>[@text_cut s=a.title len=titLen /]</span>
                 </a>
                 <em>${a.views!}次</em>
@@ -72,7 +72,7 @@
                 [#list tag_list as a]
                 <li>
                 <div class="v-rank3-order3 v-rank3-top3">${a_index+1}</div>
-                <a href="${a.mobileUrl}" title="${a.title}" target="_blank">
+                <a href="${a.url}" title="${a.title}" target="_blank">
                 [@text_cut s=a.title len=titLen /]
                 </a>
                 </li>

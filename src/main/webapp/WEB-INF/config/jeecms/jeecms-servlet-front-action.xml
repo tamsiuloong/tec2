@@ -54,6 +54,7 @@
 	<bean id="projectAct" class="com.jeecms.cms.action.front.ProjectAct"/>
 	<bean id="maintenanceAct" class="com.jeecms.cms.action.front.MaintenanceAct"/>
 	<bean id="employeeAct" class="com.jeecms.cms.action.front.EmployeeAct"/>
+	<bean id="workloadAct" class="com.jeecms.cms.action.front.WorkloadAct"/>
 
 	<!-- API -->
 	<bean id="uploadApiAct" class="com.jeecms.cms.api.UploadApiAct"/>

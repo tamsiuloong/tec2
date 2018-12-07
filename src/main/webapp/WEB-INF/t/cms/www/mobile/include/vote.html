@@ -1,58 +1,35 @@
-<div class="vote-mobile">
 [@cms_vote]
-	[#if !tag_bean??]
+[#if !tag_bean??]
 <div>没有默认投票主题</div>
 [#else]
 <form name="votes" action="${base}/vote.jspx" method="post" target="_blank">
-  <table width="100%" border="0" cellspacing="5" cellpadding="0">
-    <tr>
-      <td height="30" colspan="2" align="center"><h1>${tag_bean.title?html}</h1>
-        <input type="hidden" name="voteId" value="${tag_bean.id}"/></td>
-    </tr>
-    [#if tag_bean.description??]
-    <tr>
-      <td colspan="2" align="left"><h3>${tag_bean.description?html}</h3></td>
-    </tr>
-    [/#if]
-    [#list tag_bean.subtopics as subTopic]
-    <tr>
-      <td height="30" colspan="2" align="left">
-      <span style="color:#1c77ba;">${subTopic_index+1}、${subTopic.title?html}</span>
-      </td>
-    </tr>
-    	[#if subTopic.isRadio]
-			 <tr>
-			 	<td height="30" colspan="2" align="left">
-	    		[#list subTopic.voteItems as item]
-	    			<input type="radio" name="itemIds${subTopic.id}" value="${item.id}"/>${item_index+1}.${item.title?html}
-				[/#list]
-				</td>
-			</tr>
-		[/#if]
-		[#if subTopic.isMulti]
-			<tr>
-				<td height="30" colspan="2" align="left">
-					[#list subTopic.voteItems as item]
-				      <input type="checkbox" name="itemIds${subTopic.id}" value="${item.id}"  id="${item.id}"/>${item_index+1}.${item.title?html}
-				    [/#list]
-			    </td>
-			</tr>
-		[/#if]
-		[#if subTopic.isText]
-			<tr>
-				<td height="30" colspan="2" align="left">
-					<input name="reply" type="text" class="vote-txt"/>
-				</td>
-			 </tr>
-		[/#if]
-		 <input name=subIds type="hidden" value="${subTopic.id}"/>
-    [/#list]
-    <tr>
-      <td height="35" colspan="2" align="center" valign="bottom"><input type="submit" value="投 票" class="vote-submit"/>
-      <p><a href="${base}/vote_result.jspx?voteId=${tag_bean.id}" target="_blank" class="to-vote-result">查看投票结果</a></p></td>
-    </tr>
-  </table>
+<h1>${tag_bean.title?html}</h1>
+<input type="hidden" name="voteId" value="${tag_bean.id}"/>
+      <h3>${tag_bean.description?html}</h3>
+      <div class="survey_list">
+        [#list tag_bean.subtopics as subTopic]
+        <div class="item">
+          <p>${subTopic_index+1}、${subTopic.title?html}</p>
+          <div>
+          [#if subTopic.isRadio]
+          [#list subTopic.voteItems as item]
+          <span><input type="radio" name="itemIds${subTopic.id}" value="${item.id}"/>${item_index+1}.${item.title?html}</span>
+          [/#list]
+          [/#if]
+          [#if subTopic.isMulti]
+          [#list subTopic.voteItems as item]
+          <span><input type="checkbox" name="itemIds${subTopic.id}" value="${item.id}"  id="${item.id}"/>${item_index+1}.${item.title?html}</span>
+          [/#list]
+          [/#if]
+          [#if subTopic.isText]
+          <textarea name="reply" type="text"></textarea>
+          [/#if]
+          </div>
+        </div>
+        <input name=subIds type="hidden" value="${subTopic.id}"/>
+        [/#list]
+      </div>
+      <div class="survey_Btn"><input type="submit" value="提交投票"><a href="${base}/vote_result.jspx?voteId=${tag_bean.id}" class="result">查看投票结果</a></div>
 </form>
 [/#if]
 [/@cms_vote]
-</div>

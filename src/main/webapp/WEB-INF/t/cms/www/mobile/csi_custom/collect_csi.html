@@ -3,12 +3,12 @@
 [#if user??]
 <script type="text/javascript">
 $(function() {
-       Cms.collectexist("${base}","${contentId!}","cancelSpan","comfirmSpan");
+       Cms.collectexist("${base}","${cId!}","cancelSpan","comfirmSpan");
        $("#comfirmSpan").click(function(){
-    	   Cms.collect("${base}","${contentId!}",1,"cancelSpan","comfirmSpan");
+    	   Cms.collect("${base}","${cId!}",1,"cancelSpan","comfirmSpan");
        });
        $("#cancelSpan").click(function(){
-    	   Cms.collect("${base}","${contentId!}",0,"cancelSpan","comfirmSpan");
+    	   Cms.collect("${base}","${cId!}",0,"cancelSpan","comfirmSpan");
        });
 });
 </script>

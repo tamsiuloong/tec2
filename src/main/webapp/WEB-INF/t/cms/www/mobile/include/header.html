@@ -1,23 +1,25 @@
-<header class="header">
-  [#if channel??]${channel.title!channel.name}[#else]留言板[/#if]
-  <div class="header-icon-left"><a class="header-nav"></a><a href="/${base}" class="header-home"></a></div>
-  <div class="header-icon-right">[#if user??]<a class="header-user login-out" href="${base}/logout.jspx"></a>[#else]<a class="header-user" href="${base}/login.jspx"></a>[/#if]<a class="header-search"></a></div>
-  <link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/style.css">
-  <script src="/${mobileRes!}/js/main.js" ></script>
-  <div class="cd-bouncy-nav-modal">
-		<nav>
-			<ul class="cd-bouncy-nav">
-				<li><a href="${base}/news/index.jhtml">新闻</a></li>
-				<li><a href="${base}/pic/index.jhtml">图库</a></li>
-				<li><a href="${base}/video/index.jhtml">视频</a></li>
-				<li><a href="${base}/download/index.jhtml">下载</a></li>
-                                <li><a href="${base}/job/index.jhtml">招聘</a></li>
-                                <li><a href="${base}/doc/index.jhtml">文库</a></li>
-                                <li><a href="${base}/wldc.jhtml">网络调查</a></li>
-                                <li><a href="${base}/guestbook.jspx">留言板</a></li>
-				<li><a href="http://bbs.jeecms.com">论坛</a></li>
-			</ul>
-		</nav>
-		<a href="#0" class="cd-close">Close modal</a>
+<div class="head1">
+  <div class="head1a">
+    [#if user??]
+    <div class="head1a1">您好，${user.username} <a href="${base}/logout.jspx?returnUrl=/">退出登录</a>&nbsp;&nbsp;&nbsp;<a href="${base}/jeeadmin/jeecms/index.do" target="_blank">信息维护</a></div>
+    <div class="head1a6"><a href="#">设为首页</a><a href="#">加为收藏</a></div>
+    [#else]
+    <script type="text/javascript">
+        $(function() {
+            $("#jvForm").validate($.validator.AlertError);
+        });
+    </script>
+    <form id="jvForm" action="${base}/login.jspx" method="post">
+      <input type="hidden" name="returnUrl" value="${location}"/>
+      用户名: <input type="text" id="username" name="username" class="required" title="用户名不能为空"/> &nbsp;
+      密码: <input type="password" id="password" name="password" class="required" title="密码不能为空"/>
+      <input type="submit" value="登录"/> &nbsp;
+      <div class="head1a6"><a href="#">设为首页</a><a href="#">加为收藏</a></div>
+    </form>
+    [/#if]
+    <!--<div class="head1a5"><a href="#">登陆</a></div>-->
+
+    <div class="clear"></div>
   </div>
-  </header>
+</div>
+<div class="head2"></div>

@@ -14,7 +14,7 @@
       $(function() {
           Cms.siteFlow("${base}", location.href, document.referrer, "${site.config.flowSwitch?string}");
           //$.cookie("_site_id_cookie","${site.id!}",{path: '${base}' });
-          Cms.workload();
+          Cms.workload("${base}",1,10,"false");
       });
   </script>
 </head>
@@ -25,26 +25,9 @@
 
 <div class="center">
   <div class="center1">
-    <div class="center1a">工作动态排行榜</div>
+    <div class="center1a">工作动态排行榜<a href="workload/more.jspx"><img style="float: right;padding-top: 12px;padding-right: 3px" src="/honghe/r/cms/www/default/images/7.jpg" width="43" height="10"></a></div>
     <div class="center1b">
       <ul id="workload">
-
-        <!--<li>2、曲靖中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;87</li>-->
-        <!--<li>3、红河中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;84</li>-->
-        <!--<li>4、玉溪中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80</li>-->
-        <!--<li>5、大理中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67</li>-->
-        <!--<li>6、楚雄中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65</li>-->
-        <!--<li>7、昭通中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;64</li>-->
-        <!--<li>8、文山中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;57</li>-->
-        <!--<li>9、保山中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51</li>-->
-        <!--<li>10、普洱中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48</li>-->
-        <!--<li>11、临沧中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;45</li>-->
-        <!--<li title="西双版纳中支">12、西双版纳 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;44</li>-->
-        <!--<li>13、德宏中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40</li>-->
-        <!--<li>14、丽江中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25</li>-->
-        <!--<li>15、迪庆中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20</li>-->
-        <!--<li>16、怒江中支 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12</li>-->
-
       </ul>
     </div>
     <div class="center1a" style=" margin-top:15px; padding-left:25px;">下载排行榜</div>
@@ -69,22 +52,6 @@
       <div class="center1c1">综合管理系统</div>
       <div class="center1c2">
         <ul>
-          <!--<li><a href="#">昆明</a></li>
-          <li><a href="#">曲靖</a></li>
-          <li><a href="#">红河</a></li>
-          <li><a href="#">玉溪</a></li>
-          <li><a href="#">大理</a></li>
-          <li><a href="#">楚雄</a></li>
-          <li><a href="#">昭通</a></li>
-          <li><a href="#">文山</a></li>
-          <li><a href="#">保山</a></li>
-          <li><a href="#">普洱</a></li>
-          <li><a href="#">临沧</a></li>
-          <li><a href="#" title="西双版纳">西双</a></li>
-          <li><a href="#">德宏</a></li>
-          <li><a href="#">丽江</a></li>
-          <li><a href="#">迪庆</a></li>
-          <li><a href="#">怒江</a></li>-->
           [@cms_friendlink_list ctgId="4"]
           [#list tag_list as link]
           <li><a href="#"  onclick="$.get('${base}/friendlink_view.jspx?id=${link.id}')" target="_blank"> [@text_cut s=link.name len=2 append=''/]</a> </li>

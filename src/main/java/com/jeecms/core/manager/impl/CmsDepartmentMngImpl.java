@@ -143,9 +143,21 @@ public class CmsDepartmentMngImpl implements CmsDepartmentMng {
 
 
 	@Override
-	public List workload(Integer pid, Integer pageSize) {
+	public List workload(Integer pid, Integer pageSize, Boolean more) {
 		List<Object[]> result = null;
-		Element ele = cache.get("workload");
+
+
+		Element ele = null;
+		if(more)
+		{
+			cache.get("workload_more");
+		}
+		else
+		{
+			cache.get("workload");
+		}
+
+
 
 		if(ele!=null)
 		{
@@ -180,7 +192,14 @@ public class CmsDepartmentMngImpl implements CmsDepartmentMng {
 			});
 
 			result = r;
-			cache.put(new Element("workload",result));
+			if(more)
+			{
+				cache.put(new Element("workload_more",result));
+			}
+			else
+			{
+				cache.put(new Element("workload",result));
+			}
 		}
 
 		return result;

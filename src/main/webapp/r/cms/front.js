@@ -462,11 +462,17 @@ Cms.MobileUA=function(){
     return mua;  
 }
 
-Cms.workload = function() {
+Cms.workload = function(base,pid,pageSize,more) {
     $.ajax({
-		url:"api/depart/workload.jspx",
+		url:base+"/api/depart/workload.jspx",
 		type:"get",
+		data:{
+			pid:pid,
+			pageSize:pageSize,
+			more:more
+		},
 		success:function(json){
+            $("#workload").empty();
 			for(var i = 0 ;i < json.length;i++)
 			{
 				var o = json[i];
@@ -476,3 +482,4 @@ Cms.workload = function() {
 		}
 	})
 }
+

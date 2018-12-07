@@ -1,13 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> ${site.name}</title>
 <meta http-equiv="keywords" content="${site.keywords!}"/>
 <meta http-equiv="description" content="${site.description!}"/>
-<title>${site.name}</title>
-<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css"> 
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -16,59 +13,27 @@ $(function() {
 	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
 });
 </script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
 
-</head>
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
 
-<body class=" job-vp">
-<div class="viewport">
-  [#include "../include/header.html" /]
-  <div class="dl-nav survey-nav clearfix">
-    <ul class="clearfix">
-      <li class="curr"><a>进行中调查</a></li>
-      <li><a>往期调查</a></li>
-    </ul>
-  </div>
-  <div class="fixed36"></div>
-  <script type="text/javascript">
-		var head=$(".header").height();
-		$(window).scroll(function(){
-			var topScr=$(window).scrollTop();
-			if (topScr>head) {
-				$(".survey-nav").addClass("fixed");
-				$(".fixed36").addClass("undis");
-			}else{
-				$(".survey-nav").removeClass("fixed");
-				$(".fixed36").removeClass("undis");
-			}
-		})
-  </script>
-  
-  
-  <div class="survey-list">
-    <div class="tab show">
-    [#include "../include/vote.html"/]
+<head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container survey clearfix"> 
+  <section class="survey_w840">
+    <h1>${channel.name!}</h1>
+    <div class="survey_con">
+      [#include "../include/vote.html"/]
     </div>
-    <div class="tab">
-    [@cms_vote_list  siteId=site.id] 
-    [#list tag_list as vote]
-    <div class="item vote-list clearfix">
-      <a href="${base}/vote.jspx?voteId=${vote.id}">
-      <div class="dl-list-title survey-list-title">${vote.title?html}</div>
-      <div class="dl-list-comment survey-list-date">[ [#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if] ]</div>
-      </a>
-    </div>
-    [/#list]
-    [/@cms_vote_list]
-    </div>
-  </div>
-  <script type="text/javascript">
-	$(document).ready(function(){	
-		$('.survey-nav li').bind('click', function(event) {
-			$(this).addClass('curr').siblings().removeClass('curr');
-			$('.survey-list .tab').eq($(this).index()).addClass('show').siblings().removeClass('show');
-		});
-		});
-  </script>
+  </section>
+  [#include "../include/vote_right.html"/]
 </div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
 </body>
 </html>

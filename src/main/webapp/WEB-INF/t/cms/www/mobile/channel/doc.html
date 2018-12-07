@@ -1,87 +1,98 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${channel.title!channel.name} - ${site.name}</title>
 <meta http-equiv="keywords" content="${channel.keywords!}"/>
 <meta http-equiv="description" content="${channel.description!}"/>
-<title>${site.name}</title>
-<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css"> 
-<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/news.css"> 
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
-<script src="/${mobileRes!}/js/hhSwipe.js" ></script>
+
 <script type="text/javascript">
 $(function() {
 	Cms.channelViewCount("${base}","${channel.id}");
-	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+	Cms.siteFlow("${base}", location.href, 
+
+document.referrer,"${site.config.flowSwitch?string}");
 });
 </script>
 
 <!--[if lt IE 9]> 
-<script src="/${res}/js/html5shiv.min.js"></script>
-<script src="/${res}/js/respond.min.js"></script>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
 <![endif]-->
 
 </head>
 
-<body>
-<div class="viewport">
-  [#include "../include/header.html" /]
-  <div class="addWrap">
-	<div class="swipe" id="mySwipe">
-		<div class="swipe-wrap">
-         [@cms_content_list orderBy='4' recommend='1' channelId='81' titLen='30' channelOption='1' dateFormat='MM-dd']
-           [#list tag_list as a]
-			<div><a href="${a.url}"><img class="img-responsive" src="${a.typeImg!}"/></a></div>
-		[/#list]
-         
-		</div>
-	</div>	
-	<ul id="dl_position">
-  [#list tag_list as a]
-      <li [#if a_index<1]class="cur"[/#if]></li>
-	[/#list]
-	</ul>
-      [/@cms_content_list]
-  </div>
-  <script type="text/javascript">
-	var bullets = document.getElementById('dl_position').getElementsByTagName('li');
-	
-	var banner = Swipe(document.getElementById('mySwipe'), {
-		auto: 3000,
-		continuous: true,
-		disableScroll:false,
-		callback: function(pos) {
-			var i = bullets.length;
-			while (i--) {
-				bullets[i].className = ' ';
-			}
-			bullets[pos].className = 'cur';
-		}
-	})
-  </script>
-  <div class="dl-list doc-list">
-  [@cms_content_list orderBy='4' channelId='81' titLen='30' channelOption='1' dateFormat='MM-dd']
-    [#list tag_list as a]
-    <div class="item clearfix">
-      <a href="${a.url}">
-      <div class="dl-list-pic doc-list-pic"> 
-         [#if a.fileSuffix??]
-	          [#if a.fileSuffix="doc"||a.fileSuffix="docx"||a.fileSuffix="wps"]<img src="/${mobileRes!}/images/doc-icon.png">[/#if]
-    [#if a.fileSuffix="ppt"||a.fileSuffix="pptx"]<img src="/${mobileRes!}/images/doc-icon.png">[/#if]
-    [#if a.fileSuffix="pdf"]<img src="/${mobileRes!}/images/pdf-icon.png">[/#if]
-	           [/#if]       
-      </div>
-      <div class="dl-list-title">${a.title!}</div>
-      <div class="dl-list-comment doc-list-comment">${a.contentCount.views!}人阅读  |  ${a.date?string(dateFormat)}</div>
-      </a>
-    </div>
+<body style="background-color:#fcfcfc;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]   
+<div class="main container clearfix">
+  <section class="wenku_w910">
+    <div class="doc_js">
+      <form action="${base}/searchCustom.jspx" method="get">
+      [@cms_model id="9"]
+    [#list tag_bean.items as item]
+    [#if item.field=="hy"]
+        [#assign hyAll=item.optValue/]
+    [#elseif item.field=="em"]
+        [#assign emAll=item.optValue/]
+    [/#if]
     [/#list]
+      <div class="doc_js_list clearfix"><span>文档类型：</span><label><input name="hy" value="" type="radio" checked="checked"/>不限</label>
+         [#list hyAll!?split(",") as opt]
+       	<label><input name="hy" value="${opt}" type="radio" [#if hy??][#if hy==opt]checked="checked"[/#if][/#if]/>${opt!}</label>
+         [/#list]
+      </div>
+      <div class="doc_js_list clearfix"><span>所属行业：</span><label><input name="em" value="" type="radio" checked="checked"/>不限</label>
+          [#list emAll!?split(",") as opt]
+     	<label><input name="em" value="${opt}" type="radio" [#if em??][#if em==opt]checked="checked"[/#if][/#if]/>${opt!}</label>
+          [/#list]
+      </div>
+      [/@cms_model]
+      <input type="hidden" name="tpl" value="doc"/><input type="submit" value="查询" class="doc_js_btn">
+    </div> 
+     [@cms_content_page count='10' orderBy='4' titLen='110' channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd' open='1']
+     [#list tag_pagination.list as a]
+    <div class="wenku_item clearfix">
+      <a href="${a.url}">
+      <div class="wenku_item_img"><img src="${a.typeImg!site.defImg}"></div>
+      <div>
+        <div class="wt">${a.title}
+                   [#if a.fileSuffix??]
+	          [#if a.fileSuffix="doc"||a.fileSuffix="docx"||a.fileSuffix="wps"]<img src="/${res}/images/word.gif">[/#if]
+    [#if a.fileSuffix="ppt"||a.fileSuffix="pptx"]<img src="/${res}/images/PPT.gif">[/#if]
+    [#if a.fileSuffix="pdf"]<img src="/${res}/images/PDF.gif">[/#if]
+	           [/#if]
+        </div>
+        <div class="wc">财富值：<span>${a.downNeed!}</span><em>${a.date?string(dateFormat)}</em></div>
+        <div class="wd">[@text_cut s=a.description! len=titLen append='...'/]</div>
+      </div>
+      </a>
+    </div> 
+    [/#list]
+    [@cms_pagination sysPage='1'/]
+    [/@cms_content_page] 
+  </section>
+  <section class="wenku_hot">
+    <h1>热门文档</h1>
+    <div class="wenku_hot_list">
+    [@cms_content_list count='10' orderBy='9' titLen='25' channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd']
+      <ul>
+      [#list tag_list as a]
+        <li><a href="${a.url}">${a.title}</a></li>
+      [/#list]
+      </ul>
     [/@cms_content_list]
-  </div>
+    </div>
+  </section>
 </div>
-[#include "../include/gotop.html" /]
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
 </body>
 </html>
+

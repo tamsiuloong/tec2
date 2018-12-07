@@ -11,7 +11,7 @@
             [@cms_content_list count='8' orderBy='4' titLen='16' channelId='1'  channelOption='1']
             [#list tag_list as a]
               <li>
-            <a href="${a.mobileUrl}" title="${a.title}" target="_blank">
+            <a href="${a.url}" title="${a.title}" target="_blank">
             [@text_cut s=a.title len=titLen /]
             </a>
             </li>
@@ -70,7 +70,7 @@
                 [#list tag_list as a]
                 <li>
                 <div class="v-rank2-order2 v-rank4-top4">${a_index+1}</div>
-                <a href="${a.mobileUrl}" title="${a.title}" target="_blank">
+                <a href="${a.url}" title="${a.title}" target="_blank">
                 <span>[@text_cut s=a.title len=titLen /]</span>
                 </a>
                 <em>${a.views!}次</em>

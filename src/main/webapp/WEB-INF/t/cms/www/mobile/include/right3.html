@@ -5,7 +5,7 @@
             <div class="titleBg1">
                 <h1>时事</h1><h2>评论</h2>
                 <em>
-                [@cms_channel id='14']<a href="${tag_bean.mobileUrl}" target="_blank">
+                [@cms_channel id='14']<a href="${tag_bean.url}" target="_blank">
             更多>></a>[/@cms_channel]
                 </em>
             </div>
@@ -17,7 +17,7 @@
                 [@cms_content_list count='8' orderBy='4' titLen='18' channelId='14'  channelOption='1']
                 [#list tag_list as a]
                   <li>
-                <a href="${a.mobileUrl}" title="${a.title}" target="_blank">
+                <a href="${a.url}" title="${a.title}" target="_blank">
                 [@text_cut s=a.title len=titLen /]
                 </a>
                 </li>
@@ -35,7 +35,7 @@
             <div class="titleBg1">
                 <h1>图片</h1><h2>新闻</h2>
                 <em>
-                [@cms_channel id='15']<a href="${tag_bean.mobileUrl}" target="_blank">
+                [@cms_channel id='15']<a href="${tag_bean.url}" target="_blank">
             更多>></a>[/@cms_channel]
                 </em>
             </div>
@@ -45,11 +45,11 @@
                     [@cms_content_list count='4' orderBy='4' typeId='2' titLen='10' channelId='15' channelOption='1']
                     [#list tag_list as a]
                     <li>
-                        <a href="${a.mobileUrl}" target="_blank">
+                        <a href="${a.url}" target="_blank">
                         <img src="${a.typeImg!site.defImg}" alt="${a.title}" />
                         </a>
                         <p>
-                        <a href="${a.mobileUrl}" target="_blank">
+                        <a href="${a.url}" target="_blank">
                         [@text_cut s=a.title len=titLen /]
                         </a>
                         </p>
@@ -68,7 +68,7 @@
             <div class="titleBg1">
                 <h1>娱乐</h1><h2>新闻</h2>
                 <em>
-                [@cms_channel id='44']<a href="${tag_bean.mobileUrl}" target="_blank">
+                [@cms_channel id='44']<a href="${tag_bean.url}" target="_blank">
             更多>></a>[/@cms_channel]
                 </em>
             </div>
@@ -80,7 +80,7 @@
                 [@cms_content_list count='8' orderBy='4' titLen='18' channelId='44'  channelOption='1']
                 [#list tag_list as a]
                   <li>
-                <a href="${a.mobileUrl}" title="${a.title}" target="_blank">
+                <a href="${a.url}" title="${a.title}" target="_blank">
                 [@text_cut s=a.title len=titLen /]
                 </a>
                 </li>

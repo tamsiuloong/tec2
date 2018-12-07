@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>内容资料列表 - ${site.name}</title>
+<script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
+<script type="text/JavaScript" src="/${res}/images/slide.js"></script>
+<link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/${res}/css/layout.css">
+<link rel="stylesheet" href="/${res}/css/animate.min.css">
+<link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
+
+
+
+  <script type="text/javascript" src="${base}/r/cms/front.js"></script>
+
+
+  <!-- CSS goes in the document HEAD or added to your external stylesheet -->
+  <style type="text/css">
+    table.hovertable {
+      font-family: verdana,arial,sans-serif;
+      font-size:11px;
+      width: 100%;
+      color:#333333;
+      border-width: 1px;
+      border-color: #999999;
+      border-collapse: collapse;
+    }
+    table.hovertable th {
+      background-color:#c3dde0;
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    }
+    table.hovertable tr {
+      background-color:#d4e3e5;
+    }
+    table.hovertable td {
+      border-width: 1px;
+      padding: 8px;
+      border-style: solid;
+      border-color: #a9c6c9;
+    }
+  </style>
+
+
+
+<link rel="stylesheet" type="text/css" href="/${res}/css/style.css">
+
+  <script type="text/javascript">
+      $(function() {
+          Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+      });
+  </script>
+</head>
+
+<body>
+[#include "../include/header.html"/]
+[#include "../include/nav.html"/]
+<div class="center">
+  <div class="center1">
+    <div class="center1a">资料列表</div>
+    <div class=""><div id="content">
+  <div class="menu">
+    [#include "../include/infotype_tree.html"/]
+  </div>
+
+</div> 
+    </div>
+  </div>
+  <div class=" bu">
+    <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> <a href="project.jspx?cid=${channel.id}" style="float: left;padding-top: 0px;text-decoration:blink"> ${channel.name!}</a>>${content.title!}>[#if pc??]${pc.name}[/#if]</div>
+    <div class="center2">
+      <div class="center2c hh" style=" width:770px;">
+        <!--<h3>${content.title}</h3>-->
+        <!--<dl>发布时间：${content.releaseDate}</dl>-->
+
+        <table class="hovertable">
+          <tr>
+            <td width="15%">项目名字:</td>
+            <td width="35%">${content.title}</td>
+            <td width="15%">项目年度:</td>
+            <td width="35%">${content.attr.year}</td>
+          </tr>
+          <tr>
+          </tr>
+          <tr>
+            <td>项目部门:</td>
+            <td>${content.attr.deptName}</td>
+            <td>项目类别:</td>
+            <td>${content.attr.projectType}</td>
+          </tr>
+          <tr>
+          </tr>
+          <tr>
+            <td>预算:</td>
+            <td>${content.attr.budget}</td>
+            <td>预算规模:</td>
+            <td>${content.attr.budgetScale}</td>
+          </tr>
+          <tr>
+            <td>使用范围:</td>
+            <td>${content.attr.scope}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+        <p class="p">
+          ${content.title!}
+        </p>
+        [#if  content.attachments?size gt 0 ]
+
+        <div class="bus">
+          [#list content.attachments as att]
+          <a href="${att.path}" style="margin-right: 10px">${att.name}</a>
+          [/#list]
+        </div>
+
+        [/#if]
+      </div>
+
+    </div>
+
+    <clu class="center2">
+      <div class=" hh" style=" width:770px;">
+        <!--<div class="sou">-->
+
+          <!--<form action="${base}/search.jspx"  id="searchForm">-->
+            <!--<div class="sou1">-->
+              <!--<input  type="text" name="q" value="${q!'请输入关键词'}" onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  style=" width:100%; height:24px; line-height:24px;  text-indent:0.5em;" placeholder="关键词"  />-->
+              <!--<input  type="hidden" name="channelId" value=""  />-->
+            <!--</div>-->
+          <!--</form>-->
+          <!--<div class="sou2"><a href="#" onclick="document.getElementById('searchForm').submit()">搜索</a></div>-->
+          <!--<div class="clear"></div>-->
+        <!--</div>-->
+        <ul class="hi" >
+          <li style=" background:none; background-color:#eee; text-align:center;">
+            <dd class="x1" style="text-align:left;width: 200px"><strong>名称</strong></dd>
+            <dd class="x2" style="text-align:left;width: 100px"><strong>维护人员</strong></dd>
+            <dd class="x3" style="text-align:left;"><strong>建项时间</strong></dd>
+            <dd class="x4" style="text-align:left;"><strong>备注</strong> </dd>
+            <div class="clear"></div>
+          </li>
+          [#if q??]
+          [@cms_lucene_page q=q channelId=channelId descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
+          [#list tag_list as s]
+          <li>
+            <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
+            <dd class="x2"><a href="${s.url}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
+            <!--<dd class="x3">银科技888888号 </dd>-->
+            <dd class="x4">${s.author}</dd>
+            <dd class="x5">${a.description} </dd>
+            <div class="clear"></div>
+          </li>
+          [/#list]
+          <div style=" text-align:center; padding-top:20px; font-size:12px; padding-bottom:10px;">[#include "../include/page.html"/]</div>
+
+          [/@cms_lucene_page]
+          [#else]
+          [@cms_content_page count='20' orderBy='4' infoTypeId=typeId parentId=id channelOption='0' dateFormat='yyyy-MM-dd']
+          [#list tag_pagination.list as s]
+          <li>
+            <dd class="x1" style="text-align:left;width: 200px"><a href="projectInfo.jspx?id=${s.id}&typeId=${typeId}&parentId=${id}&cid=${channel.id}" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
+            <dd class="x2" style="width: 100px">${s.author!'本站编辑'}</dd>
+            <!--<dd class="x3">银科技888888号 </dd>-->
+            <dd class="x3">${s.releaseDate?string(dateFormat)}</dd>
+            <dd class="x4" style="text-align:left;width: 300px">[@text_cut s=s.description!'未填写' len=25 append='...'/]</dd>
+            <div class="clear"></div>
+          </li>
+          [/#list]
+          <div style=" text-align:center; padding-top:20px; font-size:12px; padding-bottom:10px;">[#include "../include/page.html"/]</div>
+          [/@cms_content_page]
+          [/#if]
+
+        </ul>
+
+      </div>
+    </div>
+    <!--[#include "../include/gzdt.html"/]-->
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+[#include "../include/friend_link.html"/]
+[#include "../include/footer.html"/]
+
+</body>
+</html>

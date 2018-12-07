@@ -38,5 +38,5 @@ public interface CmsDepartmentMng {
 
 	List<CmsDepartment> getAll();
 
-    List workload(Integer pid, Integer pageSize);
+    List workload(Integer pid, Integer pageSize, Boolean more);
 }

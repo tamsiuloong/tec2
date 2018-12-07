@@ -1,125 +1,177 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${title} - ${site.name}</title>
 <meta content="${content.tagStr!}" http-equiv="keywords" />
 <meta content="${content.description!}" http-equiv="description" />
-<title>${site.name}</title>
-<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css"> 
-<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/pic.css">
-<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
-<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
-<script src="/${mobileRes!}/js/hhSwipe.js" ></script>
-
-<script type="text/javascript">
-$(function() {
-Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
-Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
-Cms.viewCount("${base}","${content.id}");
-Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
-});
-function return_prepage()  
-{  
-if(window.document.referrer==""||window.document.referrer==window.location.href)  
-{  
-window.location.href="{dede:type}[field:typelink /]{/dede:type}";  
-}else  
-{  
-window.location.href=window.document.referrer;  
-}  
-  
-}  
-</script>
+<script src="/${res}/js/piccontent.min.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<link type="text/css" rel="stylesheet" href="/${res}/css/piccontext.css" />
 
 <!--[if lt IE 9]> 
 <script src="/${res}/js/html5shiv.min.js"></script>
 <script src="/${res}/js/respond.min.js"></script>
 <![endif]-->
 
-</head>
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
 
-<body>
-<div class="viewport">
-  <header class="header-pic">
-    <div class="back"><a href="javascript:return_prepage();"></a></div>
-    <div class="header-pic-r fr"><a class="pic-share" onClick="toshare()"></a></div>
-    <div class="am-share">
-         <div style="padding:20px 16px 16px 16px;"> 
-        <ul class="am-share-sns" class="bdsharebuttonbox">
-        <li><a href="javascript:window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.title.substring(0,76))+'&url='+encodeURIComponent(location.href)+'&rcontent=','_blank','scrollbars=no,width=320,height=450,left=0,top=20,status=no,resizable=yes'); void 0"> <i class="share-icon-sina"></i><span>新浪微博</span></a> </li>
-        <li><a data-cmd="weixin"> <i class="share-icon-weixin"></i><span>微信</span></a> </li>
-        <li><a onclick="window.open('http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href));return false;"> <i class="share-icon-qq"></i><span>QQ</span></a> </li>
-        <li><a onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;"> <i class="share-icon-qqzone"></i><span>QQ空间</span></a> </li>
-        </ul>
-          </div>
+<head>
+<body style="background-color:#f9f9f9;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <!--弹出层开始-->
+  <div class="bodymodal"></div>
+  <!--播放到第一张图的提示-->
+  <div class="firsttop">
+    <div class="firsttop_right">
+      <div class="close2"> <a class="closebtn1" title="关闭" href="javascript:void(0)"></a> </div>
+      <div class="replay">
+        <h2 id="div-end-h2"> 已到第一张图片了。 </h2>
+        <p> <a class="replaybtn1" onClick="document.location.reload()">重新播放</a> </p>
       </div>
-      <script type="text/javascript">
-		function toshare(){
-			$(".am-share").addClass("am-modal-active");	
-			if($(".sharebg").length>0){
-				$(".sharebg").addClass("sharebg-active");
-			}else{
-				$("body").append('<div class="sharebg"></div>');
-				$(".sharebg").addClass("sharebg-active");
-			}
-			$(".sharebg-active").click(function(){
-				$(".am-share").removeClass("am-modal-active");	
-				setTimeout(function(){
-					$(".sharebg-active").removeClass("sharebg-active");	
-					$(".sharebg").remove();	
-				},300);
-			})
-		}	
-	  </script>
-       
-  </header>
-  <div class="addWrap" style="background-color:#f0f0f0;">
-	<div class="swipe" id="mySwipe" style="width:100%; height:100%;">
-		<div class="swipe-wrap" style="width:100%; height:100%;">
-                      [#list content.pictures as p]
-			<div style="display:-webkit-box;-webkit-box-pack:center;-webkit-box-align:center; width:100%; height:100%;">
-                          <a href="javascript:;">
-                            <img class="img-responsive" src="${p.imgPath!}"/>
-                            <div class="slBanrTxt pic-sl"><p>${p.description!}</p></div>
-                          </a>
-                        </div>
-			[/#list]
-		</div>
-	</div>	
-	<ul id="position">
-       [#list content.pictures as p]
-      <li [#if p_index<1]class="cur"[/#if]>${p_index+1}</li>
-	[/#list]
-      <span>/${content.pictures?size}</span>
-	</ul>   
+      <div class="pictwo">
+        <ul>
+          <li>
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">上一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>          
+          <li>
+           [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">下一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>
+        </ul>
+      </div>
+      <div class="returnbtn"> <a href="">返回图库首页</a> </div>
+    </div>
   </div>
-  <script>
-  $(function(){
-	 var winHeight = $(window).height();
-	$(".addWrap").css({height:winHeight});  
-	  })  
-  </script>
-  <script type="text/javascript">
-	var bullets = document.getElementById('position').getElementsByTagName('li');	
-	var banner = Swipe(document.getElementById('mySwipe'), {
-		auto:false,
-		continuous: true,
-		disableScroll:false,
-		callback: function(pos) {
-			var i = bullets.length;
-			while (i--) {
-				bullets[i].className = ' ';
-			}
-			bullets[pos].className = 'cur';
-
-		}
-	})
-  </script>
-  <footer class="pic-footer">[#if channel.allowUpdown]<a class="pic-zan" onclick="Cms.up('${base}',${content.id},${content.ups});"><span id="ups"></span></a>[/#if]<a href="${base}/comment.jspx?contentId=${content.id}" class="pic-comment">${content.commentsCheckedNum!}</a></footer>
-</div>
+  <!--播放到最后一张图的提示-->
+  <div class="endtop">
+    <div class="firsttop_right">
+      <div class="close2"> <a class="closebtn2" title="关闭" href="javascript:void(0)"></a> </div>
+      <div class="replay">
+        <h2 id="H1"> 已到最后一张图片了。 </h2>
+        <p> <a class="replaybtn2" onClick="document.location.reload()">重新播放</a> </p>
+      </div>
+      <div class="pictwo">
+        <ul>
+          <li>
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">上一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>          
+          <li>
+          [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">下一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>
+        </ul>
+      </div>
+      <div class="returnbtn"> <a href="${base}/pic/index.jhtml">返回图库首页</a> </div>
+    </div>
+  </div>
+  <!--弹出层结束--> 
+  <!--图片特效内容开始-->
+  <div class="piccontext">
+    <h2>${content.title}</h2>
+    <div class="content-inf">发布时间：${content.releaseDate}&nbsp;&nbsp;作者：${content.author!'本站编辑'}&nbsp;&nbsp;来源：${content.origin!'本站原创'}&nbsp;&nbsp;浏览次数：<span id="views"></span>
+     <div class="content-action"><a class="support">支持<img src="/${res}/images/jiantou1.jpg" />键翻阅图片</a> | <a class="content-comment" href="${base}/comment.jspx?contentId=${content.id!}">我有话说</a> | <span class="content-share">分享
+    [#include "inc_share.html"/]
+    </span> | <a class="content-collect" id="collectCsiDiv">收藏</a></div>
+     </div>
+    </div>
+    [#if pic??]
+    <!--大图展示-->
+    <div class="picshow">
+      <div class="picshowtop">
+          <a href="#"><img src="" alt="" id="pic1" curindex="0" /></a>
+          <a id="preArrow" href="javascript:void(0)" class="contextDiv" title="上一张"><span id="preArrow_A"></span></a>
+          <a id="nextArrow" href="javascript:void(0)" class="contextDiv" title="下一张"><span id="nextArrow_A"></span></a>
+      </div>
+      <div class="picshowtxt">
+        <div class="picshowtxt_left"><span>1</span>/<i>${content.pictures?size}</i></div>
+        <div class="picshowtxt_right"></div>
+      </div>
+      <div class="picshowlist"> 
+        <!--上一条图库-->
+        <div class="picshowlist_left">
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+          <div class="picleftimg"> <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a> </div>
+          <div class="piclefttxt"> <a href="${tag_bean.url}">${tag_bean.title}</a> </div>
+          [#else]
+          <div class="picleftimg"> <a><img src="/${res}/images/no-pic.png" /></a> </div>
+          <div class="piclefttxt"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+        </div>
+        <div class="picshowlist_mid">
+          <div class="picmidleft"> <a href="javascript:void(0)" id="preArrow_B"><img src="/${res}/images/left1.jpg" alt="上一个" /></a> </div>
+          <div class="picmidmid">
+            <ul>
+            [#list content.pictures as p]
+              <li><a href="javascript:void(0);"><img src="${p.imgPath!}" alt="" bigimg="${p.imgPath!}" text="${p.description!}" /></a></li>
+            [/#list]
+            </ul>
+          </div>
+          <div class="picmidright"> <a href="javascript:void(0)" id="nextArrow_B"><img src="/${res}/images/right1.jpg" alt="下一个" /></a> </div>
+        </div>
+        <!--下一张图库新闻-->
+        <div class="picshowlist_right">
+          [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+          <div class="picleftimg"> <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a> </div>
+          <div class="piclefttxt"> <a href="${tag_bean.url}">${tag_bean.title}</a> </div>
+          [#else]
+          <div class="picleftimg"> <a><img src="/${res}/images/no-pic.png" /></a> </div>
+          <div class="piclefttxt"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+        </div>
+      </div>
+      [#else]    
+            <dd class="msg">尚未添加图集图片！</div>		
+       [/#if]
+    </div>
+  </div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
 </body>
 </html>

@@ -64,11 +64,11 @@ public class DepartmentApiAct {
 	}
 
 	@RequestMapping(value = "/api/depart/workload.jspx")
-	public void workload(@RequestParam(name = "pid",defaultValue = "1") Integer pid, @RequestParam(name = "pageSize",defaultValue = "10")Integer pageSize, HttpServletRequest request,
+	public void workload(@RequestParam(name = "pid",defaultValue = "1") Integer pid, @RequestParam(name = "pageSize",defaultValue = "10")Integer pageSize,Boolean more, HttpServletRequest request,
 						 HttpServletResponse response, ModelMap model) {
 
 
-		List result = manager.workload(pid,pageSize);
+		List result = manager.workload(pid,pageSize,more);
 
 		String json = JSON.toJSONString(result);
 		ResponseUtils.renderJson(response, json);

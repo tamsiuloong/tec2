@@ -2,59 +2,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>留言详细- ${site.name}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${site.name}</title>
 <link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
 <link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
 <script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
 <script src="${resSys}/front.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="../../${res}/css/member.css" />
-<script type="text/javascript">
+<link rel="stylesheet" type="text/css" href="/${res}/css/index.css" />
 
-</script>
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
 </head>
 
 <body>
-[#include "../member/member_header.html"/]
-<div class="container">
-	 [#include "../member/member_navi.html"/]
-    <div class="mc_right">
-        [#include "../member/member_top.html"/]
-        <div class="mr-top-position">
-		     <div class="mr-top-tit fl">留言详细</div>
-		    <div class="modify fr"><a href="${base}/member/myguestbook.jspx">我的留言</a></div>
-		 </div>
-        <div class="mc_content">   
-          	<table width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#C8DCF0" align="center">
-           <tr>
-             <td width="10%" height="25" align="right" bgcolor="#f6fbff">类  别：</td>
-             <td bgcolor="#FFFFFF" width="40%">${guestbook.ctg.name!?html} </td>
-             <td width="10%"  height="25" align="right" bgcolor="#f6fbff">电子邮箱：</td>
-             <td width="40%" bgcolor="#FFFFFF">${guestbook.email!?html}</td>
-           </tr>
-           <tr>
-             <td width="10%" height="25" align="right" bgcolor="#f6fbff">电  话：</td>
-             <td bgcolor="#FFFFFF" width="40%">${guestbook.phone!?html} </td>
-             <td width="10%"  height="25" align="right" bgcolor="#f6fbff">QQ：</td>
-             <td width="40%" bgcolor="#FFFFFF">${guestbook.qq!?html}</td>
-           </tr>
-           <tr>
-             <td width="10%" height="25" align="right" bgcolor="#f6fbff">标题：</td>
-             <td bgcolor="#FFFFFF" width="90%" colspan="3">${guestbook.titleHtml!}</td>
-            </tr>
-            <tr>
-             <td width="10%" height="25" align="right" bgcolor="#f6fbff">内容：</td>
-             <td bgcolor="#FFFFFF" width="90%" colspan="3">${guestbook.contentHtml!}</td>
-            </tr>
-           <tr>
-             <td height="25" colspan="4" align="center" bgcolor="#f6fbff" >
-                <input type="button" value="返回" onclick="javascpipt:history.go(-1);" class="member_button"/> 
-             </td>
-             </tr>
-         </table>
-    	</div>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="member-con">
+  <div class="m-pos"><a href="${base}/">首页</a> > <span>会员中心</span></div>
+  <div class="member clearfix">
+    <div class="memberLeft clearfix"> 
+      <div class="member-nav">
+        <ul>
+        <li><a href="${base}/member/index.jspx">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
+        <li><a href="${base}/member/doc_list.jspx?modelId=9">文档管理</a></li>
+        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.jspx" class="on">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
+        <li><a href="${base}/member/account.jspx">服务中心</a></li>
+        </ul>
+      </div>
+      <div class="member-main">
+        <div class="member-child"><a href="${base}/member/myguestbook.jspx" class="on">我的留言</a></div>
+        <div class="member-text tggl">
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                <td class="tggl-top" width="100">类别</td><td style="text-align:left; text-indent:20px;">${guestbook.ctg.name!?html}</td>
+              </tr>
+              <tr>
+                <td class="tggl-top" width="100">电子邮箱</td><td style="text-align:left; text-indent:20px;">${guestbook.email!?html}</td>
+              </tr>
+              <tr>
+                <td class="tggl-top" width="100">电话</td><td style="text-align:left; text-indent:20px;">${guestbook.phone!?html}</td>
+              </tr>
+              <tr>
+                <td class="tggl-top" width="100">QQ</td><td style="text-align:left; text-indent:20px;">${guestbook.qq!?html}</td>
+              </tr>
+              <tr>
+                <td class="tggl-top" width="100">标题</td><td style="text-align:left; text-indent:20px;">${guestbook.titleHtml!}</td>
+              </tr>
+              <tr>
+                <td class="tggl-top" width="100">内容</td><td style="text-align:left; text-indent:20px;">${guestbook.contentHtml!}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    [#include "../include/member-right.html" /]
+    <div class="m-sj"></div>
   </div>
-     <div style="clear:both"></div>
 </div>
+[#include "../include/footer.html"/]
 </body>
 </html>

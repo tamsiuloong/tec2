@@ -31,12 +31,12 @@ Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwit
     [#include "../include/search_csi.html"/]
     [#include "../include/navi.html"/]
     <div class="website mt10">
-        当前位置：<a href="${base}/">首页</a> > [#list channel.nodeList as n]<a target="_blank" href="${n.url}">${n.name}</a>[#if n_has_next] > [/#if][/#list] > 正文
+        当前位置: <a href="${base}/">首页</a> > [#list channel.nodeList as n]<a target="_blank" href="${n.url}">${n.name}</a>[#if n_has_next] > [/#if][/#list] > 正文
     </div>
     <div class="clear"></div>
     <div class="newsTex">
         <h1>[#if content.bold]<b>${content.title}</b>[#else]${content.title}[/#if]</h1>
-        <div class="msgbar">发布时间： ${content.releaseDate} &nbsp; 作者：${content.author!'本站编辑'} &nbsp; 来源： ${content.origin!'本站原创'} &nbsp; 浏览次数：<span id="views"></span>
+        <div class="msgbar">发布时间:  ${content.releaseDate} &nbsp; 作者: ${content.author!'本站编辑'} &nbsp; 来源:  ${content.origin!'本站原创'} &nbsp; 浏览次数: <span id="views"></span>
         [#if user??]
         <script type="text/javascript">
         $(function() {
@@ -52,16 +52,25 @@ Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwit
             <div id="video" style="position:relative;z-index: 100;width:960px;height:500px;float: left;"><div id="a1"></div></div>
 	    	<script type="text/javascript">
 	    	//函数名称不允许更改 function ckmarqueeadv(){return '广告内容'};
-			var flashvars={f:'${content.mediaPath!}',c:0,b:1,my_url:'${content.url!}',my_pic:'${content.typeImg!}'};
-			var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always'};
-			CKobject.embedSWF('${resSys}/ckplayer/ckplayer.swf','a1','ckplayer_a1','980','500',flashvars,params);
-			var box = new LightBox();
-			function closelights(){//关灯
-				box.Show();
-			}
-			function openlights(){//开灯
-				box.Close();
-			}
+	    		function ckmarqueeadv(){return ''};
+				var flashvars={
+					f:'${content.mediaPath!}',
+					c:0,
+					b:1,
+					p:2,
+					i:'${content.titleImg!}',
+					my_url:'${content.url!}',
+					my_pic:'${content.titleImg!}'
+					};
+				var video=['${content.mediaPath!}->video/mp4'];
+				CKobject.embed('${resSys}/ckplayer/ckplayer.swf','a1','ckplayer_a1','980','500',false,flashvars,video);
+				var box = new LightBox();
+				function closelights(){//关灯
+					box.Show();
+				}
+				function openlights(){//开灯
+					box.Close();
+				}
                </script>
     	<div class="pagebar">[#include "../style_page/content.html"/]</div>
     </div>
@@ -87,10 +96,10 @@ Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwit
         	<div class="tvxinxi">
                 <ul>
                 	<li><h1>${content.title!}</h1></li>
-                	<li>主演：<span>${content.attr.Starring!}</span></li>
-                	<li>导演：<span>${content.attr.Director!}</span></li>
-                	<li>类型：<span>${content.attr.VideoType!}</span></li>
-                	<li>简介：<span>${content.desc!}</span></li>
+                	<li>主演: <span>${content.attr.Starring!}</span></li>
+                	<li>导演: <span>${content.attr.Director!}</span></li>
+                	<li>类型: <span>${content.attr.VideoType!}</span></li>
+                	<li>简介: <span>${content.desc!}</span></li>
                 </ul>
             </div>
         </div>
