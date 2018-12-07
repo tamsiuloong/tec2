@@ -101,11 +101,11 @@ $(document).ready(function (){
           [@cms_lucene_page q=q channelId=channelId descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
           [#list tag_list as s]
             <li>
-              <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-              <dd class="x2"><a href="${s.url}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
+              <dd class="x1" style="text-align:left;width: 200px"><a href="maintenanceInfoList.jspx?id=${s.id}&typeId=0&cid=${channel.id}" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
+              <dd class="x2" style="width: 100px">${s.author!'本站编辑'}</dd>
               <!--<dd class="x3">银科技888888号 </dd>-->
-              <dd class="x4">${author}</dd>
-              <dd class="x5">${a.channel.name} </dd>
+              <dd class="x3">${s.releaseDate?string(dateFormat)}</dd>
+              <dd class="x4" style="text-align:left;width: 300px">[@text_cut s=s.description!'未填写' len=25 append='...'/]</dd>
               <div class="clear"></div>
             </li>
           [/#list]
