@@ -1,15 +1,15 @@
 package com.jeecms.cms.lucene;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.common.page.Pagination;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.store.Directory;
 
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.common.page.Pagination;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public interface LuceneContentSvc {
 	public Integer createIndex(Integer siteId, Integer channelId,
@@ -18,7 +18,7 @@ public interface LuceneContentSvc {
 
 	public Integer createIndex(Integer siteId, Integer channelId,
 							   Date startDate, Date endDate, Integer startId, Integer max,
-							   Directory dir, Integer departId) throws IOException, ParseException;
+							   Directory dir, Integer departId, Map<String, Object> map) throws IOException, ParseException;
 
 	public void createIndex(Content content, Directory dir) throws IOException;
 
@@ -36,13 +36,13 @@ public interface LuceneContentSvc {
 			ParseException;
 
 	public Pagination searchPage(String path, String queryString, String category, String workplace,
-								 Integer siteId, Integer channelId, Date startDate, Date endDate,
-								 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
+                                 Integer siteId, Integer channelId, Date startDate, Date endDate,
+                                 int pageNo, int pageSize, Integer departId, Map<String, Object> map) throws CorruptIndexException,
 			IOException, ParseException;
 
 	public Pagination searchPage(Directory dir, String queryString, String category, String workplace,
 								 Integer siteId, Integer channelId, Date startDate, Date endDate,
-								 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
+								 int pageNo, int pageSize, Integer departId, Map<String, Object> map) throws CorruptIndexException,
 			IOException, ParseException;
 
 	public List<Content> searchList(String path, String queryString, String category, String workplace,

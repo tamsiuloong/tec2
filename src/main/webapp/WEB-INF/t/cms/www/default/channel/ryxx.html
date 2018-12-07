@@ -46,7 +46,7 @@
         <div class="sou">
           <form action="${base}/search.jspx"  id="searchForm">
             <div class="sou1">
-              <input  type="text" name="q" value="${q!'请输入关键词'}" onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  style=" width:100%; height:24px; line-height:24px;  text-indent:0.5em;" placeholder="关键词"  />
+              <input  type="text" name="q" value="${q!'请输入关键词'}" style="width:100%;/* height:24px; */line-height:24px;text-indent:0.5em;"  onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  style=" width:100%; height:24px; line-height:24px;  text-indent:0.5em;" placeholder="关键词"  />
               <input  type="hidden" name="channelId" value="${channel.id}"  />
             </div>
           </form>

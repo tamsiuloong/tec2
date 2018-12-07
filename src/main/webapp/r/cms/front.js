@@ -477,7 +477,7 @@ Cms.workload = function(base,pid,pageSize,more) {
 			{
 				var o = json[i];
 
-                $("#workload").append("<li>"+(i+1)+"、<a href='#'>"+o[0]+"</a> <div  style=\"float: right;text-align: center;padding: 0px 5px;border-radius: 3px;\">"+o[1]+"</div></li>");
+                $("#workload").append("<li>"+(i+1)+"、"+o[0]+" <div  style=\"float: right;text-align: center;padding: 0px 5px;border-radius: 3px;\">"+o[1]+"</div></li>");
             }
 		}
 	})

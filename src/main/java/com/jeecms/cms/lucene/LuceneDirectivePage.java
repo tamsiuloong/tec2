@@ -1,35 +1,33 @@
 package com.jeecms.cms.lucene;
 
-import static com.jeecms.cms.Constants.TPL_STYLE_LIST;
-import static com.jeecms.cms.Constants.TPL_SUFFIX;
-import static com.jeecms.common.web.Constants.UTF8;
-import static com.jeecms.common.web.freemarker.DirectiveUtils.OUT_LIST;
-import static com.jeecms.common.web.freemarker.DirectiveUtils.OUT_PAGINATION;
-import static com.jeecms.core.web.util.FrontUtils.PARAM_STYLE_LIST;
+import com.jeecms.cms.Constants;
+import com.jeecms.common.page.Pagination;
+import com.jeecms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
+import com.jeecms.common.web.freemarker.DirectiveUtils;
+import com.jeecms.common.web.freemarker.DirectiveUtils.InvokeType;
+import com.jeecms.common.web.freemarker.ParamsRequiredException;
+import com.jeecms.common.web.springmvc.RealPathResolver;
+import com.jeecms.core.entity.CmsSite;
+import com.jeecms.core.web.util.FrontUtils;
+import freemarker.core.Environment;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.queryParser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.queryParser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jeecms.cms.Constants;
-import com.jeecms.common.page.Pagination;
-import com.jeecms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
-import com.jeecms.common.web.freemarker.DirectiveUtils;
-import com.jeecms.common.web.freemarker.ParamsRequiredException;
-import com.jeecms.common.web.freemarker.DirectiveUtils.InvokeType;
-import com.jeecms.common.web.springmvc.RealPathResolver;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.util.FrontUtils;
-
-import freemarker.core.Environment;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
+import static com.jeecms.cms.Constants.TPL_STYLE_LIST;
+import static com.jeecms.cms.Constants.TPL_SUFFIX;
+import static com.jeecms.common.web.Constants.UTF8;
+import static com.jeecms.common.web.freemarker.DirectiveUtils.OUT_LIST;
+import static com.jeecms.common.web.freemarker.DirectiveUtils.OUT_PAGINATION;
+import static com.jeecms.core.web.util.FrontUtils.PARAM_STYLE_LIST;
 
 public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 	/**
@@ -50,6 +48,14 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 		Integer channelId = getChannelId(params);
 		Date startDate = getStartDate(params);
 		Date endDate = getEndDate(params);
+		String parentType = getParentType(params);
+
+		Map<String,Object> map = new HashMap<>();
+		if(parentType!=null)
+		{
+			map.put("parentType", parentType);
+		}
+
 
 		Integer departId = null ;
 		if(getDepartId(params)!=null)
@@ -60,7 +66,7 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 		try {
 			String path = realPathResolver.get(Constants.LUCENE_PATH);
 			page = luceneContentSvc.searchPage(path, query,category,workplace, siteId, channelId,
-					startDate, endDate, pageNo, count, departId);
+					startDate, endDate, pageNo, count, departId,map);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}

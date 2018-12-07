@@ -64,6 +64,7 @@ public abstract class AbstractProjectDirective implements
 	 * 输入参数，标题。可以为null。
 	 */
 	public static final String PARAM_TITLE = "title";
+
 	/**
 	 * 输入参数，父文章id。可以为null。
 	 */
@@ -299,6 +300,7 @@ public abstract class AbstractProjectDirective implements
 		return DirectiveUtils.getString(PARAM_TITLE, params);
 	}
 
+
 	protected String getInfoTypeId(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_INFO_TYPE_ID, params);
@@ -369,6 +371,8 @@ public abstract class AbstractProjectDirective implements
 		Integer[] typeIds = getTypeIds(params);
 		Integer[] siteIds = getSiteIds(params);
 		String title = getTitle(params);
+
+
 		Map<String,String[]>attr=getAttrMap(params);
 		int count = FrontUtils.getCount(params);
 

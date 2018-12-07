@@ -1,8 +1,9 @@
 package com.jeecms.cms.lucene;
 
-import java.io.IOException;
-import java.util.Date;
-
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.ContentCheck;
+import com.jeecms.common.hibernate4.Finder;
+import com.jeecms.common.hibernate4.HibernateBaseDao;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.hibernate.CacheMode;
@@ -12,18 +13,18 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.entity.main.ContentCheck;
-import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
 
 @Repository
 public class LuceneContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		implements LuceneContentDao {
 	public Integer index(IndexWriter writer, Integer siteId, Integer channelId,
-			Date startDate, Date endDate, Integer startId, Integer max)
+						 Date startDate, Date endDate, Integer startId, Integer max, Map<String, Object> map)
 			throws CorruptIndexException, IOException {
 		Finder f = Finder.create("select bean from Content bean");
+
 		if (channelId != null) {
 			f.append(" join bean.channel channel, Channel parent");
 			f.append(" where channel.lft between parent.lft and parent.rgt");
@@ -48,6 +49,15 @@ public class LuceneContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append(" and bean.contentExt.releaseDate <= :endDate");
 			f.setParam("endDate", endDate);
 		}
+
+//		if(map!=null&&map.size()>0)
+//		{
+//			String parentType = (String) map.get("parentType");
+//			if(parentType!=null)
+//			{
+//				f.append(" and bean.parent.id is null");
+//			}
+//		}
 		f.append(" and bean.status=" + ContentCheck.CHECKED);
 		f.append(" order by bean.id asc");
 		if (max != null) {

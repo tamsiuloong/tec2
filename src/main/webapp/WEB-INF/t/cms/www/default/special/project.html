@@ -79,13 +79,13 @@ $(document).ready(function (){
       <div class=" hh" style=" width:740px;">
         <div class="sou">
 
-          <!--<form action="${base}/search.jspx"  id="searchForm">-->
-            <!--<div class="sou1">-->
-              <!--<input  type="text" name="q" value="${q!'请输入关键词'}" onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  style=" width:100%; height:24px; line-height:24px;  text-indent:0.5em;" placeholder="关键词"  />-->
-              <!--<input  type="hidden" name="channelId" value="${channel.id}"  />-->
-            <!--</div>-->
-          <!--</form>-->
-          <!--<div class="sou2"><a href="#" onclick="document.getElementById('searchForm').submit()">搜索</a></div>-->
+          <form action="searchProject.jspx"  id="searchForm">
+            <div class="sou1">
+              <input  type="text" name="q" value="${q!'请输入关键词'}" onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  style=" width:100%; height:24px; line-height:24px;  text-indent:0.5em;" placeholder="关键词"  />
+              <input  type="hidden" name="channelId" value="${channel.id}"  />
+            </div>
+          </form>
+          <div class="sou2"><a href="#" onclick="document.getElementById('searchForm').submit()">搜索</a></div>
           <div class="clear"></div>
         </div>
         <ul class="hi" >
@@ -98,14 +98,14 @@ $(document).ready(function (){
             <div class="clear"></div>
           </li>
           [#if q??]
-          [@cms_lucene_page q=q channelId=channelId descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
+          [@cms_lucene_page q=q channelId=channelId channelOption='0' parentType='0' descLen='100' append='...' count='20' sysPage='1' dateFormat='yyyy-MM-dd' ]
           [#list tag_list as s]
             <li>
-              <dd class="x1">${s.releaseDate?string(dateFormat)} </dd>
-              <dd class="x2"><a href="${s.url}">[@text_cut s=s.title len=5 append='...'/]</a></dd>
+              <dd class="x1" style="text-align:left;width: 200px"><a href="projectInfoList.jspx?id=${s.id}&typeId=0&cid=${channel.id}" style="margin-left: 20px">[@text_cut s=s.title len=15 append='...'/]</a> </dd>
+              <dd class="x2" style="width: 100px">${s.author!'本站编辑'}</dd>
               <!--<dd class="x3">银科技888888号 </dd>-->
-              <dd class="x4">${author}</dd>
-              <dd class="x5">${a.channel.name} </dd>
+              <dd class="x3">${s.releaseDate?string(dateFormat)}</dd>
+              <dd class="x4" style="text-align:left;width: 300px">[@text_cut s=s.description!'未填写' len=25 append='...'/]</dd>
               <div class="clear"></div>
             </li>
           [/#list]

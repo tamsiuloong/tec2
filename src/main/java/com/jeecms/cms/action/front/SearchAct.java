@@ -41,7 +41,9 @@ public class SearchAct {
 	public static final String SEARCH_RESULT = "tpl.searchResult";
 	public static final String SEARCH_ERROR = "tpl.searchError";
 	public static final String SEARCH_JOB = "tpl.searchJob";
-	
+	public static final String SEARCH_PROJECT = "tpl.project";
+	public static final String SEARCH_MAINTENANCE = "tpl.maintenance";
+
 	@RequestMapping(value = "/search*.jspx", method = RequestMethod.GET)
 	public String index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
@@ -150,6 +152,45 @@ public class SearchAct {
 			return FrontUtils.pageNotFound(request, response, model);
 		}
 	}
+
+
+
+	@RequestMapping(value = "/*/searchProject*.jspx", method = RequestMethod.GET)
+	public String searchProject(HttpServletRequest request,
+						HttpServletResponse response, ModelMap model) {
+		CmsSite site = CmsUtils.getSite(request);
+		// 将request中所有参数保存至model中。
+		model.putAll(RequestUtils.getQueryParams(request));
+		FrontUtils.frontData(request, model, site);
+		FrontUtils.frontPageData(request, model);
+		String q = RequestUtils.getQueryParam(request, "q");
+		String channelId = RequestUtils.getQueryParam(request, "channelId");
+		if (StringUtils.isBlank(q) && StringUtils.isBlank(channelId)) {
+			return FrontUtils.getTplPath(request, site.getSolutionPath(),
+					TPLDIR_SPECIAL, SEARCH_PROJECT);
+		} else {
+			WebErrors errors=WebErrors.create(request);
+			if(StringUtils.isNotBlank(channelId)&&!StrUtils.isGreaterZeroNumeric(channelId)){
+				errors.addErrorCode("error.channelId.notNum");
+				return FrontUtils.showError(request, response, model, errors);
+			}else{
+				String parseQ=parseKeywords(q);
+				if(StringUtils.isNotBlank(channelId)&&StrUtils.isGreaterZeroNumeric(channelId))
+				{
+					Channel channel = channelMng.findById(Integer.parseInt(channelId));
+					model.addAttribute("channel",channel);
+				}
+
+				model.addAttribute("input",q);
+				model.addAttribute("q",parseQ);
+				searchWordsCache.cacheWord(q);
+				return FrontUtils.getTplPath(request, site.getSolutionPath(),
+						TPLDIR_SPECIAL, SEARCH_PROJECT);
+			}
+		}
+	}
+
+
 	
 	public static String parseKeywords(String q){
 		char c='\\';

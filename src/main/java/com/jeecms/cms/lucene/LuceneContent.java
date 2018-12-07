@@ -31,10 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class LuceneContent {
@@ -167,6 +164,16 @@ public class LuceneContent {
 			doc.add(new Field(CONTENT3, c.getTxt3(), Field.Store.NO,
 					Field.Index.ANALYZED));
 		}
+		if (c.getParent()==null) {
+			doc.add(new Field(PARENT_TYPE, "0", Field.Store.NO,
+					Field.Index.ANALYZED));
+		}
+		else
+		{
+			doc.add(new Field(PARENT_TYPE, "1", Field.Store.NO,
+				Field.Index.ANALYZED));
+		}
+
 		if(c.getAttr()!=null&&StringUtils.isNotBlank(c.getAttr().get("workplace"))){
 			doc.add(new Field(WORKPLACE, c.getAttr().get("workplace"), Field.Store.NO,
 					Field.Index.ANALYZED));
@@ -184,7 +191,7 @@ public class LuceneContent {
 
 
 	public Query createQuery(String queryString, String category, String workplace, Integer siteId,
-                             Integer channelId, Date startDate, Date endDate, Analyzer analyzer, Integer departId)
+                             Integer channelId, Date startDate, Date endDate, Analyzer analyzer, Integer departId, Map<String, Object> map)
 			throws ParseException {
 		BooleanQuery bq = new BooleanQuery();
 		Query q;
@@ -227,14 +234,23 @@ public class LuceneContent {
 			q = new TermRangeQuery(RELEASE_DATE, start, end, true, true);
 			bq.add(q, BooleanClause.Occur.MUST);
 		}
+		if(map!=null&&map.size()>0)
+		{
+			String parentType = (String) map.get("parentType");
+			if(parentType!=null)
+			{
+				q = new TermQuery(new Term(PARENT_TYPE, parentType));
+				bq.add(q, BooleanClause.Occur.MUST);
+			}
+		}
 		return bq;
 	}
 
 	public void delete(Integer siteId, Integer channelId,
-					   Date startDate, Date endDate, IndexWriter writer, Integer departId)
+					   Date startDate, Date endDate, IndexWriter writer, Integer departId, Map<String, Object> map)
 			throws CorruptIndexException, IOException, ParseException {
 		writer.deleteDocuments(createQuery(null,null,null, siteId, channelId, startDate,
-				endDate, null, departId));
+				endDate, null, departId, map));
 	}
 
 	public void delete(Integer contentId, IndexWriter writer)
@@ -288,6 +304,7 @@ public class LuceneContent {
 	public static final String DEPART_ID = "departId";
 
 	public static final String CHANNEL_ID_ARRAY = "channelIdArray";
+	public static final String PARENT_TYPE = "parentType";
 	public static final String RELEASE_DATE = "releaseDate";
 	public static final String TITLE = "title";
 	public static final String CONTENT = "content";

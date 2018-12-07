@@ -1,11 +1,10 @@
 package com.jeecms.cms.lucene;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.jeecms.cms.Constants;
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.manager.main.ContentMng;
+import com.jeecms.common.page.Pagination;
+import com.jeecms.common.web.springmvc.RealPathResolver;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.CorruptIndexException;
@@ -23,13 +22,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jeecms.cms.Constants;
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.manager.main.ContentMng;
-import com.jeecms.common.page.Pagination;
-import com.jeecms.common.web.springmvc.RealPathResolver;
-
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -41,23 +40,23 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 /*		String path = realPathResolver.get(Constants.LUCENE_PATH);
 		Directory dir = new SimpleFSDirectory(new File(path));*/
 		return createIndex(siteId, channelId, startDate, endDate, startId, max,
-				this.luceneDir, departId);
+				this.luceneDir, departId, null);
 	}
 
 	@Transactional(readOnly = true)
 	public Integer createIndex(Integer siteId, Integer channelId,
 							   Date startDate, Date endDate, Integer startId, Integer max,
-							   Directory dir, Integer departId) throws IOException, ParseException {
+							   Directory dir, Integer departId, Map<String, Object> map) throws IOException, ParseException {
 		boolean exist = IndexReader.indexExists(dir);
 		IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(
 				Version.LUCENE_30), !exist, IndexWriter.MaxFieldLength.LIMITED);
 		try {
 			if (exist) {
                 luceneContent.delete(siteId, channelId, startDate, endDate,
-						writer, departId);
+						writer, departId, map);
 			}
 			Integer lastId = luceneContentDao.index(writer, siteId, channelId,
-					startDate, endDate, startId, max);
+					startDate, endDate, startId, max,map);
 			writer.optimize();
 			return lastId;
 		} finally {
@@ -132,23 +131,25 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 	@Transactional(readOnly = true)
 	public Pagination searchPage(String path, String queryString, String category, String workplace,
                                  Integer siteId, Integer channelId, Date startDate, Date endDate,
-                                 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
+                                 int pageNo, int pageSize, Integer departId, Map<String, Object> map) throws CorruptIndexException,
 			IOException, ParseException {
 		Directory dir = new SimpleFSDirectory(new File(path));
 		return searchPage(dir, queryString,category,workplace, siteId, channelId, startDate,
-				endDate, pageNo, pageSize, departId);
+				endDate, pageNo, pageSize, departId,  map);
 	}
+
+
 
 	@Transactional(readOnly = true)
 	public Pagination searchPage(Directory dir, String queryString, String category, String workplace,
 								 Integer siteId, Integer channelId, Date startDate, Date endDate,
-								 int pageNo, int pageSize, Integer departId) throws CorruptIndexException,
+								 int pageNo, int pageSize, Integer departId, Map<String, Object> map) throws CorruptIndexException,
 			IOException, ParseException {
 		Searcher searcher = new IndexSearcher(dir);
 		try {
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
 			Query query = luceneContent.createQuery(queryString,category,workplace, siteId,
-					channelId, startDate, endDate, analyzer, departId);
+					channelId, startDate, endDate, analyzer, departId,map);
 			TopDocs docs = searcher.search(query, pageNo * pageSize);
 			Pagination p = luceneContent.getResultPage(searcher, docs, pageNo,
 					pageSize);
@@ -183,7 +184,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 		try {
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
 			Query query = luceneContent.createQuery(queryString,category,workplace, siteId,
-					channelId, startDate, endDate, analyzer, departId);
+					channelId, startDate, endDate, analyzer, departId, null);
 			if (first < 0) {
 				first = 0;
 			}

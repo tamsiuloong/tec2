@@ -1,13 +1,12 @@
 package com.jeecms.cms.lucene;
 
-import java.util.Date;
-import java.util.Map;
-
 import com.jeecms.common.web.freemarker.DirectiveUtils;
-
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+
+import java.util.Date;
+import java.util.Map;
 
 public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel {
 	/**
@@ -44,6 +43,11 @@ public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel 
 	 */
 	public static final String PARAM_WORKPLACE = "workplace";
 
+	/**
+	 * 0:parent为空  1:parent不为空
+	 */
+	public static final String PARAM_PARENT_TYPE = "parentType";
+
 	protected String getQuery(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_QUERY, params);
@@ -68,7 +72,10 @@ public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel 
 			throws TemplateException {
 		return DirectiveUtils.getDate(PARAM_END_DATE, params);
 	}
-
+	protected String getParentType(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_PARENT_TYPE, params);
+	}
 	protected String getCategory(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_CATEGORY, params);
