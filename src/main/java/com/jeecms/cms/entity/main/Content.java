@@ -1,24 +1,5 @@
 package com.jeecms.cms.entity.main;
 
-import static com.jeecms.common.web.Constants.SPT;
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.jeecms.cms.Constants;
 import com.jeecms.cms.entity.assist.CmsComment;
 import com.jeecms.cms.entity.assist.CmsScoreRecord;
@@ -29,14 +10,18 @@ import com.jeecms.cms.web.CmsThreadVariable;
 import com.jeecms.common.image.ImageUtils;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.common.util.StrUtils;
-import com.jeecms.core.entity.CmsGroup;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.entity.CmsWorkflow;
-import com.jeecms.core.entity.CmsWorkflowEvent;
-import com.jeecms.core.entity.CmsWorkflowNode;
-import com.jeecms.core.entity.Ftp;
+import com.jeecms.core.entity.*;
 import com.jeecms.core.web.ContentInterface;
+import org.apache.commons.lang.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static com.jeecms.common.web.Constants.SPT;
 
 public class Content extends BaseContent implements ContentInterface {
 	private static final long serialVersionUID = 1L;
@@ -2098,7 +2083,16 @@ public class Content extends BaseContent implements ContentInterface {
 		return txt;
 	}
 	
-	
+	public String getDeptName(){
+		if(getDept()!=null)
+		{
+			return getDept().getName();
+		}
+		else
+		{
+			return "";
+		}
+	}
 
 	/* [CONSTRUCTOR MARKER BEGIN] */
 	public Content() {
