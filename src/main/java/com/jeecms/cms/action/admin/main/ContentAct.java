@@ -138,7 +138,7 @@ public class ContentAct{
 		return "content/tree_channels";
 	}
 
-
+	@RequiresPermissions("content:v_tree")
 	@RequestMapping(value = "/content/v_dept_tree.do")
 	public String selectParent(String root, String cid,HttpServletRequest request,
 							   HttpServletResponse response, ModelMap model) {
@@ -162,7 +162,7 @@ public class ContentAct{
 		response.setContentType("text/json;charset=UTF-8");
 		return "content/dept_tree";
 	}
-
+	@RequiresPermissions("content:v_tree")
 	@RequestMapping(value = "/content/v_project_dept_tree.do")
 	public String selectProjectDept(String root, String cid,HttpServletRequest request,
 							   HttpServletResponse response, ModelMap model) {
@@ -186,7 +186,7 @@ public class ContentAct{
 		response.setContentType("text/json;charset=UTF-8");
 		return "content/project_dept_tree";
 	}
-
+	@RequiresPermissions("content:v_tree")
 	@RequestMapping(value = "/content/v_infotype_tree.do")
 	public String selectInfoTypeTree(String root, String cid,HttpServletRequest request,
 							   HttpServletResponse response, ModelMap model) {
@@ -218,6 +218,7 @@ public class ContentAct{
 		return "content/infotype_tree";
 	}
 
+	@RequiresPermissions("content:v_tree")
 	@RequestMapping(value = "/content/v_maintenance_tree.do")
 	public String selectMaintenanceTree(String root, String cid,HttpServletRequest request,
 									 HttpServletResponse response, ModelMap model) {

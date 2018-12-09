@@ -7,8 +7,8 @@
 	<#assign tc="template:template_main,template:v_left,template:v_tree,template:v_list"/>
 	<#assign rc="resource:resource_main,resource:v_left,resource:v_tree,resource:v_list"/>
 	<#assign ssc="site:site_main,site:v_left,site:v_tree,site:v_list,site:v_checkDomain,site:v_checkAccessPath,site:v_checkMaster"/>
-	<#assign icc="projectCategory:projectCategory_main,projectCategory:v_left,projectCategory:v_tree,projectCategory:v_list"/>
-	<#assign icc="main:maintenance_main,maintenance:v_left,maintenance:v_tree,maintenance:v_list"/>
+	<#assign pcc="projectCategory:projectCategory_main,projectCategory:v_left,projectCategory:v_tree,projectCategory:v_list"/>
+	<#assign mtc="maintenance:maintenance_main,maintenance:v_left,maintenance:v_tree,maintenance:v_list"/>
 
 	<#assign static="static"/>
 	<#assign words="words"/>
@@ -619,19 +619,19 @@
 
 
 			{ id:210, pId:20, name:"<@s.m 'projectCategory.function'/>"},
-			{ id:2100, pId:210, name:"<@s.m 'global.add'/>",perm:"project:v_add,${icc},${configc}"},
-			{ id:2101, pId:210, name:"<@s.m 'global.save'/>",perm:"project:o_save,${icc},${configc}"},
-			{ id:2102, pId:210, name:"<@s.m 'global.edit'/>",perm:"project:v_edit,${icc},${configc}"},
-			{ id:2103, pId:210, name:"<@s.m 'global.update'/>",perm:"project:o_update,${icc},${configc}"},
-			{ id:2104, pId:210, name:"<@s.m 'global.delete'/>",perm:"project:o_delete,${icc},${configc}"},
+			{ id:2100, pId:210, name:"<@s.m 'global.add'/>",perm:"projectCategory:v_add,${pcc},${configc}"},
+			{ id:2101, pId:210, name:"<@s.m 'global.save'/>",perm:"projectCategory:o_save,${pcc},${configc}"},
+			{ id:2102, pId:210, name:"<@s.m 'global.edit'/>",perm:"projectCategory:v_edit,${pcc},${configc}"},
+			{ id:2103, pId:210, name:"<@s.m 'global.update'/>",perm:"projectCategory:o_update,${pcc},${configc}"},
+			{ id:2104, pId:210, name:"<@s.m 'global.delete'/>",perm:"projectCategory:o_delete,${pcc},${configc}"},
 
 
 			{ id:211, pId:20, name:"<@s.m 'maintenance.function'/>"},
-			{ id:2110, pId:211, name:"<@s.m 'global.add'/>",perm:"maintenance:v_add,${icc},${configc}"},
-			{ id:2111, pId:211, name:"<@s.m 'global.save'/>",perm:"maintenance:o_save,${icc},${configc}"},
-			{ id:2112, pId:211, name:"<@s.m 'global.edit'/>",perm:"maintenance:v_edit,${icc},${configc}"},
-			{ id:2113, pId:211, name:"<@s.m 'global.update'/>",perm:"maintenance:o_update,${icc},${configc}"},
-			{ id:2114, pId:211, name:"<@s.m 'global.delete'/>",perm:"maintenance:o_delete,${icc},${configc}"},
+			{ id:2110, pId:211, name:"<@s.m 'global.add'/>",perm:"maintenance:v_add,${mtc},${configc}"},
+			{ id:2111, pId:211, name:"<@s.m 'global.save'/>",perm:"maintenance:o_save,${mtc},${configc}"},
+			{ id:2112, pId:211, name:"<@s.m 'global.edit'/>",perm:"maintenance:v_edit,${mtc},${configc}"},
+			{ id:2113, pId:211, name:"<@s.m 'global.update'/>",perm:"maintenance:o_update,${mtc},${configc}"},
+			{ id:2114, pId:211, name:"<@s.m 'global.delete'/>",perm:"maintenance:o_delete,${mtc},${configc}"},
 
 		];
 		$(document).ready(function(){
