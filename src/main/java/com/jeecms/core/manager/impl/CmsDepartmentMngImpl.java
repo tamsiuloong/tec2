@@ -150,11 +150,11 @@ public class CmsDepartmentMngImpl implements CmsDepartmentMng {
 		Element ele = null;
 		if(more)
 		{
-			cache.get("workload_more");
+			ele=cache.get("workload_more");
 		}
 		else
 		{
-			cache.get("workload");
+			ele=cache.get("workload");
 		}
 
 

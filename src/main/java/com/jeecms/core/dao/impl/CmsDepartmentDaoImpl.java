@@ -106,11 +106,11 @@ public class CmsDepartmentDaoImpl extends
 				"\t\t\t\tt.parent_id FROM jc_department t ORDER BY t.parent_id ,\n" +
 				"\t\t\t\tt.depart_id\n" +
 				"\t\t\t) t1 ,\n" +
-				"\t\t\t(SELECT @pids := ?) t2\n" +
-				"\t\t) t3 WHERE ischild != 0\n" +
+				"\t\t\t(SELECT @pids := ?) t2 \n" +
+				"\t\t) t3 WHERE ischild != 0 or depart_id=?\n" +
 				") q2 ON q1.depart_id = q2.depart_id ";
 
-		Integer result = jdbcTemplate.queryForObject(sql,new Object[]{id}, Integer.class);
+		Integer result = jdbcTemplate.queryForObject(sql,new Object[]{id,id}, Integer.class);
 
 //		SQLQuery sqlQuery = getSession().createSQLQuery("SELECT\n" +
 //				"\tsum(q1.nums)\n" +
