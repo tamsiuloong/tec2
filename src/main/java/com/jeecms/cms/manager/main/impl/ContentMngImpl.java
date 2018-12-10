@@ -654,7 +654,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 						  CmsUser user, boolean forMember) {
 		Content entity = findById(bean.getId());
 		//检测维护人员有没有发生变化
-		if(!entity.getAuthor().equals(ext.getAuthor()))
+		if(ext!=null&&ext.getAuthor()!=null&&!ext.getAuthor().equals(entity.getAuthor()))
 		{
 			//维护人员记录=老记录+上一位维护人员
 			String oldAuthorRecords = entity.getContentExt().getAuthorRecords();
