@@ -84,7 +84,7 @@ public class CmsDepartmentDaoImpl extends
 				"\t\t\tFROM\n" +
 				"\t\t\t\tjc_content c\n" +
 				"\t\t\tJOIN jc_user u ON c.user_id = u.user_id\n" +
-				"\t\t\tJOIN jc_department d ON u.depart_id = d.depart_id\n" +
+				"\t\t\tJOIN jc_department d ON u.depart_id = d.depart_id  where c.status < 3 \n" +
 				"\t\t\tGROUP BY\n" +
 				"\t\t\t\td.depart_id\n" +
 				"\t\t) t ON d1.depart_id = t.depart_id\n" +
