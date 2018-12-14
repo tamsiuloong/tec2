@@ -81,20 +81,19 @@ $(document).ready(function (){
       <div class="center2c hh" style=" width:770px;">
           <h3>${content.title}</h3>
           <dl>发布时间：${content.releaseDate}</dl>
-          <p class="p">
+          <p class="p" >
             [#if content.titleImg??]
-           <div align="center" style="width: 100%"><img align="middle" width="600px" src="${content.titleImg}"/></div>
+           <div align="center" style="width: 100%;"><img align="middle" width="600px" src="${content.titleImg}"/></div>
             [/#if]
             ${txt!}
           </p>
             [#if  content.attachments?size gt 0 ]
-
+        <div style="margin-top: 25px"></div>
+        [#list content.attachments as att]
               <div class="bus">
-                [#list content.attachments as att]
-                <a href="${att.path}" style="margin-right: 10px">${att.name}</a>
-                [/#list]
+                <a href="${att.path}" style="margin-right: 10px">${att.name}</a></br>
               </div>
-
+        [/#list]
             [/#if]
       </div>
 

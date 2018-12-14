@@ -13,7 +13,7 @@ li{ list-style:none;}
 A:hover IMG {
 	FILTER: alpha(opacity:80); opacity: 0.8
 }
-.bus{ background:url(download.gif) no-repeat left center; padding-left:25px; height:35px; line-height:35px; font-size:12px; border-top:1px #ddd solid; margin-top:25px;}
+.bus{ background:url(download.gif) no-repeat left center; padding-left:25px; height:35px; line-height:35px; font-size:12px; border-top:1px #ddd solid; margin-top:0px;}
 .head1{ height:40px; line-height:40px; background-color:#EDEDED; font-size:12px; color:#666;}
 .head1a{ width:1000px; margin:0px auto; }
 .head1a1{ width:190px; float:left;}
