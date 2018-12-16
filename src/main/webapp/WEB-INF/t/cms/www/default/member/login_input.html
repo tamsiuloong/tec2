@@ -42,12 +42,14 @@
 		<div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a>登录 </div>
 		<div class="center2">
 			<div class="center2c hh" style=" width:540px;">
-				[#if loginSource??]
+
 				<div class="login-source">
-					[#if loginSource=="needPerm"]
-					该文章需要登录后才能浏览！
-					[#elseif loginSource=="charge"]
-					该文章是收费文章，需要登录付费后才能浏览！
+					[#if loginSource??]
+						[#if loginSource=="needPerm"]
+						该文章需要登录后才能浏览！
+						[#elseif loginSource=="charge"]
+						该文章是收费文章，需要登录付费后才能浏览！
+						[/#if]
 					[/#if]
 					<form id="jvForm" action="${base}/login.jspx" method="post">
 						<div class="inf-message">
@@ -89,11 +91,11 @@
 						<div class="username-con"><i></i><input id="username" name="username" class="required login-input" type="text" placeholder="用户名"></div>
 						<div class="password-con"><i></i><input id="password" name="password" class="required password-input" type="password" placeholder="密码"></div>
 						[#if (errorTimes??&&errorTimes<=0)||(errorRemaining?? && errorRemaining<=0)]
-						<div class="captcha-con clearfix"><i></i><input type="text" id="captcha" name="captcha" class=""required captcha-input" placeholder="验证码"/><img src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()*1" /></div>
+						<div class="captcha-con clearfix"><i></i><input type="text" id="captcha" name="captcha" class=""required captcha-input" placeholder="验证码"/><img src="${base}/captcha.svl" style="width: 100px;height: 30px;" onclick="this.src='${base}/captcha.svl?d='+new Date()*1" /></div>
 						[/#if]
 						<div class="login-rem clearfix">
-							<div class="next-day"><input type="checkbox" class="login-checkbox"  value="true" name="rememberMe">下次自动登录</div>
-							<a href="${base}/member/forgot_password.jspx">忘记密码</a>
+							<!--<div class="next-day"><input type="checkbox" class="login-checkbox"  value="true" name="rememberMe">下次自动登录</div>-->
+							<!--<a href="${base}/member/forgot_password.jspx">忘记密码</a>-->
 						</div>
 						<input type="submit" class="login-btn" value="登 录">
 						<!--<div class="quick">-->
@@ -179,11 +181,10 @@
 						<!--</div>-->
 					</form>
 				</div>
-				[/#if]
+
 			</div>
 
 		</div>
-		<!--[#include "../include/gzdt.html"/]-->
 		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
