@@ -78,9 +78,9 @@ $(document).ready(function (){
   <div class=" bu">
     <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> ${channel.name}</div>
     <div class="center2">
-      <div class="center2c hh" style=" width:540px;">
+      <div class="center2c hh" style=" width:770px;">
           <h3>${content.title}</h3>
-          <dl>发布时间：${content.releaseDate}</dl>
+          <dl>成果级别：${content.attr.jibie}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间：${content.releaseDate}   <span style="margin-left: 20px;float: left;text-align: center;"> </span> </dl><dl> </dl>
           <p class="p">
             ${txt!}
           </p>
@@ -96,7 +96,6 @@ $(document).ready(function (){
       </div>
 
     </div>
-    [#include "../include/gzdt.html"/]
     <div class="clear"></div>
   </div>
   <div class="clear"></div>

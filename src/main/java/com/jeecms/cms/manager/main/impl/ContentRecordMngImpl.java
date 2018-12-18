@@ -1,20 +1,19 @@
 package com.jeecms.cms.manager.main.impl;
 
-import java.util.Calendar;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.jeecms.common.hibernate4.Updater;
-import com.jeecms.common.page.Pagination;
-import com.jeecms.core.entity.CmsUser;
 import com.jeecms.cms.dao.main.ContentRecordDao;
 import com.jeecms.cms.entity.main.Content;
 import com.jeecms.cms.entity.main.ContentRecord;
 import com.jeecms.cms.entity.main.ContentRecord.ContentOperateType;
 import com.jeecms.cms.manager.main.ContentRecordMng;
+import com.jeecms.common.hibernate4.Updater;
+import com.jeecms.common.page.Pagination;
+import com.jeecms.core.entity.CmsUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Calendar;
+import java.util.List;
 
 @Service
 @Transactional
@@ -36,7 +35,7 @@ public class ContentRecordMngImpl implements ContentRecordMng {
 		return entity;
 	}
 	
-	public ContentRecord record(Content content,CmsUser user,ContentOperateType operate){
+	public ContentRecord record(Content content, CmsUser user, ContentOperateType operate, Boolean isAuthorChange){
 		ContentRecord record=new ContentRecord();
 		record.setContent(content);
 		record.setOperateTime(Calendar.getInstance().getTime());
@@ -62,6 +61,10 @@ public class ContentRecordMngImpl implements ContentRecordMng {
 			operateByte=ContentRecord.createPage;
 		}
 		record.setOperateType(operateByte);
+		if(isAuthorChange)
+		{
+			record.setAuthor(content.getAuthor());
+		}
 		save(record);
 		return record;
 	}

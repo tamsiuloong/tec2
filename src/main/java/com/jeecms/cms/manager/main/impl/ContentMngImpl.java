@@ -389,7 +389,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			}
 		}
 		//文章操作记录
-		contentRecordMng.record(bean, user, ContentOperateType.add);
+		contentRecordMng.record(bean, user, ContentOperateType.add, true);
 		//栏目内容发布数（未审核通过的也算）
 		channelCountMng.afterSaveContent(channel);
 
@@ -486,7 +486,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			}
 		}
 		//文章操作记录
-		contentRecordMng.record(bean, user, ContentOperateType.add);
+		contentRecordMng.record(bean, user, ContentOperateType.add, true);
 		//栏目内容发布数（未审核通过的也算）
 		channelCountMng.afterSaveContent(channel);
 		
@@ -654,6 +654,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 						  CmsUser user, boolean forMember) {
 		Content entity = findById(bean.getId());
 		//检测维护人员有没有发生变化
+		boolean isAuthorChange = false;
 		if(ext!=null&&ext.getAuthor()!=null&&!ext.getAuthor().equals(entity.getAuthor()))
 		{
 			//维护人员记录=老记录+上一位维护人员
@@ -668,6 +669,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			}
 			String authorRecords = oldAuthorRecords+entity.getAuthor();
 			entity.getContentExt().setAuthorRecords(authorRecords);
+
+			isAuthorChange= true;
 		}
 		// 执行监听器
 		List<Map<String, Object>> mapList = preChange(entity);
@@ -791,7 +794,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				}
 			}
 		}
-		contentRecordMng.record(bean, user, ContentOperateType.edit);
+		contentRecordMng.record(bean, user, ContentOperateType.edit, isAuthorChange);
 		//打赏固定值
 		bean.getRewardFixs().clear();
 		if(rewardPattern!=null&&rewardPattern){
@@ -816,7 +819,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	
 	
 	public Content update(CmsUser user,Content bean,ContentOperateType operate){
-		contentRecordMng.record(bean, user, operate);
+		contentRecordMng.record(bean, user, operate, false);
 		return update(bean);
 	}
 	
@@ -882,7 +885,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			check.setCheckStep((byte)workflowstep);
 		}
 		processContentShareCheck(content);
-		contentRecordMng.record(content, user, ContentOperateType.check);
+		contentRecordMng.record(content, user, ContentOperateType.check, false);
 		// 执行监听器
 		//afterChange(content, mapList);
 		return content;
@@ -919,7 +922,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 			}
 		}
 		processContentShareCheck(content);
-		contentRecordMng.record(content, user, ContentOperateType.rejected);
+		contentRecordMng.record(content, user, ContentOperateType.rejected, false);
 		// 执行监听器
 		//afterChange(content, mapList);
 		return content;
@@ -974,7 +977,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		processContentShareCheck(content);
 		// 执行监听器
 		//afterChange(content, mapList);
-		contentRecordMng.record(content, user, ContentOperateType.cycle);
+		contentRecordMng.record(content, user, ContentOperateType.cycle, false);
 		return content;
 	}
 
@@ -1139,7 +1142,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				throw new TemplateParseException("content.tplContentException",
 						count, content.getTitle());
 			}
-			contentRecordMng.record(content, user, ContentOperateType.createPage);
+			contentRecordMng.record(content, user, ContentOperateType.createPage, false);
 		}
 		if (count == 0) {
 			throw new GeneratedZeroStaticPageException(

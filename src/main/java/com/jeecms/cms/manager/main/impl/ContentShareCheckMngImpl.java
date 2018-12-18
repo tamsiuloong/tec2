@@ -17,8 +17,6 @@ import com.jeecms.cms.manager.main.ContentShareCheckMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.entity.CmsUser;
 
-import ch.ethz.ssh2.Session;
-
 @Service
 @Transactional
 public class ContentShareCheckMngImpl implements ContentShareCheckMng {
@@ -50,7 +48,7 @@ public class ContentShareCheckMngImpl implements ContentShareCheckMng {
 		dao.save(bean);
 		content.setContentShareCheck(bean);
 		channel.setContentShareCheck(bean);
-		contentRecordMng.record(content, user, ContentOperateType.shared);
+		contentRecordMng.record(content, user, ContentOperateType.shared, false);
 		return bean;
 	}
 

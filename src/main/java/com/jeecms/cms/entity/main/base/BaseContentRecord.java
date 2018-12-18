@@ -65,6 +65,8 @@ public abstract class BaseContentRecord  implements Serializable {
 	// fields
 	private java.util.Date operateTime;
 	private java.lang.Byte operateType;
+	//作者记录
+	private String author;
 
 	// many to one
 	private com.jeecms.cms.entity.main.Content content;
@@ -157,7 +159,13 @@ public abstract class BaseContentRecord  implements Serializable {
 		this.user = user;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
 
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;
