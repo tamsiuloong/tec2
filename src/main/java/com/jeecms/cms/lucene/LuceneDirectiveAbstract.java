@@ -47,6 +47,9 @@ public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel 
 	 * 0:parent为空  1:parent不为空
 	 */
 	public static final String PARAM_PARENT_TYPE = "parentType";
+	public static final String PARAM_YEAR = "year";
+	public static final String PARAM_PROJECT_TYPE = "projectType";
+	public static final String PARAM_DEPT = "dept";
 
 	protected String getQuery(Map<String, TemplateModel> params)
 			throws TemplateException {
@@ -76,6 +79,24 @@ public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel 
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_PARENT_TYPE, params);
 	}
+
+	protected String getYear(Map params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_YEAR, params);
+	}
+
+
+	protected String getDept(Map params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_DEPT, params);
+	}
+
+
+	protected String getProjectType(Map params)
+			throws TemplateException {
+		return DirectiveUtils.getString(PARAM_PROJECT_TYPE, params);
+	}
+
 	protected String getCategory(Map<String, TemplateModel> params)
 			throws TemplateException {
 		return DirectiveUtils.getString(PARAM_CATEGORY, params);

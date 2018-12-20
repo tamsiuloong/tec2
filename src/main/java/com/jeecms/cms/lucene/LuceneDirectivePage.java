@@ -43,6 +43,9 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 		int count = FrontUtils.getCount(params);
 		String query = getQuery(params);
 		String workplace= getWorkplace(params);
+		
+		
+		
 		String category= getCategory(params);
 		Integer siteId = getSiteId(params);
 		Integer channelId = getChannelId(params);
@@ -50,10 +53,28 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 		Date endDate = getEndDate(params);
 		String parentType = getParentType(params);
 
+		
 		Map<String,Object> map = new HashMap<>();
 		if(parentType!=null)
 		{
 			map.put("parentType", parentType);
+		}
+
+
+		String projectType= getProjectType(params);
+		if(projectType!=null)
+		{
+			map.put("projectType", projectType);
+		}
+		String dept= getDept(params);
+		if(dept!=null)
+		{
+			map.put("dept", dept);
+		}
+		String year= getYear(params);
+		if(year!=null)
+		{
+			map.put("year", year);
 		}
 
 
@@ -102,6 +123,8 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 		}
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
+
+
 
 	@Autowired
 	private LuceneContentSvc luceneContentSvc;

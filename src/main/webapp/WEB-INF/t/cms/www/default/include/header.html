@@ -19,7 +19,7 @@
     [/#if]
 
     <div class="head1a6" style="width: 180px;">
-      <form action="${base}/search.jspx" target="_blank" id="searchForm">
+      <form action="${base}/search.jspx" target="_blank" >
         <input name="q" value="${oldq!'请输入关键词'}" type="text" onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  maxlength="50" autocomplete="off"  style="border:0;width:70%;"/>
         <input type="submit" class="searchMenu" value="搜索"/>
       </form>

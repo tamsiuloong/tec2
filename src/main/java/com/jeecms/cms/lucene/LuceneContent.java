@@ -183,6 +183,30 @@ public class LuceneContent {
 					Field.Index.ANALYZED));
 		}
 
+//		if(c.getAttr()!=null&&StringUtils.isNotBlank(c.getAttr().get("scope"))){
+//			doc.add(new Field(SCOPE, c.getAttr().get("scope"), Field.Store.NO,
+//					Field.Index.ANALYZED));
+//		}
+//		if(c.getAttr()!=null&&StringUtils.isNotBlank(c.getAttr().get("budgetScale"))){
+//			doc.add(new Field(BUDGET_SCALE, c.getAttr().get("budgetScale"), Field.Store.NO,
+//					Field.Index.ANALYZED));
+//		}
+		//类别
+		if(c.getAttr()!=null&&StringUtils.isNotBlank(c.getAttr().get("projectType"))){
+			doc.add(new Field(PROJECT_TYPE, c.getAttr().get("projectType"), Field.Store.NO,
+					Field.Index.ANALYZED));
+		}
+		//部门名字
+		if(c.getDept()!=null)
+		{
+			doc.add(new Field(DEPT, c.getDeptName(), Field.Store.NO,
+					Field.Index.ANALYZED));
+		}
+		//年度
+		String year = DateTools.dateToString(c.getReleaseDate(), Resolution.YEAR);
+		doc.add(new Field(RELEASE_YEAR, year, Field.Store.NO,
+				Field.Index.ANALYZED));
+
 		createExtDocument(doc, c);
 
 		return doc;
@@ -240,6 +264,28 @@ public class LuceneContent {
 			if(parentType!=null)
 			{
 				q = new TermQuery(new Term(PARENT_TYPE, parentType));
+				bq.add(q, BooleanClause.Occur.MUST);
+			}
+
+			String projectType = (String) map.get("projectType");
+			if(projectType!=null&&!projectType.isEmpty())
+			{
+				q = MultiFieldQueryParser.parse(Version.LUCENE_30, projectType,
+						PROJECT_TYPE_FIELD, PROJECT_TYPE_FLAGS, analyzer);
+				bq.add(q, BooleanClause.Occur.MUST);
+			}
+
+			String year = (String) map.get("year");
+			if(year!=null&&!year.isEmpty())
+			{
+				q = new TermQuery(new Term(RELEASE_YEAR, year));
+				bq.add(q, BooleanClause.Occur.MUST);
+			}
+
+			String dept = (String) map.get("dept");
+			if(dept!=null&&!dept.isEmpty())
+			{
+				q = new TermQuery(new Term(DEPT, dept));
 				bq.add(q, BooleanClause.Occur.MUST);
 			}
 		}
@@ -305,7 +351,16 @@ public class LuceneContent {
 
 	public static final String CHANNEL_ID_ARRAY = "channelIdArray";
 	public static final String PARENT_TYPE = "parentType";
+
+	public static final String PROJECT_TYPE = "projectType";
+	public static final String[] PROJECT_TYPE_FIELD = { PROJECT_TYPE };
+	public static final BooleanClause.Occur[] PROJECT_TYPE_FLAGS = {BooleanClause.Occur.SHOULD};
+	public static final String DEPT = "dept";
+	public static final String RELEASE_YEAR = "releaseYear";
+
+
 	public static final String RELEASE_DATE = "releaseDate";
+
 	public static final String TITLE = "title";
 	public static final String CONTENT = "content";
 	public static final String CONTENT1 = "content1";
@@ -314,9 +369,9 @@ public class LuceneContent {
 	public static final String WORKPLACE = "workplace";
 	public static final String CATEGORY = "category";
 	private static final String DOC_SET = "docSet";
-	public static final String[] QUERY_FIELD = { TITLE, CONTENT,CONTENT1,CONTENT2,CONTENT3, DOC_SET };
+	public static final String[] QUERY_FIELD = { TITLE, CONTENT,CONTENT1,CONTENT2,CONTENT3, DOC_SET,PROJECT_TYPE,DEPT,RELEASE_YEAR };
 	public static final BooleanClause.Occur[] QUERY_FLAGS = {BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD,
-			BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD };
+			BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD };
 	public static final String[] CATEGORY_FIELD = { CATEGORY };
 	public static final BooleanClause.Occur[] CATEGORY_FLAGS = {BooleanClause.Occur.SHOULD };
 	public static final String[] WORKPLACE_FIELD = { WORKPLACE };
