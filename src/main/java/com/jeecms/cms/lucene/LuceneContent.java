@@ -285,7 +285,11 @@ public class LuceneContent {
 			String dept = (String) map.get("dept");
 			if(dept!=null&&!dept.isEmpty())
 			{
-				q = new TermQuery(new Term(DEPT, dept));
+//				q = new FuzzyQuery(new Term(DEPT, dept));
+//				bq.add(q, BooleanClause.Occur.MUST);
+
+				q = MultiFieldQueryParser.parse(Version.LUCENE_30, dept,
+						new String[]{DEPT}, new BooleanClause.Occur[]{BooleanClause.Occur.SHOULD}, analyzer);
 				bq.add(q, BooleanClause.Occur.MUST);
 			}
 		}

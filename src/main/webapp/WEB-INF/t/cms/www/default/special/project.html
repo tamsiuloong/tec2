@@ -106,7 +106,7 @@ $(document).ready(function (){
 
             <div class="sou1a" style="width: 18%">
                 <span>
-                部门:<input type="text" style=" width:50%; height:24px; line-height:24px;  text-indent:0.5em;"  value="${dept!}"  name="dept" />
+                部门:<input type="text" style=" width:50%; height:24px; line-height:24px;  text-indent:0.5em;"  value="${dept!''}"  name="dept" />
                 </span>
             </div>
 
@@ -116,7 +116,7 @@ $(document).ready(function (){
 
 
             <div class="sou1" style="width: 18%">
-              关键字:<input  type="text" name="q" value="${q!'请输入关键词'}" onfocus="if(this.value=='')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value=''"  style=" width:50%; height:24px; line-height:24px;  text-indent:0.5em;"   />
+              关键字:<input  type="text" name="q" value="${q!''}" onfocus="if(this.value=='')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value=''"  style=" width:50%; height:24px; line-height:24px;  text-indent:0.5em;"   />
               <input  type="hidden" name="channelId" value="${channel.id}"  />
             </div>
 
