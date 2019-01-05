@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>工作动态排行榜 - ${site.name}</title>
+<script type="text/JavaScript" src="/${res}/images/jquery-1.4.2.js"></script>
+<script type="text/JavaScript" src="/${res}/images/slide.js"></script>
+<link href="/${res}/images/lanrentuku.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/${res}/css/layout.css">
+<link rel="stylesheet" href="/${res}/css/animate.min.css">
+<link href="/${res}/images/css.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="${base}/r/cms/front.js"></script>
+<script type="text/javascript" src="/${res}/js/menu_min.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){ 
+  
+  $(".menu ul li").menu();
+    Cms.workload("${base}",1,100,"true");
+  
+}); 
+</script>
+<link rel="stylesheet" type="text/css" href="/${res}/css/menu-css.css">
+<link rel="stylesheet" type="text/css" href="/${res}/css/style.css">
+
+  <script type="text/javascript">
+      $(function() {
+          Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+      });
+  </script>
+</head>
+
+<body>
+[#include "../include/header.html"/]
+[#include "../include/nav.html"/]
+<div class="center">
+  <!--<div class="center1">-->
+    <!--<div class="center1a">工作动态排行榜</div>-->
+    <!--<div class="">-->
+      <!--<div id="content">-->
+        <!--<div class="menu">-->
+          <!--<ul>-->
+
+      <!---->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    <!--</div>-->
+  <!--</div>-->
+  <div class=" bu">
+    <div class="center2b" style=" margin-top:0px;"><a href="${base}/" style=" padding-top:0px; font-size:12px; font-weight:100; color:#777;">返回首页 ></a> 工作动态排行榜</div>
+    <div class="center2">
+      <div class="center2c hh" style=" width:540px;">
+          <!--<h3>工作动态排行榜</h3>-->
+          <!--<dl></dl>-->
+          <!--<p class="p">-->
+            <ul id="workload">
+              统计中...
+            </ul>
+          <!--</p>-->
+
+      </div>
+
+    </div>
+    <!--[#include "../include/gzdt.html"/]-->
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+[#include "../include/friend_link.html"/]
+[#include "../include/footer.html"/]
+
+</body>
+</html>

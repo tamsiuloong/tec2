@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jeecms演示站 - Powered by JEECMS</title>
+<meta content="" http-equiv="keywords" />
+<meta content="自2013年12月首批企业获牌以来，虚拟运营商发展迅速，目前已有42家企业获得牌照。9月22日，在“ICT中国· 2016高层论坛”移动转售分论坛上，中国通信企业协会披露，目前移动转售业务用户数已超3500万，占全国移动用户人数2.67%。" http-equiv="description" />
+<script src="/r/cms/jquery.js" type="text/javascript"></script>
+<script src="/r/cms/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="/r/cms/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/r/cms/www/default/css/index.css" />
+<link href="/r/cms/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+
+<!--[if lt IE 9]> 
+<script src="/r/cms/www/default/js/html5shiv.min.js"></script>
+<script src="/r/cms/www/default/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("","112");
+Cms.collectCsi("","collectCsiDiv","collect_csi","112");
+Cms.attachment("","112","0","attach");
+Cms.viewCount("","112");
+Cms.siteFlow("", location.href, document.referrer,"true");
+});
+</script>
+
+<script type="text/javascript"> 
+jQuery(document).ready(function($){ 
+$('.content-comment').click(function(){
+	$('html,body').animate({scrollTop:$('#comments-text').offset().top}, 1000)
+	$('#comments-text').focus();
+	});  
+});
+
+$(function(){
+	//设置一个定时器，为BUTTON点击事件用
+	var timer=null;
+	var number1=0;
+
+	//文本输入时改变
+	$('#comments-text').keyup(function(){
+		if(!$(this).val()==''){
+			$('.submit-on').attr("class", "submit-out");
+		}else{
+			$(".submit-out").attr("class", "submit-on");
+		}
+	});
+	
+	//处理输入的内容是文字还是字母的函数
+	function getLength(str){
+		return String(str).replace(/[^\x00-\xff]/g,'aa').length;
+	};
+     
+});
+</script>
+
+<head>
+<body>
+<section class="top">
+  <div class="yellow"></div><div class="red"></div><div class="blue"></div><div class="yellow"></div><div class="red"></div>	
+</section><link rel="stylesheet" type="text/css" href="/r/cms/www/default/css/login.css" />
+<!-- 百度统计代码 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4674b425370d9f190347b297042ae0b1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+function qkeypress(){
+	var q=$("input[name=q]");
+	if(q.val().trim()!=""){
+		$("input[name=q]").autocomplete("enable");
+	}else{
+		$("input[name=q]").autocomplete("disable");
+	}
+}
+function query(){
+	$.post("/createToken.jspx", {}, function(data) {
+		$("#token").val(data.token);
+		$("#searchForm").submit();
+	}, "json");
+}
+$(function() {
+	$("input[name='q']").bind('keypress',function(event){
+	    if(event.keyCode == 13)     
+	    {  
+	    	event.preventDefault();
+	    	query();
+	    }  
+	});
+});
+</script>
+<header class="header rel">
+  <div class="header-jf"><a class="jf-btn" name="gb2big5" id="gb2big5">繁</a></div>
+  <Script Language=Javascript Src="/r/cms/gb2big5.js"></Script>
+  <div class="header-rss"><a class="rss-btn" href="/rss.jspx" target="_blank" title="RSS订阅">RSS</a></div>
+  <div class="header-tag"><a class="tag-btn" href="/tag.jspx" target="_blank" title="Tags标签">Tags</a></div>
+  <div class="container clearfix">
+    <a class="logo" href="/"></a>
+<nav class="nav">
+            <ul class="menu">    
+				
+						<li><a href="http://demo.jeecms.com/news/index.jhtml">新闻</a></li>   
+				
+						<li class="more" style="margin-right:50px;">
+							<a href="http://demo.jeecms.com/download/index.jhtml" target="_blank">下载</a>
+							<ul class="menu-child">
+								<li><a href="http://demo.jeecms.com/jptj/index.jhtml">精品推荐</a></li>
+								<li><a href="http://demo.jeecms.com/xtrj/index.jhtml">系统软件</a></li>
+								<li><a href="http://demo.jeecms.com/mtzs/index.jhtml">媒体助手</a></li>
+								<li><a href="http://demo.jeecms.com/yxyl/index.jhtml">游戏娱乐</a></li>
+							</ul>
+						</li>  
+				
+						<li><a href="http://demo.jeecms.com/video/index.jhtml">视频</a></li>   
+				
+						<li><a href="http://demo.jeecms.com/pic/index.jhtml">图库</a></li>   
+				
+						<li><a href="http://demo.jeecms.com/job/index.jhtml">招聘</a></li>   
+				
+						<li><a href="http://demo.jeecms.com/doc/index.jhtml">文库</a></li>   
+				
+						<li><a href="/guestbook.jspx">留言板</a></li>   
+				
+						<li><a href="http://demo.jeecms.com/survey.jhtml">网络调查</a></li>   
+				
+						<li><a href="http://demo.jeecms.com/znbd.jhtml">智能表单</a></li>   
+        </ul>
+</nav>
+
+<style>
+.menu-child a{ color:#333;}
+.menu-child a:hover{ color:#ef3838;}
+</style>    <div class="header-r">     
+      <div class="search">
+        <form action="/search.jspx" target="_blank" name="searchForm" id="searchForm">
+        <input type="text" name="q" value=""   maxlength="50" autocomplete="off" class="searchCon" style="width:132px;">
+        <input type="hidden" name="token" id="token" value="" />
+        <input type="submit" value="" class="searchMenu" onclick="query()" >
+        </form>
+      </div>      
+      <div id="loginCsiDiv" style="float:left;"></div>
+	  <script type="text/javascript">
+		$(function(){
+			Cms.loginSSO('');
+		});
+	   </script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js#appId=101158388" charset="utf-8"></script>
+<script type="text/javascript">
+$(function() {
+	//优先执行第三方退出 在执行本地退出
+   $('#logout').click(function () {
+              //退出qq
+               if(QC.Login.check()){
+                     QC.Login.signOut();
+                }
+         location="/logout.jspx?returnUrl=/";
+  });
+});
+</script>
+
+      <div class="login"><a class="tc" href="/login.jspx">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/register.jspx">注册</a></div>
+    </div> 
+  </div>
+</header><div class="main container clearfix">
+  <section class="content_w850">
+    <h1>电信诈骗多发产生“蝴蝶效应”虚拟运营商融资受波及<a class="position" href="/news/index.jhtml">新闻</a></h1>
+    <div class="content-inf">发布时间：2016-10-10 11:48:08&nbsp;&nbsp;作者：本站编辑&nbsp;&nbsp;来源：本站原创&nbsp;&nbsp;浏览次数：<span id="views"></span>
+    <div class="content-action">
+		    <a class="content-comment">我有话说</a>
+	      | <span class="content-share">分享
+<ul id="content-share-list" class="bdsharebuttonbox">
+  <li><a class="content_qq" onclick="window.open('http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href));return false;" title="分享到QQ">QQ好友</a></li>
+  <li><a class="content_qqzone" onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;">QQ空间</a></li>
+  <li><a class="content_weixin" data-cmd="weixin">微信好友</a></li>
+  <li><a class="content_sina" href="javascript:window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.title.substring(0,76))+'&url='+encodeURIComponent(location.href)+'&rcontent=','_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes'); void 0">新浪微博</a></li>
+</ul>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>	     </span>
+	      | <a class="content-collect" id="collectCsiDiv"></a>
+	    </div>
+    </div>
+    <div class="content-txt">
+            <p style="text-align: center;"><img src="/u/cms/www/201610/10114715p0as.jpg" title="138679801.jpg" alt="138679801.jpg"/></p><p><br/></p><p style="text-indent: 2em;">自2013年12月首批企业获牌以来，虚拟运营商发展迅速，目前已有42家企业获得牌照。9月22日，在“ICT中国· 2016高层论坛”移动转售分论坛上，中国通信企业协会披露，目前移动转售业务用户数已超3500万，占全国移动用户人数2.67%。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">不过，移动转售行业也因实名制未落实到位出现诸多“乱象”，尤其“170”号段诈骗多发遭诟病，在“徐玉玉受骗致死”案等多个热点事件的舆论声讨中，虚拟运营商声誉受到重大打击，其融资也受到影响。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;"><strong>虚拟运营商“很受伤”</strong></p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">3年前，第一批企业获得牌照进入试点，中国移动(微博)虚拟运营业方缓缓起步，而经过几年的发展，这一行业已小有规模，不过“成长的烦恼”也使其备受困扰。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">中国通信企业协会披露的数据显示，移动转售业的发展速度有所下降。自2015年3月起，移动通信转售业务月净增超过100万户，其中2015年10月起连续6个月净增达到200万，然而自2016年1月以来，增速有所放缓，甚至出现“停滞”。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">增速降低与行业乱象不无关联。女大学生徐玉玉被骗后昏聩致死使得社会的目光投向虚拟运营商，尤其是因为“实名制”再次被推上风口浪尖。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">据央广网2016年8月报道，工信部网络安全管理局对虚拟运营商新入网电话用户实名登记工作暗访，暗访的26家转售企业的109个营销网点中，37个网点存在违规行为，违规占比超三成。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">虚拟运营商“实名制”漏洞也成了舆论谴责的“靶子”。中兴视通显然备受折磨，其CEO邓慕超向与会者“倒苦水”，称自己有时“夜不能寐、梦不能求”。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">巴士在线CEO王献蜀在业内摸爬滚打多年，也叫苦不迭，“170贴了一个标签，就是诈骗，虚商也变成了诈骗公司。”王献蜀表示，这让虚拟运营商要“很受伤”，并呼吁业内外应给予虚拟运营商“容错空间”。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;"><strong>声誉受损融资受波及</strong></p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">中国虚拟运营业起步晚于发达国家，而虚拟运营商们盈利困难早已不是新闻，而今，命途多舛的它们又遇“拦路虎”，这也让资本市场对其发展前景打了个问号，虚拟运营商直接受到冲击。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">王献蜀称，“170”号段的问题影响了虚拟运营的融资。“我们很少听到说哪一家虚商拿了多少融资，然后怎么样，多么风光，虚商这个行业几乎都是每一家虚商，每一个老板，每一个企业真金白银自己从口袋里面往外掏钱。”王献蜀表示，从业几年来，他自己已经投入了1.8亿元。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">蜗牛移动CEO陈艳也深有体会，在她看来，虚拟运营商还是个“婴儿”，她表示，英国发展虚拟运营已有18年，虚拟运营的比例占到全行业的12%，而中国发展2、3年达到2.67%，未来还有很大发展空间，但她却感受到了行业内的恐慌。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">融资困境及舆论压力促进了虚拟运营商的反思。9月22日的论坛上，虚拟运营企业代表均坦承，虚拟运营商也是诈骗案的受害者，落实实名制可促使虚拟运营业健康发展。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">今年4月份，工信部发布了《关于加强规范管理，促进移动通信转售业务健康发展》的通知，向移动转售企业提出了落实移动用户实名登记要求的有关具体规定。</p><p style="text-indent: 2em;"><br/></p><p style="text-indent: 2em;">据中国通信企业协会常务副会长兼秘书长苗建华介绍，整治以来，虚拟运营商采用系统整改、完善手段、有奖举报等一系列措施取得了一定的成效。</p><p><br/></p>
+    </div>
+    <!-- 分页 -->
+    <div class="pagebar"></div>
+    <div class="reward"><a href="/content/reward.jspx?contentId=112"></a></div>
+    <div class="inter clearfix"> 
+      <div class="ups"><a onclick="Cms.up('',112,162);"><span id="ups"></span></a></div>
+      <div class="downs"><a onclick="Cms.down('',112,50);"><span id="downs"></span></a></div>
+      <div class="score">
+<!-- 评分页面 -->
+<div>
+    <!-- 系统默认的2号分组是星级评分 -->
+  <!-- 平均评分有二级缓存，评分后不会立即显示新的平均评分 -->
+  <!-- 其他 -->
+  <ul>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,1);">
+         <p style="text-align:center;"> <span id="score-item-1">0</span>票</p>
+         <p><img src="/r/cms/smilies/m1.gif"/></p>
+         <p style="text-align:center;">开心</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,2);">
+         <p style="text-align:center;"> <span id="score-item-2">0</span>票</p>
+         <p><img src="/r/cms/smilies/m2.gif"/></p>
+         <p style="text-align:center;">板砖</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,3);">
+         <p style="text-align:center;"> <span id="score-item-3">0</span>票</p>
+         <p><img src="/r/cms/smilies/m3.gif"/></p>
+         <p style="text-align:center;">感动</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,4);">
+         <p style="text-align:center;"> <span id="score-item-4">0</span>票</p>
+         <p><img src="/r/cms/smilies/m4.gif"/></p>
+         <p style="text-align:center;">有用</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,5);">
+         <p style="text-align:center;"> <span id="score-item-5">0</span>票</p>
+         <p><img src="/r/cms/smilies/m5.gif"/></p>
+         <p style="text-align:center;">疑问</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,6);">
+         <p style="text-align:center;"> <span id="score-item-6">0</span>票</p>
+         <p><img src="/r/cms/smilies/m6.gif"/></p>
+         <p style="text-align:center;">难过</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,7);">
+         <p style="text-align:center;"> <span id="score-item-7">0</span>票</p>
+         <p><img src="/r/cms/smilies/m7.gif"/></p>
+         <p style="text-align:center;">无聊</p>
+      </li>
+      <li style="float:left;cursor: pointer;" onclick="Cms.score('',112,8);">
+         <p style="text-align:center;"> <span id="score-item-8">0</span>票</p>
+         <p><img src="/r/cms/smilies/m8.gif"/></p>
+         <p style="text-align:center;">震惊</p>
+      </li>
+   </ul>   
+   <script type="text/javascript">
+	$(function() {
+		Cms.scoreCount("","112");
+	});
+</script>
+</div>
+
+
+      </div>
+    </div>
+    <div class="content-link clearfix">
+      <span class="prev-content"><i></i>上一篇：<a href="http://demo.jeecms.com/news/39.jhtml">四川理塘县发生4.9级地震 震源深度19千米</a></span>
+      <span class="next-content">下一篇：<a href="http://demo.jeecms.com/news/113.jhtml">李克强联合国承诺援助难民：这是责任和道...</a><i></i></span>
+    </div>
+<section class="comments">
+      <h1>评论<span>已有<a class="count" href="/comment.jspx?contentId=112">
+      8 </a>条</span>
+      </h1>
+      <form id="commentForm" action="/comment.jspx" method="post">
+      <textarea name="text" placeholder="发表你此时的观点和想法 ……" class="comments-text" id="comments-text"></textarea>
+	    <div class="plfr1 clearfix">
+	    <div style="float:left;">
+	    <input name="captcha" type="text" placeholder="验证码" id="captcha" vld="{required:true}" class="plcode"/>
+	    </div>
+	    <div style="float:left;">
+	    <img id="commentCaptcha" src="/captcha.svl" onclick="this.src='/captcha.svl?d='+new Date()*1"/>
+	    </div>
+	
+	    <div class="down clearfix">
+       <input type="hidden" name="contentId" value="112"/>
+       <input type="hidden" name="sessionId" id="sessionId" />
+      <input type="submit" value="提交评论" class="submit-on">
+      </div>
+               </div>
+      
+       </form>
+       <script type="text/javascript">
+    $(function() {
+    	//文本输入时改变
+    	$('#comments-text').keyup(function(){
+    		if(!$(this).val()==''){
+    			$('.submit-on').attr("class", "submit-out");
+    		}else{
+    			$(".submit-out").attr("class", "submit-on");
+    		}
+    	});	
+    	
+       $("#sessionId").val($.cookie("JSESSIONID"));
+        Cms.comment(function(data) {
+            if(data.status==0) {
+                alert("评论成功");
+                location.href=location.href;
+            } else if(data.status==1) {	
+                alert("验证码错误");
+                $("#commentCaptcha").click();
+            } else if(data.status==2) {	
+                alert("内容不存在");
+                $("#commentCaptcha").click();
+            } else if(data.status==3) {	
+                alert("评论关闭");
+                $("#commentCaptcha").click();
+            } else if(data.status==4) {	
+                alert("需要登录评论");
+                $("#commentCaptcha").click();
+            }else if(data.status==5) {	
+                alert("已经评论过，不能重复评论");
+                $("#commentCaptcha").click();
+            } else if(data.status==100) {	
+                alert("内容不存在");
+                $("#commentCaptcha").click();
+            } else if(data.status==101) {	
+                alert("评论不能为空");
+                $("#commentCaptcha").click();
+            } else if(data.status==10) {	
+                alert("内容含有敏感词,不允许发表!");
+                $("#commentCaptchaCsi").click();
+            }  else if(data.status==6) {	
+                alert("超过今日发表评论限制!");
+                $("#commentCaptchaCsi").click();
+            } else {
+                alert("评论失败");
+                $("#commentCaptcha").click();
+            }
+        });
+    });
+    </script>
+</section> 
+
+
+<div id="commentListContainer"></div>
+<script type="text/javascript">
+$(function(){
+	Cms.commentList("","commentListContainer",{contentId:112,orderBy:0,count:5,checked:1});
+});
+</script>  </section>
+<section class="w310">
+    <section class="tag clearfix">
+      <div class="tag-nav"><h1><a>大家都在搜</a></h1></div>
+      <div class="tagList">
+        <div style="" class="cTag">
+        		     <a href="/search.jspx?q=楼市">楼市</a>
+		     <a href="/search.jspx?q=台湾地震">台湾地震</a>
+		     <a href="/search.jspx?q=黄金接连下跌">黄金接连下跌</a>
+		     <a href="/search.jspx?q=电信诈骗">电信诈骗</a>
+		     <a href="/search.jspx?q=2015各行业平均工资">2015各行业平均工资</a>
+		     <a href="/search.jspx?q=太阳的后裔">太阳的后裔</a>
+		     <a href="/search.jspx?q=莆田系">莆田系</a>
+		     <a href="/search.jspx?q=高考减招">高考减招</a>
+		     <a href="/search.jspx?q=四川">四川</a>
+		     <a href="/search.jspx?q=雷洋案">雷洋案</a>
+		     <a href="/search.jspx?q=草原天路收费">草原天路收费</a>
+        </div>
+      </div>
+    </section>
+    <section class="tag issue clearfix">
+      <div class="tag-nav"><h1><a>热门话题</a></h1></div>
+      <div class="item clearfix" style="border-top:none;">
+        <a href="http://demo.jeecms.com/news/112.jhtml" target="_blank" class="img"><img src="/u/cms/www/201610/10114704dsba.jpg"></a>
+        <h2><a href="http://demo.jeecms.com/news/112.jhtml" target="_blank">电信诈骗多发产生“蝴蝶效应”虚拟运营商融资...</a></h2>
+        <div class="issue-comment">评论  (179)</div>
+      </div>
+      <div class="item clearfix" >
+        <a href="http://demo.jeecms.com/news/39.jhtml" target="_blank" class="img"><img src="/u/cms/www/201609/23095358y6s6.jpg"></a>
+        <h2><a href="http://demo.jeecms.com/news/39.jhtml" target="_blank">四川理塘县发生4.9级地震 震源深度19千米</a></h2>
+        <div class="issue-comment">评论  (46)</div>
+      </div>
+      <div class="item clearfix" >
+        <a href="http://demo.jeecms.com/news/33.jhtml" target="_blank" class="img"><img src="/u/cms/www/201609/23092240hxg8.jpg"></a>
+        <h2><a href="http://demo.jeecms.com/news/33.jhtml" target="_blank">亚马逊股价首破800美元大关 市值稳居全球上市...</a></h2>
+        <div class="issue-comment">评论  (34)</div>
+      </div>
+      <div class="item clearfix" >
+        <a href="http://demo.jeecms.com/news/32.jhtml" target="_blank" class="img"><img src="/u/cms/www/201609/23091850z61y.jpg"></a>
+        <h2><a href="http://demo.jeecms.com/news/32.jhtml" target="_blank">台北故宫将拆除成龙所捐12兽首复制品 成龙回应</a></h2>
+        <div class="issue-comment">评论  (22)</div>
+      </div>
+      <div class="item clearfix" >
+        <a href="http://demo.jeecms.com/news/14.jhtml" target="_blank" class="img"><img src="/u/cms/www/201607/19142033fu5h.jpg"></a>
+        <h2><a href="http://demo.jeecms.com/news/14.jhtml" target="_blank">习近平宁夏考察第一天：长征永远在路上</a></h2>
+        <div class="issue-comment">评论  (18)</div>
+      </div>
+    </section>
+  </section></div>
+<footer class="footer">
+  <div class="footer-link container">
+    <a style="margin-left:0;" href="http://www.jeecms.com">关于我们</a><a href="http://www.jeecms.com/lxwm.htm">联系我们</a><a href="http://www.jeecms.com/zhaopin.htm">诚聘英才</a><a href="http://www.jeecms.com/">友情链接</a><a href="http://bbs.jeecms.com/fabu/index.jhtml">程序下载</a><a href="http://www.jeecms.com/ad.htm">合作服务</a><a href="http://www.jeecms.com/xkxy.htm">许可协议</a><a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a><a onclick="SetHome(window.location)" href="javascript:void(0)">设为首页</a><a href="/jeeadmin/jeecms/index.do" target="_blank">管理登录</a>
+  </div>
+  <div class="copyright container"><p>电话：0791-86538070　13576281815     传真：0791-86538070     ICP备案号：赣ICP备13005266号     Powered by JeeCms Copyright © 2007-2015 www.jeecms.com, All Rights Reserved</p>
+   	<p>
+  	浏览总量<span id="pv"></span> |  访客数总量 <span id="visitor"></span>|  
+  	今日浏览总量<span id="dayPv"></span>  |  今日访客数<span id="dayVisitor"></span>|  
+  	本周浏览总量<span id="weekPv"></span>  |  本周访客数<span id="weekVisitor"></span>| 
+  	本月浏览总量<span id="monthPv"></span>  |  本月访客数<span id="monthVisitor"></span>
+  	</p> 
+  </div>
+</footer>
+<script type="text/javascript" language="javascript">
+   //加入收藏
+       function AddFavorite(sURL, sTitle) {
+           sURL =encodeURI(sURL); 
+       try{   
+          window.external.addFavorite(sURL, sTitle);   
+       }catch(e) {   
+          try{   
+              window.sidebar.addPanel(sTitle, sURL, "");   
+           }catch (e){   
+              alert("您的浏览器不支持自动加入收藏功能，请使用Ctrl+D进行添加，或手动在浏览器里进行设置！");
+          }   
+       }
+   }
+   
+   //设为首页
+   function SetHome(url){
+       if (document.all) {
+          document.body.style.behavior='url(#default#homepage)';
+             document.body.setHomePage(url);
+       }else{
+           alert("您的浏览器不支持自动设置页面为首页功能，请您手动在浏览器里设置该页面为首页！");
+       }
+   }
+</script><div class="right-fixed">
+  <ul>
+    <!--
+    <li class="app">
+      <div class="app-logo"></div>
+    </li>
+    -->
+    <li class="weixin">
+      <div class="weixin-logo"></div>
+    </li>
+    <li class="wap">
+      <div class="wap-logo"><img src="/u/cms/www/codeimg/112.png"/></div>
+    </li>
+    <li class="back-top"></li>    
+  </ul>
+  <script type="text/javascript">
+	$(function(){
+		var $body = $(document.body);;
+		var $bottomTools = $('.right-fixed');
+			$(window).scroll(function () {
+				var scrollHeight = $(document).height();
+				var scrollTop = $(window).scrollTop();
+				scrollTop > 50 ? $(".back-top").slideDown(300).css("display","block") : $(".back-top").slideUp(300);			
+			});
+			$('.back-top').click(function (e) {
+				e.preventDefault();
+				$('html,body').animate({ scrollTop:0});
+			});
+			
+	});
+  </script>
+</div></body>
+</html>
